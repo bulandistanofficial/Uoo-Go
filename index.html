@@ -19,7 +19,6 @@ button,input,textarea{font:inherit;outline:none;}
 button{border:0;cursor:pointer;background:none;color:inherit;}
 img{max-width:100%;}
 
-/* AUTH */
 .auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;overflow-y:auto;}
 .auth-screen.hidden{display:none;}
 .auth-box{width:min(420px,100%);background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:30px;margin:auto;}
@@ -34,7 +33,6 @@ img{max-width:100%;}
 .auth-submit{width:100%;padding:13px;border-radius:13px;background:var(--accent);color:#06100d;font-weight:800;margin-top:10px;}
 .auth-error{color:var(--danger);font-size:13px;margin-top:10px;text-align:center;min-height:18px;}
 
-/* LAYOUT */
 .logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;}
 .logo-mark{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));position:relative;box-shadow:0 0 22px rgba(114,242,196,.18);}
 .logo-mark::before{content:"";position:absolute;width:17px;height:17px;border:3px solid #071017;border-radius:50%;left:7px;top:6px;}
@@ -42,8 +40,8 @@ img{max-width:100%;}
 .app{height:100vh;height:100dvh;display:flex;}
 .sidebar{width:270px;background:var(--panel);border-right:1px solid var(--border);padding:22px 15px;display:flex;flex-direction:column;flex:none;}
 .brand{padding:0 10px 25px;}
-.nav{display:flex;flex-direction:column;gap:7px;}
-.nav-btn{background:transparent;color:var(--muted);width:100%;padding:13px 14px;border-radius:13px;display:flex;align-items:center;gap:13px;text-align:left;}
+.nav{display:flex;flex-direction:column;gap:7px;overflow-y:auto;flex:1;}
+.nav-btn{background:transparent;color:var(--muted);width:100%;padding:13px 14px;border-radius:13px;display:flex;align-items:center;gap:13px;text-align:left;flex:none;}
 .nav-btn:hover,.nav-btn.active{background:var(--panel2);color:var(--text);}
 .nav-btn.active{box-shadow:inset 3px 0 var(--accent);}
 .icon{width:21px;height:21px;flex:none;}
@@ -52,7 +50,6 @@ img{max-width:100%;}
 .page.active{display:flex;}
 .chat-page{height:100%;}
 
-/* CHAT LIST */
 .chat-list{width:350px;border-right:1px solid var(--border);display:flex;flex-direction:column;background:#0c111a;flex:none;}
 .chat-head{padding:22px 18px 15px;}
 .chat-head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
@@ -68,7 +65,6 @@ img{max-width:100%;}
 .chat-item:active{background:#1c2534;}
 .avatar{width:52px;height:52px;min-width:52px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;color:#071017;background:linear-gradient(135deg,#72f2c4,#5ecbff);overflow:hidden;position:relative;}
 .avatar img{width:100%;height:100%;object-fit:cover;}
-.avatar.online-dot::after{content:"";position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#55e6a8;border-radius:50%;border:2px solid #0c111a;}
 .chat-info{min-width:0;flex:1;}
 .chat-top{display:flex;justify-content:space-between;gap:10px;}
 .chat-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -90,7 +86,6 @@ img{max-width:100%;}
 .empty-box{max-width:380px;}
 .empty-logo{width:80px;height:80px;margin:auto;border-radius:25px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061017;font-size:35px;font-weight:900;margin-bottom:20px;}
 
-/* CHAT WINDOW */
 .chat-window{flex:1;display:none;flex-direction:column;min-width:0;background:radial-gradient(circle at 80% 10%,rgba(94,203,255,.06),transparent 30%),#090e16;position:relative;}
 .chat-window.open{display:flex;}
 .chat-header{min-height:65px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(10,15,23,.94);flex:none;}
@@ -110,7 +105,6 @@ img{max-width:100%;}
 .select-bar button{padding:8px 12px;border-radius:10px;background:var(--panel2);color:var(--text);font-weight:700;font-size:13px;}
 .select-bar button.danger{background:rgba(255,93,120,.15);color:var(--danger);border:1px solid rgba(255,93,120,.3);}
 
-/* MESSAGES */
 .messages{flex:1;overflow-y:auto;padding:20px 4%;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch;}
 .date-line{text-align:center;color:var(--muted);font-size:11px;margin:5px 0 12px;}
 .message-row{display:flex;align-items:flex-start;gap:8px;position:relative;user-select:none;}
@@ -128,7 +122,6 @@ img{max-width:100%;}
 .message-meta{display:flex;justify-content:flex-end;align-items:center;gap:5px;margin-top:4px;color:#8090a5;font-size:10px;}
 .tick{display:inline-flex;align-items:center;}
 .tick svg{width:14px;height:14px;}
-.tick.single{color:#8090a5;}
 .tick.double{color:#8090a5;}
 .tick.blue{color:var(--blue);}
 .deleted-text{font-style:italic;color:var(--muted);font-size:13px;}
@@ -154,13 +147,11 @@ img{max-width:100%;}
 .reply-preview .rp-text{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
 .reply-preview button{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--text);font-size:16px;flex:none;}
 
-/* Upload progress */
 .upload-progress{display:none;padding:8px 12px;background:#1a2332;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:12px;}
 .upload-progress.show{display:block;}
 .upload-bar{height:6px;background:#0a0f16;border-radius:3px;overflow:hidden;margin-top:6px;}
 .upload-bar > div{height:100%;background:var(--accent);width:0%;transition:width .2s;}
 
-/* INPUT */
 .chat-input-area{padding:10px 4%;border-top:1px solid var(--border);background:#0b1018;flex:none;position:relative;}
 .chat-input{display:flex;align-items:flex-end;gap:6px;background:var(--panel2);border:1px solid var(--border);border-radius:17px;padding:6px;}
 .tool-btn{width:38px;height:38px;border-radius:11px;background:transparent;color:var(--muted);display:grid;place-items:center;flex:none;}
@@ -176,13 +167,13 @@ img{max-width:100%;}
 .add-btn{background:var(--accent);color:#06100d;padding:11px 15px;border-radius:12px;font-weight:700;}
 .stories{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:15px;}
 .story-card{height:220px;border-radius:20px;overflow:hidden;background:var(--panel2);border:1px solid var(--border);position:relative;cursor:pointer;}
-.story-bg{width:100%;height:100%;display:grid;place-items:center;padding:15px;text-align:center;background:linear-gradient(145deg,#152838,#17231f);}
-.story-bg img{width:100%;height:100%;object-fit:cover;}
+.story-bg{width:100%;height:100%;display:grid;place-items:center;padding:0;text-align:center;background:linear-gradient(145deg,#152838,#17231f);overflow:hidden;}
+.story-bg img{width:100%;height:100%;object-fit:cover;display:block;}
+.story-bg video{width:100%;height:100%;object-fit:cover;display:block;}
 .story-card-footer{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:center;gap:8px;}
 .story-card-footer .avatar{width:32px;height:32px;min-width:32px;font-size:13px;}
 .story-card-footer .name{font-weight:700;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
 
-/* Story viewer */
 .story-view{width:min(420px,100%);height:min(750px,92vh);max-height:92dvh;border-radius:25px;overflow:hidden;background:#05080d;position:relative;display:flex;flex-direction:column;}
 .story-progress{position:absolute;top:8px;left:8px;right:8px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;z-index:5;overflow:hidden;}
 .story-progress-bar{height:100%;background:#fff;width:0%;transition:width .1s linear;border-radius:2px;}
@@ -192,11 +183,12 @@ img{max-width:100%;}
 .story-view-header .info .name{font-weight:700;font-size:14px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7);}
 .story-view-header .info .time{font-size:11px;color:rgba(255,255,255,.7);}
 .story-close{width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.5);color:white;font-size:22px;line-height:1;flex:none;}
-.story-view-content{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.story-view-content img{width:100%;height:100%;object-fit:contain;}
+.story-view-content{flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#000;}
+.story-view-content img{width:100%;height:100%;object-fit:contain;display:block;}
+.story-view-content video{width:100%;height:100%;object-fit:contain;display:block;background:#000;}
 .story-view-text{padding:30px;font-size:24px;line-height:1.5;text-align:center;color:#fff;overflow-y:auto;max-height:100%;}
 .story-view-caption{position:absolute;bottom:20px;left:15px;right:15px;background:rgba(0,0,0,.6);color:#fff;padding:10px 14px;border-radius:12px;font-size:14px;text-align:center;z-index:5;}
-.story-tap-left,.story-tap-right{position:absolute;top:0;bottom:0;width:35%;z-index:7;cursor:pointer;}
+.story-tap-left,.story-tap-right{position:absolute;top:80px;bottom:100px;width:30%;z-index:7;cursor:pointer;}
 .story-tap-left{left:0;}
 .story-tap-right{right:0;}
 .story-view-footer{position:absolute;bottom:20px;left:15px;right:15px;z-index:8;display:flex;gap:8px;justify-content:center;pointer-events:none;}
@@ -217,6 +209,47 @@ img{max-width:100%;}
 .save-btn{margin-top:20px;width:100%;padding:13px;border-radius:13px;background:var(--accent);color:#06100d;font-weight:800;}
 .logout-btn{margin-top:12px;width:100%;padding:13px;border-radius:13px;background:rgba(255,93,120,.1);border:1px solid rgba(255,93,120,.3);color:var(--danger);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;}
 
+/* Q&A */
+.qa-page{flex-direction:column;overflow:hidden;}
+.qa-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;}
+.qa-feed{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+.qa-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:16px;}
+.qa-head{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.qa-head .avatar{width:42px;height:42px;min-width:42px;font-size:15px;}
+.qa-head .qi{flex:1;min-width:0;}
+.qa-head .qn{font-weight:700;font-size:14px;}
+.qa-head .qt{color:var(--muted);font-size:11px;}
+.qa-body{font-size:15px;line-height:1.5;word-break:break-word;white-space:pre-wrap;}
+.qa-img-thumb{max-width:100%;max-height:400px;border-radius:12px;margin-top:10px;display:block;cursor:zoom-in;object-fit:contain;background:#0a0f16;}
+.qa-actions{display:flex;gap:14px;margin-top:12px;font-size:13px;color:var(--muted);}
+.qa-actions button{display:flex;align-items:center;gap:6px;color:var(--muted);font-weight:600;padding:6px 4px;}
+.qa-actions button:hover{color:var(--accent);}
+.qa-actions button.liked{color:#ff6b8a;}
+.qa-replies{margin-top:12px;padding-left:16px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:10px;}
+.qa-reply{background:var(--panel2);border-radius:12px;padding:10px;}
+.qa-reply-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.qa-reply-head .avatar{width:28px;height:28px;min-width:28px;font-size:12px;}
+.qa-reply-head .rn{font-weight:700;font-size:12px;}
+.qa-reply-head .rt{color:var(--muted);font-size:10px;}
+.qa-reply-body{font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.qa-reply-body img{max-width:100%;border-radius:10px;margin-top:6px;display:block;cursor:zoom-in;}
+.qa-reply-actions{display:flex;gap:12px;margin-top:8px;font-size:12px;color:var(--muted);}
+.qa-reply-actions button{color:var(--muted);font-weight:600;padding:4px 0;display:flex;align-items:center;gap:4px;}
+.qa-reply-actions button.liked{color:#ff6b8a;}
+
+.qa-composer{display:flex;gap:8px;padding:12px;background:var(--panel2);border-radius:14px;align-items:flex-end;}
+.qa-composer textarea{flex:1;background:transparent;border:0;outline:0;resize:none;color:var(--text);font-size:14px;max-height:120px;min-height:38px;padding:8px 4px;}
+.qa-composer button.send{width:42px;height:42px;border-radius:12px;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
+.qa-composer .attach{width:38px;height:38px;border-radius:11px;background:transparent;color:var(--muted);display:grid;place-items:center;flex:none;}
+.qa-composer .attach:hover{color:var(--accent);background:#1c2534;}
+.qa-img-preview{margin-top:8px;position:relative;display:inline-block;max-width:200px;}
+.qa-img-preview img{max-width:100%;border-radius:10px;display:block;}
+.qa-img-preview button{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.7);color:#fff;width:24px;height:24px;border-radius:50%;font-size:14px;display:grid;place-items:center;}
+.qa-reply-composer{display:flex;gap:8px;margin-top:10px;padding:6px;background:var(--panel);border-radius:12px;align-items:flex-end;}
+.qa-reply-composer textarea{flex:1;background:transparent;border:0;outline:0;resize:none;color:var(--text);font-size:13px;min-height:34px;max-height:80px;padding:6px 4px;}
+.qa-reply-composer .attach{width:32px;height:32px;border-radius:9px;background:transparent;color:var(--muted);display:grid;place-items:center;flex:none;}
+.qa-reply-composer .send{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
+
 /* MODALS */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
 .modal.show{display:flex;}
@@ -236,11 +269,11 @@ img{max-width:100%;}
 .action-sheet-btn.danger{color:var(--danger);background:rgba(255,93,120,.1);}
 .action-sheet-cancel{width:100%;padding:15px;border-radius:13px;background:transparent;color:var(--muted);font-weight:600;margin-top:6px;border:1px solid var(--border);}
 
-/* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;overflow:hidden;}
 .lightbox.show{display:flex;}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:transform .2s;cursor:zoom-in;touch-action:none;}
 .lightbox img.zoomed{cursor:zoom-out;}
+.lightbox video{max-width:100%;max-height:100%;object-fit:contain;background:#000;border-radius:8px;}
 .lightbox-close{position:absolute;top:15px;right:15px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:22px;display:grid;place-items:center;z-index:2;}
 .lightbox-tools{position:absolute;top:15px;left:15px;display:flex;gap:8px;z-index:2;}
 .lightbox-tools a,.lightbox-tools button{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px;display:grid;place-items:center;text-decoration:none;}
@@ -249,10 +282,6 @@ img{max-width:100%;}
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:#151d29;border:1px solid var(--border);color:white;padding:12px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:.25s;z-index:600;font-size:13px;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* AI CHAT */
-.ai-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#061017;border-radius:6px;font-size:9px;font-weight:800;}
-
-/* MEMBER LIST */
 .member-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border);}
 .member-row:last-child{border-bottom:0;}
 .member-row .avatar{width:40px;height:40px;min-width:40px;font-size:14px;}
@@ -262,7 +291,6 @@ img{max-width:100%;}
 .member-row .role{font-size:11px;padding:3px 8px;border-radius:8px;background:rgba(114,242,196,.12);color:var(--accent);font-weight:700;}
 .member-row .role.member{background:var(--panel2);color:var(--muted);}
 
-/* MOBILE */
 .mobile-nav{display:none;}
 @media(max-width:800px){
   .sidebar{display:none;}
@@ -279,11 +307,12 @@ img{max-width:100%;}
   .msg-video{max-width:100%;max-height:none;width:100%;}
   .streak-box{padding:6px 8px;font-size:12px;}
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#0c111a;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:50;padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom));}
-  .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 20px;}
+  .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 14px;}
   .mobile-nav button.active{color:var(--accent);}
   body.chat-open .mobile-nav{display:none !important;}
   .page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-page{padding-bottom:0;}
+  .qa-page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-input-area{padding:8px 3% calc(8px + env(safe-area-inset-bottom));}
   .story-page,.profile-page{padding-bottom:calc(75px + env(safe-area-inset-bottom));}
   .section-head{padding:18px;}
@@ -291,6 +320,7 @@ img{max-width:100%;}
   .story-card{height:200px;}
   .profile-box{padding:18px;}
   .auth-box{padding:22px;}
+  .qa-scroll{padding:12px;}
 }
 </style>
 </head>
@@ -322,7 +352,7 @@ img{max-width:100%;}
     <div class="nav">
       <button class="nav-btn active" onclick="showPage('chats',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
       <button class="nav-btn" onclick="showPage('stories',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/><path d="M17 7h.01"/></svg>Stories</button>
-      <button class="nav-btn" onclick="openAiChat()"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6z"/></svg>Uoo Go Ai</button>
+      <button class="nav-btn" onclick="showPage('qa',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Q&amp;A</button>
       <button class="nav-btn" onclick="showPage('profile',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
     </div>
   </aside>
@@ -372,9 +402,7 @@ img{max-width:100%;}
             <svg class="flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c4.4 0 7-3.1 7-7.2 0-3.1-1.8-5.5-4.7-7.8.2 2.1-.6 3.4-1.7 4.2.1-3.6-1.7-7-4.6-9.2.2 4.2-3 6.8-3 10.7C5 18.9 8.1 22 12 22Z"/></svg>
             <span id="streakCount">0</span>
           </div>
-          <button class="icon-btn" onclick="toggleSelectMode()" title="Select messages">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </button>
+          <button class="icon-btn" onclick="toggleSelectMode()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button>
         </div>
 
         <div class="select-bar" id="selectBar">
@@ -423,6 +451,31 @@ img{max-width:100%;}
       <div class="stories" id="stories"></div>
     </section>
 
+    <section class="page qa-page" id="qaPage">
+      <div class="section-head">
+        <div class="section-title">Q&amp;A</div>
+        <button class="add-btn" onclick="focusQaComposer()">Ask Question</button>
+      </div>
+      <div class="qa-scroll">
+        <div class="qa-feed" id="qaFeed">
+          <div style="text-align:center;padding:40px 20px;color:var(--muted);">Loading...</div>
+        </div>
+      </div>
+      <div style="padding:12px;border-top:1px solid var(--border);background:#0b1018;flex:none;">
+        <div class="qa-composer" id="qaComposerBox">
+          <button class="attach" onclick="document.getElementById('qaImageInput').click()" title="Attach image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </button>
+          <input type="file" id="qaImageInput" accept="image/*" hidden onchange="qaAttachImage(this)">
+          <textarea id="qaInput" rows="1" placeholder="Ask a question..." onkeydown="qaKey(event)"></textarea>
+          <button class="send" onclick="postQuestion()" title="Post">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
+          </button>
+        </div>
+        <div id="qaImgPreviewBox"></div>
+      </div>
+    </section>
+
     <section class="page profile-page" id="profilePage">
       <div class="profile-box">
         <div class="profile-top">
@@ -449,11 +502,10 @@ img{max-width:100%;}
 <div class="mobile-nav" id="mobileNav">
   <button class="active" onclick="mobilePage('chats',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
   <button onclick="mobilePage('stories',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/></svg>Stories</button>
-  <button onclick="openAiChat()"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6z"/></svg>AI</button>
+  <button onclick="mobilePage('qa',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Q&amp;A</button>
   <button onclick="mobilePage('profile',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
 </div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <div class="lightbox-tools">
     <a id="lbDownload" download target="_blank" title="Download">
@@ -461,11 +513,10 @@ img{max-width:100%;}
     </a>
   </div>
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <img id="lightboxImg" src="" alt="">
-  <div class="lightbox-hint">Double tap to zoom</div>
+  <div id="lbContent"></div>
+  <div class="lightbox-hint" id="lbHint">Double tap to zoom</div>
 </div>
 
-<!-- STORY MODAL -->
 <div class="modal" id="storyModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Add Story</h2><button class="close-btn" onclick="closeStoryModal()">×</button></div>
@@ -475,7 +526,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- STORY VIEWER -->
 <div class="modal" id="storyViewer">
   <div class="story-view" id="storyView">
     <div class="story-progress"><div class="story-progress-bar" id="storyProgressBar"></div></div>
@@ -494,7 +544,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- GROUP MODAL -->
 <div class="modal" id="groupModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Create Group</h2><button class="close-btn" onclick="closeGroupModal()">×</button></div>
@@ -506,7 +555,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- GROUP INFO / MEMBERS MODAL -->
 <div class="modal" id="groupInfoModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Group Info</h2><button class="close-btn" onclick="closeGroupInfo()">×</button></div>
@@ -514,7 +562,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- CHAT INFO MODAL -->
 <div class="modal" id="chatInfoModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Chat Info</h2><button class="close-btn" onclick="closeChatInfo()">×</button></div>
@@ -522,7 +569,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- STORY VIEWERS LIST -->
 <div class="modal" id="storyViewersModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Story Viewers</h2><button class="close-btn" onclick="closeStoryViewers()">×</button></div>
@@ -530,7 +576,6 @@ img{max-width:100%;}
   </div>
 </div>
 
-<!-- ACTION SHEET -->
 <div class="action-sheet" id="actionSheet">
   <div class="action-sheet-box">
     <div class="action-sheet-title" id="actionSheetTitle">Options</div>
@@ -544,7 +589,7 @@ img{max-width:100%;}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, updateDoc, query, where, onSnapshot, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, addDoc, deleteDoc, updateDoc, query, where, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD5L__mrY6HIl5V5HtsRk6V-5jOJejBwME",
@@ -562,30 +607,66 @@ const db = getFirestore(app);
 const CLOUDINARY_CLOUD_NAME = "rkmm5vma";
 const CLOUDINARY_UPLOAD_PRESET = "uoo-go";
 
-/* Upload to Cloudinary with progress */
+/* 🔥 FIXED UPLOAD: uses /auto/ + appends extension so browser renders correctly */
 function uploadToCloudinaryWithProgress(file, onProgress){
   return new Promise((resolve, reject) => {
+    const mime = String(file.type || "").toLowerCase();
+    const isVideo = mime.startsWith("video/");
+    const isImage = mime.startsWith("image/");
+    const isAudio = mime.startsWith("audio/");
+
     const fd = new FormData();
     fd.append("file", file);
     fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    // Use the correct Cloudinary resource type. This is especially important
+    // for videos: uploading through /auto/ can return a URL that some browsers
+    // do not render reliably inside <video>.
+    const resourceType = isVideo ? "video" : (isAudio ? "video" : "image");
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`);
+    xhr.open("POST", url, true);
+    xhr.responseType = "text";
+    xhr.setRequestHeader("Accept", "application/json");
+
     xhr.upload.onprogress = (e) => {
       if(e.lengthComputable && onProgress){
         onProgress(Math.round((e.loaded / e.total) * 100));
       }
     };
+
     xhr.onload = () => {
-      if(xhr.status >= 200 && xhr.status < 300){
-        try{
-          const data = JSON.parse(xhr.responseText);
-          resolve(data.secure_url);
-        }catch(e){ reject(e); }
-      } else {
+      if(xhr.status < 200 || xhr.status >= 300){
+        console.error("❌ Cloudinary upload error:", xhr.responseText);
         reject(new Error("Upload failed: " + xhr.status));
+        return;
+      }
+
+      try{
+        const data = JSON.parse(xhr.responseText);
+        let finalUrl = data.secure_url || data.url || "";
+        if(!finalUrl) throw new Error("Cloudinary returned no URL");
+
+        // Always request a browser-friendly MP4 delivery URL for videos.
+        // Do not manually append .mp4; Cloudinary handles the response format.
+        if(isVideo){
+          finalUrl = finalUrl.replace("/upload/", "/upload/f_mp4,q_auto/");
+        } else if(isImage){
+          finalUrl = finalUrl.replace("/upload/", "/upload/f_auto,q_auto/");
+        }
+
+        console.log("✅ Uploaded:", { type: mime, resourceType, url: finalUrl });
+        resolve(finalUrl);
+      }catch(e){
+        console.error("❌ Cloudinary response parse error:", e, xhr.responseText);
+        reject(e);
       }
     };
-    xhr.onerror = () => reject(new Error("Network error"));
+
+    xhr.onerror = () => reject(new Error("Network error while uploading"));
+    xhr.ontimeout = () => reject(new Error("Upload timed out"));
+    xhr.timeout = 180000;
     xhr.send(fd);
   });
 }
@@ -593,15 +674,15 @@ function uploadToCloudinaryWithProgress(file, onProgress){
 /* STATE */
 let currentUser = null;
 let allUsers = [];
-let chats = {}; // key: chatId (either uid__uid or group_<id>)
-let chatMeta = {}; // key: chatId -> { type: 'dm'|'group', otherId?, groupId? }
+let chats = {};
+let chatMeta = {};
 let groups = {};
 let stories = [];
 let streaks = {};
 let deletedChats = new Set();
 let deletedMessages = new Set();
-let storyViewers = {}; // storyId -> [userIds]
-let storyReactions = {}; // storyId -> { userId: emoji }
+let storyViewers = {};
+let storyReactions = {};
 let currentChat = null;
 let replyTo = null;
 let unsubStories = null;
@@ -612,6 +693,7 @@ let unsubDeletedMessages = null;
 let unsubAllChats = null;
 let unsubMyGroups = null;
 let unsubStoryViewers = null;
+let unsubQa = null;
 let allChatListeners = new Map();
 let mediaRecorder = null;
 let audioChunks = [];
@@ -619,14 +701,16 @@ let isRecording = false;
 let authMode = "login";
 let selectMode = false;
 let selectedMessages = new Set();
-let aiMode = false;
 
-let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000 };
+let qaPosts = [];
+let qaAttachedImage = null;
+let qaReplyAttachments = {}; // qid -> {file, dataUrl}
+let qaReplyUnsubs = {}; // qid -> unsub
+
+let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000, videoEl: null };
 const STORY_DURATION = 7000;
 
-/* LIGHTBOX */
-let lbZoomed = false;
-let lbLastTap = 0;
+let lbZoomed = false, lbLastTap = 0;
 
 /* UTILS */
 function escapeHTML(t){ return String(t ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
@@ -636,7 +720,6 @@ function timeNow(){ return new Date().toLocaleTimeString([], { hour:"2-digit", m
 function dateKey(){ const d = new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
 function yesterdayKey(){ const d = new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
 function dmChatId(a, b){ return [a, b].sort().join("__"); }
-function isGroupChat(cid){ return cid.startsWith("group_"); }
 function timeAgo(ms){
   const s = Math.floor((Date.now() - ms)/1000);
   if(s < 60) return "just now";
@@ -645,7 +728,7 @@ function timeAgo(ms){
   return Math.floor(s/86400)+"d ago";
 }
 function avatarHTML(user, className="avatar"){
-  if(user?.image) return `<div class="${className}">${user.online?'':''}<img src="${user.image}" alt=""></div>`;
+  if(user?.image) return `<div class="${className}"><img src="${user.image}" alt=""></div>`;
   return `<div class="${className}">${escapeHTML(getInitial(user))}</div>`;
 }
 function truncate(str, n=60){ str = String(str || ""); return str.length > n ? str.slice(0, n) + "…" : str; }
@@ -683,36 +766,49 @@ function openActionSheet(title, buttons){
 function closeActionSheet(){ document.getElementById("actionSheet").classList.remove("show"); }
 
 /* LIGHTBOX */
-function openLightbox(url){
+function openLightbox(url, type){
   const lb = document.getElementById("lightbox");
-  const img = document.getElementById("lightboxImg");
-  img.src = url;
-  img.classList.remove("zoomed");
-  img.style.transform = "";
-  lbZoomed = false;
-  document.getElementById("lbDownload").href = url;
+  const content = document.getElementById("lbContent");
+  const hint = document.getElementById("lbHint");
+  const dl = document.getElementById("lbDownload");
+  content.innerHTML = "";
+  if(type === "video"){
+    const v = document.createElement("video");
+    v.src = url; v.controls = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute("playsinline", "");
+    v.preload = "auto";
+    content.appendChild(v);
+    hint.style.display = "none";
+    dl.href = url;
+    dl.setAttribute("download", "video.mp4");
+  } else {
+    const img = document.createElement("img");
+    img.src = url; img.alt = "";
+    content.appendChild(img);
+    hint.style.display = "block"; hint.textContent = "Double tap to zoom";
+    dl.href = url;
+    dl.setAttribute("download", "image.jpg");
+    let zoomed = false, lastTap = 0;
+    img.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const now = Date.now();
+      if(now - lastTap < 300){
+        if(zoomed){ img.style.transform = ""; img.classList.remove("zoomed"); hint.textContent = "Double tap to zoom"; zoomed = false; }
+        else { img.style.transform = "scale(2.2)"; img.classList.add("zoomed"); hint.textContent = "Double tap to reset"; zoomed = true; }
+        lastTap = 0;
+      } else lastTap = now;
+    });
+  }
   lb.classList.add("show");
 }
 function closeLightbox(){
-  const img = document.getElementById("lightboxImg");
-  img.src = ""; img.style.transform = ""; img.classList.remove("zoomed");
-  lbZoomed = false;
+  const content = document.getElementById("lbContent");
+  content.innerHTML = "";
   document.getElementById("lightbox").classList.remove("show");
 }
 (function setupLightboxEvents(){
   const lb = document.getElementById("lightbox");
-  const img = document.getElementById("lightboxImg");
-  const hint = lb.querySelector(".lightbox-hint");
   lb.addEventListener("click", (e) => { if(e.target === lb) closeLightbox(); });
-  img.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const now = Date.now();
-    if(now - lbLastTap < 300){
-      if(lbZoomed){ img.style.transform = ""; img.classList.remove("zoomed"); hint.textContent = "Double tap to zoom"; lbZoomed = false; }
-      else { img.style.transform = "scale(2.2)"; img.classList.add("zoomed"); hint.textContent = "Double tap to reset"; lbZoomed = true; }
-      lbLastTap = 0;
-    } else lbLastTap = now;
-  });
   document.addEventListener("keydown", (e) => { if(e.key === "Escape" && lb.classList.contains("show")) closeLightbox(); });
 })();
 
@@ -751,8 +847,10 @@ async function handleAuth(){
   }
 }
 async function logoutUser(){
-  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers].forEach(u => { if(u) u(); });
+  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers, unsubQa].forEach(u => { if(u) u(); });
   for(const unsub of allChatListeners.values()) unsub();
+  for(const unsub of Object.values(qaReplyUnsubs)) unsub();
+  qaReplyUnsubs = {};
   allChatListeners.clear();
   if(currentUser){ try{ await setDoc(doc(db, "users", currentUser.id), { online:false, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} }
   currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {};
@@ -776,11 +874,9 @@ onAuthStateChanged(auth, async (user) => {
       await setDoc(doc(db, "users", user.uid), { ...currentUser, online: true, lastSeen: serverTimestamp(), created: serverTimestamp() });
     }
     await setDoc(doc(db, "users", user.uid), { online:true, lastSeen: serverTimestamp() }, { merge:true });
-
-    // online/offline heartbeat
     const setOnline = async (v) => { if(currentUser) try{ await setDoc(doc(db, "users", currentUser.id), { online:v, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} };
     document.addEventListener("visibilitychange", () => setOnline(!document.hidden));
-    window.addEventListener("beforeunload", () => { navigator.sendBeacon && setOnline(false); });
+    window.addEventListener("beforeunload", () => setOnline(false));
     setInterval(() => setOnline(!document.hidden), 60000);
 
     authScreen.classList.add("hidden");
@@ -801,16 +897,42 @@ function startRealtimeListeners(){
     if(currentChat) updateChatHeader(currentChat);
   });
 
-  const cutoff = Date.now() - 24*60*60*1000;
+  // STORIES — robust realtime listener
+  // Keep the normal 24-hour story lifetime, but never hide a newly-created
+  // story just because Firebase has not resolved serverTimestamp() yet.
   unsubStories = onSnapshot(collection(db, "stories"), (snap) => {
-    stories = [];
+    const now = Date.now();
+    const cutoff = now - 24*60*60*1000;
+    const nextStories = [];
+
     snap.forEach(d => {
       const s = { id: d.id, ...d.data() };
-      const created = s.created?.toMillis?.() || s.created || 0;
-      if(created > cutoff) stories.push(s);
+
+      let createdMs = null;
+      if(s.created?.toMillis) createdMs = s.created.toMillis();
+      else if(s.created instanceof Date) createdMs = s.created.getTime();
+      else if(typeof s.created === "number") createdMs = s.created;
+      else if(typeof s.created === "string" && !Number.isNaN(Date.parse(s.created))) {
+        createdMs = Date.parse(s.created);
+      }
+
+      // Firebase serverTimestamp can be null briefly while the write is pending.
+      // Treat that story as fresh so it appears immediately.
+      if(createdMs === null || (createdMs >= cutoff && createdMs <= now + 60000)){
+        nextStories.push(s);
+      }
     });
-    stories.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
+
+    nextStories.sort((a,b) => {
+      const getMs = x => x.created?.toMillis?.() || (typeof x.created === "number" ? x.created : 0);
+      return getMs(a) - getMs(b);
+    });
+
+    stories = nextStories;
     renderStories();
+  }, (error) => {
+    console.error("Stories listener error:", error);
+    showToast("Stories load failed. Please refresh.");
   });
 
   unsubStreaks = onSnapshot(query(collection(db, "streaks"), where("uid","==",currentUser.id)), (snap) => {
@@ -834,7 +956,6 @@ function startRealtimeListeners(){
     if(currentChat) renderMessages();
   });
 
-  // My groups
   unsubMyGroups = onSnapshot(query(collection(db, "groups"), where("members", "array-contains", currentUser.id)), (snap) => {
     groups = {};
     snap.forEach(d => { groups[d.id] = { id: d.id, ...d.data() }; });
@@ -842,10 +963,8 @@ function startRealtimeListeners(){
     renderChats();
   });
 
-  // Story viewers cache
   unsubStoryViewers = onSnapshot(collection(db, "storyViews"), (snap) => {
-    storyViewers = {};
-    storyReactions = {};
+    storyViewers = {}; storyReactions = {};
     snap.forEach(d => {
       const data = d.data();
       if(data.storyId){
@@ -859,12 +978,18 @@ function startRealtimeListeners(){
     });
     if(document.getElementById("storyViewer").classList.contains("show")) updateStoryFooter();
   });
+
+  // Q&A listener
+  unsubQa = onSnapshot(query(collection(db, "qa")), (snap) => {
+    qaPosts = [];
+    snap.forEach(d => qaPosts.push({ id: d.id, ...d.data() }));
+    qaPosts.sort((a,b) => (b.created?.toMillis?.()||0) - (a.created?.toMillis?.()||0));
+    renderQa();
+  });
 }
 
-/* AUTO CHAT DISCOVERY — DM + Group */
 function startAllChatsListener(){
   unsubAllChats && unsubAllChats();
-  // DM chats
   const dmUnsub = onSnapshot(collection(db, "chats"), (snap) => {
     const still = new Set();
     snap.forEach(chatDoc => {
@@ -893,9 +1018,7 @@ function startAllChatsListener(){
     renderChats();
   });
 
-  // Group chats
-  const groupIds = Object.keys(groups);
-  groupIds.forEach(gid => {
+  Object.keys(groups).forEach(gid => {
     const cid = "group_" + gid;
     chatMeta[cid] = { type: "group", groupId: gid };
     if(!allChatListeners.has(cid)){
@@ -912,7 +1035,6 @@ function startAllChatsListener(){
     }
   });
 
-  // Cleanup: group chats jinke groups nahi rahe
   for(const [cid, unsub] of allChatListeners.entries()){
     if(cid.startsWith("group_")){
       const gid = cid.replace("group_", "");
@@ -957,24 +1079,17 @@ function renderChats(filter=""){
     const msgs = chats[cid] || [];
     const last = msgs.length > 0 ? [...msgs].reverse().find(m => !deletedMessages.has(m.id)) : null;
 
-    let name = "";
-    let avatarUser = null;
-    let isGroup = meta.type === "group";
-
+    let name = "", avatarUser = null, isGroup = meta.type === "group";
     if(isGroup){
-      const g = groups[meta.groupId];
-      if(!g) return;
+      const g = groups[meta.groupId]; if(!g) return;
       name = g.name || "Group";
       avatarUser = { name: g.name, image: g.image };
     } else {
-      const user = getUser(meta.otherId);
-      if(!user) return;
-      name = user.name;
-      avatarUser = user;
+      const user = getUser(meta.otherId); if(!user) return;
+      name = user.name; avatarUser = user;
     }
-
     if(term && !name.toLowerCase().includes(term) && !(last?.text || "").toLowerCase().includes(term)) return;
-    visible.push({ cid, name, avatarUser, last, isGroup, meta });
+    visible.push({ cid, name, avatarUser, last, isGroup });
   });
 
   visible.sort((a,b) => (b.last?.created?.toMillis?.()||0) - (a.last?.created?.toMillis?.()||0));
@@ -987,8 +1102,7 @@ function renderChats(filter=""){
   visible.forEach(item => {
     const { cid, name, avatarUser, last, isGroup } = item;
     const selected = currentChat === cid ? "selected" : "";
-    let preview = "Start a conversation";
-    let timeStr = "";
+    let preview = "Start a conversation", timeStr = "";
     if(last){
       if(last.deletedForAll) preview = "🚫 Message deleted";
       else if(last.type==="image") preview = "📷 Image";
@@ -998,7 +1112,6 @@ function renderChats(filter=""){
       else preview = last.text || "";
       timeStr = last.time || "";
     }
-
     let unread = 0;
     if(last && last.sender !== currentUser.id){
       const seenBy = last.seenBy || [];
@@ -1036,8 +1149,7 @@ function renderChats(filter=""){
 }
 
 function showChatOptions(cid){
-  const meta = chatMeta[cid];
-  if(!meta) return;
+  const meta = chatMeta[cid]; if(!meta) return;
   const opts = [{ label: "Open chat", action: () => openChat(cid) }];
   if(meta.type === "group") opts.push({ label: "Group info", action: () => openGroupInfo(meta.groupId) });
   opts.push({ label: "Delete chat", danger: true, action: () => deleteChatForMe(cid) });
@@ -1046,16 +1158,14 @@ function showChatOptions(cid){
 
 async function deleteChatForMe(cid){
   if(!currentUser) return;
-  await setDoc(doc(db, "deletedChats", `${currentUser.id}_${cid}`), {
-    uid: currentUser.id, chatId: cid, deletedAt: serverTimestamp()
-  });
+  await setDoc(doc(db, "deletedChats", `${currentUser.id}_${cid}`), { uid: currentUser.id, chatId: cid, deletedAt: serverTimestamp() });
   deletedChats.add(cid);
   if(currentChat === cid) closeChat();
   renderChats();
   showToast("Chat deleted.");
 }
 
-/* SEARCH USERS */
+/* SEARCH */
 function searchEverything(value){
   const term = value.trim().toLowerCase();
   renderChats(value);
@@ -1086,8 +1196,7 @@ function focusUserSearch(){
 
 /* OPEN CHAT */
 async function startNewChat(userId){
-  const user = getUser(userId);
-  if(!user) return;
+  const user = getUser(userId); if(!user) return;
   await ensureDmDoc(userId);
   const cid = dmChatId(currentUser.id, userId);
   chatMeta[cid] = { type: "dm", otherId: userId };
@@ -1095,26 +1204,20 @@ async function startNewChat(userId){
   if(!chats[cid]) chats[cid] = [];
   document.getElementById("chatSearch").value = "";
   document.getElementById("userSearchBox").classList.remove("show");
-  renderChats();
-  openChat(cid);
+  renderChats(); openChat(cid);
   showToast("Chat started with @" + user.username);
 }
 
 function updateChatHeader(cid){
-  const meta = chatMeta[cid];
-  if(!meta) return;
+  const meta = chatMeta[cid]; if(!meta) return;
   let name, avatarUser, status;
   if(meta.type === "group"){
-    const g = groups[meta.groupId];
-    if(!g) return;
-    name = g.name;
-    avatarUser = { name: g.name, image: g.image };
+    const g = groups[meta.groupId]; if(!g) return;
+    name = g.name; avatarUser = { name: g.name, image: g.image };
     status = `${(g.members||[]).length} members`;
   } else {
-    const user = getUser(meta.otherId);
-    if(!user) return;
-    name = user.name;
-    avatarUser = user;
+    const user = getUser(meta.otherId); if(!user) return;
+    name = user.name; avatarUser = user;
     const seen = user.lastSeen?.toMillis?.();
     status = user.online ? "online" : (seen ? "last seen " + timeAgo(seen) : "offline");
   }
@@ -1126,31 +1229,23 @@ function updateChatHeader(cid){
 }
 
 function openChat(cid){
-  const meta = chatMeta[cid];
-  if(!meta || !currentUser) return;
+  const meta = chatMeta[cid]; if(!meta || !currentUser) return;
   currentChat = cid;
-  aiMode = false;
   if(!chats[cid]) chats[cid] = [];
   ensureChatListener(cid, meta.type === "group");
-
-  exitSelectMode();
-  cancelReply();
+  exitSelectMode(); cancelReply();
   document.getElementById("chatEmpty").style.display = "none";
   document.getElementById("chatWindow").classList.add("open");
   document.body.classList.add("chat-open");
-
   updateChatHeader(cid);
   updateStreakUI();
-  renderMessages();
-  renderChats();
+  renderMessages(); renderChats();
   markChatSeen(cid);
 }
 
 function closeChat(){
   currentChat = null;
-  aiMode = false;
-  exitSelectMode();
-  cancelReply();
+  exitSelectMode(); cancelReply();
   document.body.classList.remove("chat-open");
   document.getElementById("chatWindow").classList.remove("open");
   document.getElementById("chatEmpty").style.display = "flex";
@@ -1159,7 +1254,7 @@ function closeChat(){
 
 async function markChatSeen(cid){
   const meta = chatMeta[cid];
-  if(!meta || meta.type === "group") return;
+  if(!meta || meta.type !== "dm") return;
   const msgs = chats[cid] || [];
   const collRef = collection(db, "chats", cid, "messages");
   for(const m of msgs){
@@ -1168,33 +1263,6 @@ async function markChatSeen(cid){
     if(!seenBy.includes(currentUser.id)){
       try{ await updateDoc(doc(collRef, m.id), { seenBy: arrayUnion(currentUser.id) }); }catch(e){}
     }
-  }
-}
-
-/* AI CHAT via Pollinations */
-async function openAiChat(){
-  aiMode = true;
-  currentChat = "ai_uoo";
-  chatMeta["ai_uoo"] = { type: "ai" };
-  if(!chats["ai_uoo"]) chats["ai_uoo"] = [];
-  exitSelectMode(); cancelReply();
-  document.getElementById("chatEmpty").style.display = "none";
-  document.getElementById("chatWindow").classList.add("open");
-  document.body.classList.add("chat-open");
-  document.getElementById("headerAvatar").innerHTML = "🤖";
-  document.getElementById("headerName").innerHTML = `Uoo Go Ai <span class="ai-badge">BETA</span>`;
-  document.getElementById("headerStatus").textContent = "Always online";
-  document.getElementById("streakCount").textContent = "0";
-  renderMessages();
-}
-
-async function callUooAi(prompt){
-  try{
-    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
-    const text = await res.text();
-    return text || "Sorry, koi jawab nahi mila.";
-  }catch(e){
-    return "AI se connect nahi ho paya. Internet check karo.";
   }
 }
 
@@ -1222,9 +1290,9 @@ function renderMessages(){
     if(msg.deletedForAll){
       content = `<div class="deleted-text">🚫 This message was deleted</div>`;
     } else if(msg.type === "image"){
-      content = `<img class="msg-image" src="${msg.data}" alt="" data-url="${escapeHTML(msg.data)}">`;
+      content = `<img class="msg-image" src="${msg.data}" alt="" data-url="${escapeHTML(msg.data)}" loading="lazy">`;
     } else if(msg.type === "video"){
-      content = `<video class="msg-video" controls src="${msg.data}" preload="metadata"></video>`;
+      content = `<video class="msg-video" controls src="${msg.data}" preload="metadata" playsinline webkit-playsinline></video>`;
     } else if(msg.type === "audio"){
       content = `<audio controls src="${msg.data}" style="max-width:100%;"></audio>`;
     } else if(msg.type === "doc"){
@@ -1236,16 +1304,12 @@ function renderMessages(){
       content = `<div class="message-text">${escapeHTML(msg.text || "")}</div>`;
     }
 
-    // Ticks
     let tickHTML = "";
-    if(me && !msg.deletedForAll && !aiMode){
+    if(me && !msg.deletedForAll){
       const seenBy = msg.seenBy || [];
-      // Blue tick if anyone else has seen
       const others = seenBy.filter(u => u !== currentUser.id);
       if(others.length > 0) tickHTML = `<span class="tick blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 13l4 4L14 7"/><path d="M9 17l1 1L22 6"/></svg></span>`;
       else tickHTML = `<span class="tick double"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 13l4 4L14 7"/><path d="M9 17l1 1L22 6"/></svg></span>`;
-    } else if(me && !msg.deletedForAll) {
-      tickHTML = `<span class="tick single"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>`;
     }
 
     const row = document.createElement("div");
@@ -1278,13 +1342,17 @@ function renderMessages(){
     `;
 
     const imgEl = row.querySelector(".msg-image");
-    if(imgEl) imgEl.addEventListener("click", (e) => { e.stopPropagation(); openLightbox(imgEl.dataset.url); });
+    if(imgEl) imgEl.addEventListener("click", (e) => { e.stopPropagation(); openLightbox(imgEl.dataset.url, "image"); });
+
+    const vidEl = row.querySelector(".msg-video");
+    if(vidEl) vidEl.addEventListener("dblclick", (e) => { e.stopPropagation(); openLightbox(vidEl.src, "video"); });
 
     const msgEl = row.querySelector(".message");
     if(msgEl){
       msgEl.onclick = (e) => {
         e.stopPropagation();
         if(e.target.classList.contains("msg-image")) return;
+        if(e.target.tagName === "VIDEO") return;
         if(selectMode) toggleMsgSelection(msg.id);
         else showMessageOptions(msg);
       };
@@ -1292,8 +1360,6 @@ function renderMessages(){
     box.appendChild(row);
   });
   box.scrollTop = box.scrollHeight;
-
-  // Mark seen for messages I haven't seen (DM only)
   if(meta.type === "dm") markChatSeen(currentChat);
 }
 
@@ -1313,7 +1379,6 @@ function showMessageOptions(msg){
   openActionSheet("Message options", btns);
 }
 
-/* REPLY */
 function startReply(msg){
   const me = msg.sender === currentUser.id;
   const user = me ? currentUser : (getUser(msg.sender) || { name: "User" });
@@ -1331,104 +1396,61 @@ function startReply(msg){
   document.getElementById("replyPreview").classList.add("show");
   document.getElementById("messageInput").focus();
 }
-function cancelReply(){
-  replyTo = null;
-  const rp = document.getElementById("replyPreview");
-  if(rp) rp.classList.remove("show");
-}
+function cancelReply(){ replyTo = null; document.getElementById("replyPreview")?.classList.remove("show"); }
 
-/* DELETE */
 async function deleteMessageForMe(msgId){
   if(!currentUser) return;
   await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${msgId}`), { uid: currentUser.id, msgId, deletedAt: serverTimestamp() });
-  deletedMessages.add(msgId);
-  renderMessages();
-  showToast("Deleted for you.");
+  deletedMessages.add(msgId); renderMessages(); showToast("Deleted for you.");
 }
 async function deleteMessageForAll(msgId){
   if(!currentUser || !currentChat) return;
   const meta = chatMeta[currentChat];
   const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
-  try{
-    await updateDoc(doc(collRef, msgId), { deletedForAll: true, text:"", data:"", type:"deleted", replyTo:null });
-    showToast("Deleted for everyone.");
-  }catch(err){ console.error(err); showToast("Failed."); }
+  try{ await updateDoc(doc(collRef, msgId), { deletedForAll:true, text:"", data:"", type:"deleted", replyTo:null }); showToast("Deleted for everyone."); }
+  catch(err){ console.error(err); }
 }
 
-/* SELECT MODE */
 function enterSelectMode(firstMsgId){
-  selectMode = true;
-  selectedMessages = new Set();
+  selectMode = true; selectedMessages = new Set();
   if(firstMsgId) selectedMessages.add(firstMsgId);
   document.getElementById("selectBar").classList.add("show");
-  updateSelectCount();
-  renderMessages();
+  updateSelectCount(); renderMessages();
 }
 function exitSelectMode(){
-  selectMode = false;
-  selectedMessages = new Set();
-  document.getElementById("selectBar").classList.remove("show");
-  renderMessages();
+  selectMode = false; selectedMessages = new Set();
+  document.getElementById("selectBar").classList.remove("show"); renderMessages();
 }
-function toggleSelectMode(){ if(selectMode) exitSelectMode(); else enterSelectMode(); }
-function toggleMsgSelection(msgId){ if(selectedMessages.has(msgId)) selectedMessages.delete(msgId); else selectedMessages.add(msgId); updateSelectCount(); renderMessages(); }
+function toggleSelectMode(){ selectMode ? exitSelectMode() : enterSelectMode(); }
+function toggleMsgSelection(id){ selectedMessages.has(id) ? selectedMessages.delete(id) : selectedMessages.add(id); updateSelectCount(); renderMessages(); }
 function selectAllMessages(){ const list = chats[currentChat] || []; selectedMessages = new Set(list.filter(m => !deletedMessages.has(m.id)).map(m => m.id)); updateSelectCount(); renderMessages(); }
 function updateSelectCount(){ document.getElementById("selectCount").textContent = `${selectedMessages.size} selected`; }
-
 async function deleteSelectedMessages(){
   if(selectedMessages.size === 0){ showToast("Kuch select karo."); return; }
   const ids = [...selectedMessages];
   const meta = chatMeta[currentChat];
   const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
-
   openActionSheet(`${ids.length} messages`, [
     { label: "🗑 Delete for me", danger: true, action: async () => {
-      for(const id of ids){
-        await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() });
-        deletedMessages.add(id);
-      }
-      exitSelectMode();
-      showToast("Deleted for you.");
+      for(const id of ids){ await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() }); deletedMessages.add(id); }
+      exitSelectMode(); showToast("Deleted for you.");
     }},
     { label: "🗑 Delete for everyone (only mine)", danger: true, action: async () => {
       for(const id of ids){
         const msg = (chats[currentChat] || []).find(m => m.id === id);
-        if(msg && msg.sender === currentUser.id){
-          try{ await updateDoc(doc(collRef, id), { deletedForAll: true, text:"", data:"", type:"deleted", replyTo:null }); }catch(e){}
-        } else {
-          await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() });
-          deletedMessages.add(id);
-        }
+        if(msg && msg.sender === currentUser.id){ try{ await updateDoc(doc(collRef, id), { deletedForAll:true, text:"", data:"", type:"deleted", replyTo:null }); }catch(e){} }
+        else { await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() }); deletedMessages.add(id); }
       }
-      exitSelectMode();
-      showToast("Deleted.");
+      exitSelectMode(); showToast("Deleted.");
     }}
   ]);
 }
 
-/* SEND */
 async function sendMessage(){
   if(!currentChat || !currentUser){ showToast("Pehle chat open karo."); return; }
   const input = document.getElementById("messageInput");
-  const text = input.value.trim();
-  if(!text) return;
+  const text = input.value.trim(); if(!text) return;
   input.value = "";
-
-  if(aiMode){
-    // Add user message
-    chats["ai_uoo"].push({ id: "local_" + Date.now(), sender: currentUser.id, type: "text", text, time: timeNow(), created: { toMillis: () => Date.now() } });
-    renderMessages();
-    // AI reply
-    const aiMsgId = "ai_" + Date.now();
-    chats["ai_uoo"].push({ id: aiMsgId, sender: "ai", type: "text", text: "Typing...", time: timeNow(), created: { toMillis: () => Date.now() } });
-    renderMessages();
-    const reply = await callUooAi(text);
-    const idx = chats["ai_uoo"].findIndex(m => m.id === aiMsgId);
-    if(idx >= 0) chats["ai_uoo"][idx].text = reply;
-    renderMessages();
-    return;
-  }
-
   const meta = chatMeta[currentChat];
   const payload = { sender: currentUser.id, senderName: currentUser.name, type: "text", text, time: timeNow(), seenBy: [currentUser.id] };
   if(replyTo) payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text };
@@ -1438,40 +1460,23 @@ async function sendMessage(){
   updateStreakUI();
   renderChats();
 }
-
 async function pushMessage(payload){
   if(!currentChat || !currentUser) return;
   const meta = chatMeta[currentChat];
-  if(meta.type === "group"){
-    await addDoc(collection(db, "groups", meta.groupId, "messages"), { ...payload, created: serverTimestamp() });
-  } else {
-    await addDoc(collection(db, "chats", currentChat, "messages"), { ...payload, created: serverTimestamp() });
-  }
-  if(deletedChats.has(currentChat)){
-    try{ await deleteDoc(doc(db, "deletedChats", `${currentUser.id}_${currentChat}`)); }catch(e){}
-    deletedChats.delete(currentChat);
-  }
+  if(meta.type === "group") await addDoc(collection(db, "groups", meta.groupId, "messages"), { ...payload, created: serverTimestamp() });
+  else await addDoc(collection(db, "chats", currentChat, "messages"), { ...payload, created: serverTimestamp() });
+  if(deletedChats.has(currentChat)){ try{ await deleteDoc(doc(db, "deletedChats", `${currentUser.id}_${currentChat}`)); }catch(e){} deletedChats.delete(currentChat); }
 }
+function messageKey(event){ if(event.key === "Enter" && !event.shiftKey){ event.preventDefault(); sendMessage(); } }
 
-function messageKey(event){
-  if(event.key === "Enter" && !event.shiftKey){ event.preventDefault(); sendMessage(); }
-}
-
-/* MEDIA (image/video/doc) */
+/* MEDIA */
 async function sendMedia(input, kind){
-  const file = input.files[0];
-  if(!file || !currentChat) return;
+  const file = input.files[0]; if(!file || !currentChat) return;
   input.value = "";
-
   const isVideo = file.type.startsWith("video/");
   const isImage = file.type.startsWith("image/");
-
-  // Video length check (max 10 min)
   if(isVideo){
-    try{
-      const dur = await getVideoDuration(file);
-      if(dur > 600){ showToast("Video 10 minute se choti rakho."); return; }
-    }catch(e){}
+    try{ const dur = await getVideoDuration(file); if(dur > 600){ showToast("Video 10 minute se choti rakho."); return; } }catch(e){}
     if(file.size > 50*1024*1024){ showToast("Video 50MB se choti rakho."); return; }
   }
   if(isImage && file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); return; }
@@ -1481,24 +1486,17 @@ async function sendMedia(input, kind){
     showUploadProgress("Uploading", 0);
     const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
     showUploadProgress("Processing", 100);
-
     const meta = chatMeta[currentChat];
     let type = kind === "doc" ? "doc" : (isVideo ? "video" : "image");
     const payload = { sender: currentUser.id, senderName: currentUser.name, type, data: url, time: timeNow(), seenBy: [currentUser.id], fileName: file.name };
     if(replyTo){ payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text }; cancelReply(); }
     await pushMessage(payload);
     if(meta.type !== "group") await updateStreak(currentChat);
-    updateStreakUI();
-    renderChats();
+    updateStreakUI(); renderChats();
     showUploadProgress("", null);
     showToast("Sent.");
-  }catch(err){
-    console.error(err);
-    showUploadProgress("", null);
-    showToast("Upload failed.");
-  }
+  }catch(err){ console.error(err); showUploadProgress("", null); showToast("Upload failed."); }
 }
-
 function getVideoDuration(file){
   return new Promise((resolve, reject) => {
     const v = document.createElement("video");
@@ -1509,7 +1507,6 @@ function getVideoDuration(file){
   });
 }
 
-/* VOICE */
 async function toggleRecording(){
   if(!currentChat){ showToast("Pehle chat open karo."); return; }
   if(isRecording){ stopRecording(); return; }
@@ -1530,14 +1527,12 @@ async function toggleRecording(){
         if(replyTo){ payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text }; cancelReply(); }
         await pushMessage(payload);
         if(meta.type !== "group") await updateStreak(currentChat);
-        updateStreakUI();
-        renderChats();
+        updateStreakUI(); renderChats();
         showUploadProgress("", null);
         showToast("Voice sent.");
       }catch(err){ console.error(err); showUploadProgress("", null); showToast("Voice upload failed."); }
     };
-    mediaRecorder.start();
-    isRecording = true;
+    mediaRecorder.start(); isRecording = true;
     document.getElementById("micBtn").classList.add("recording");
     showToast("Recording... dobara mic dabao.");
   }catch(err){ showToast("Microphone permission do."); }
@@ -1588,46 +1583,26 @@ function openGroupModal(){
   document.getElementById("groupModal").classList.add("show");
 }
 function closeGroupModal(){ document.getElementById("groupModal").classList.remove("show"); }
-
 async function createGroup(){
   const name = document.getElementById("groupName").value.trim();
   if(!name){ showToast("Group name required."); return; }
   const checked = [...document.querySelectorAll("#groupMembers input:checked")].map(c => c.dataset.uid);
   if(checked.length === 0){ showToast("Kam se kam 1 member select karo."); return; }
-
   let image = "";
   const file = document.getElementById("groupImage").files[0];
-  if(file){
-    try{
-      showUploadProgress("Uploading group image", 0);
-      image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading group image", pct));
-      showUploadProgress("", null);
-    }catch(e){ showUploadProgress("", null); }
-  }
-
+  if(file){ try{ showUploadProgress("Uploading group image", 0); image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading group image", pct)); showUploadProgress("", null); }catch(e){ showUploadProgress("", null); } }
   const members = [currentUser.id, ...checked];
-  const admins = [currentUser.id]; // creator is admin
-
-  const gRef = await addDoc(collection(db, "groups"), {
-    name, image, members, admins, createdBy: currentUser.id, created: serverTimestamp(), lastActivity: serverTimestamp()
-  });
-
-  // Auto message
+  const admins = [currentUser.id];
+  const gRef = await addDoc(collection(db, "groups"), { name, image, members, admins, createdBy: currentUser.id, created: serverTimestamp(), lastActivity: serverTimestamp() });
   await addDoc(collection(db, "groups", gRef.id, "messages"), {
-    sender: currentUser.id, senderName: currentUser.name, type: "text",
-    text: `${currentUser.name} created this group.`, time: timeNow(), seenBy: [currentUser.id], created: serverTimestamp(), system: true
+    sender: currentUser.id, senderName: currentUser.name, type: "text", text: `${currentUser.name} created this group.`, time: timeNow(), seenBy: [currentUser.id], created: serverTimestamp(), system: true
   });
-
-  document.getElementById("groupName").value = "";
-  document.getElementById("groupImage").value = "";
-  closeGroupModal();
-  showToast("Group created!");
+  document.getElementById("groupName").value = ""; document.getElementById("groupImage").value = "";
+  closeGroupModal(); showToast("Group created!");
   setTimeout(() => openChat("group_" + gRef.id), 500);
 }
-
 function openGroupInfo(gid){
-  const g = groups[gid];
-  if(!g) return;
+  const g = groups[gid]; if(!g) return;
   const isAdmin = (g.admins || []).includes(currentUser.id);
   const body = document.getElementById("groupInfoBody");
   body.innerHTML = `
@@ -1668,25 +1643,21 @@ function openGroupInfo(gid){
   document.getElementById("groupInfoModal").classList.add("show");
 }
 function closeGroupInfo(){ document.getElementById("groupInfoModal").classList.remove("show"); }
-
 async function makeAdmin(gid, uid){
   const g = groups[gid];
   if((g.admins||[]).length >= 3){ showToast("Max 3 admins allowed."); return; }
   await updateDoc(doc(db, "groups", gid), { admins: arrayUnion(uid) });
-  showToast("Admin added.");
-  openGroupInfo(gid);
+  showToast("Admin added."); openGroupInfo(gid);
 }
 async function removeAdmin(gid, uid){
   const g = groups[gid];
   if((g.admins||[]).length <= 1){ showToast("Kam se kam 1 admin chahiye."); return; }
   await updateDoc(doc(db, "groups", gid), { admins: arrayRemove(uid) });
-  showToast("Admin removed.");
-  openGroupInfo(gid);
+  showToast("Admin removed."); openGroupInfo(gid);
 }
 async function removeMember(gid, uid){
   await updateDoc(doc(db, "groups", gid), { members: arrayRemove(uid), admins: arrayRemove(uid) });
-  showToast("Member removed.");
-  openGroupInfo(gid);
+  showToast("Member removed."); openGroupInfo(gid);
 }
 function editGroup(gid){
   const g = groups[gid];
@@ -1702,30 +1673,31 @@ async function saveGroupEdit(gid){
   const name = document.getElementById("editGroupName").value.trim();
   const file = document.getElementById("editGroupImage").files[0];
   const upd = { name };
-  if(file){
-    try{
-      showUploadProgress("Uploading", 0);
-      upd.image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
-      showUploadProgress("", null);
-    }catch(e){ showUploadProgress("", null); }
-  }
+  if(file){ try{ showUploadProgress("Uploading", 0); upd.image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct)); showUploadProgress("", null); }catch(e){ showUploadProgress("", null); } }
   await updateDoc(doc(db, "groups", gid), upd);
-  showToast("Group updated.");
-  closeGroupInfo();
+  showToast("Group updated."); closeGroupInfo();
 }
 async function deleteGroup(gid){
   if(!confirm("Group delete karna chahte ho?")) return;
-  const g = groups[gid];
   await updateDoc(doc(db, "groups", gid), { members: [], admins: [] });
-  showToast("Group deleted.");
-  closeGroupInfo();
+  showToast("Group deleted."); closeGroupInfo();
   if(currentChat === "group_" + gid) closeChat();
 }
 
 /* STORIES */
+function normalizeStoryVideoUrl(url){
+  if(!url) return "";
+  const value = String(url);
+  // Old stories may contain a raw Cloudinary URL. Force a browser-friendly MP4
+  // delivery format without changing the stored Firestore value.
+  if(value.includes("res.cloudinary.com") && value.includes("/upload/") && !value.includes("/f_mp4,")){
+    return value.replace("/upload/", "/upload/f_mp4,q_auto/");
+  }
+  return value;
+}
+
 function openStoryModal(){ document.getElementById("storyModal").classList.add("show"); }
 function closeStoryModal(){ document.getElementById("storyModal").classList.remove("show"); }
-
 async function createStory(){
   const text = document.getElementById("storyText").value.trim();
   const file = document.getElementById("storyImage").files[0];
@@ -1733,9 +1705,7 @@ async function createStory(){
   let mediaUrl = "", mediaType = "text";
   if(file){
     const isVideo = file.type.startsWith("video/");
-    if(isVideo){
-      try{ const d = await getVideoDuration(file); if(d > 60){ showToast("Story video 60 sec se choti rakho."); return; } }catch(e){}
-    }
+    if(isVideo){ try{ const d = await getVideoDuration(file); if(d > 60){ showToast("Story video 60 sec se choti rakho."); return; } }catch(e){} }
     try{
       showUploadProgress("Uploading story", 0);
       mediaUrl = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading story", pct));
@@ -1749,65 +1719,51 @@ async function createStory(){
     text, image: mediaType === "image" ? mediaUrl : "", video: mediaType === "video" ? mediaUrl : "",
     mediaType, created: serverTimestamp()
   });
-  document.getElementById("storyText").value = "";
-  document.getElementById("storyImage").value = "";
-  closeStoryModal();
-  showToast("Story published.");
+  document.getElementById("storyText").value = ""; document.getElementById("storyImage").value = "";
+  closeStoryModal(); showToast("Story published.");
 }
-
 function renderStories(){
   const box = document.getElementById("stories");
   box.innerHTML = "";
-  if(stories.length === 0){
-    box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">Abhi koi story nahi hai.</div>`;
-    return;
-  }
+  if(stories.length === 0){ box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">Abhi koi story nahi hai.</div>`; return; }
   const byUser = {};
-  stories.forEach(s => {
-    if(!byUser[s.userId]) byUser[s.userId] = [];
-    byUser[s.userId].push(s);
-  });
-
+  stories.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
   Object.keys(byUser).forEach(uid => {
-    const list = byUser[uid];
-    const s = list[list.length-1];
-    const user = uid === currentUser?.id
-      ? currentUser
-      : (allUsers.find(u => u.id === uid) || { name: s.name || "User", username: s.username || "", image: s.userImage || "" });
-
+    const list = byUser[uid]; const s = list[list.length-1];
+    const user = uid === currentUser?.id ? currentUser : (allUsers.find(u => u.id === uid) || { name: s.name||"User", username: s.username||"", image: s.userImage||"" });
     const viewers = storyViewers[s.id] || [];
     const iViewed = viewers.includes(currentUser.id);
-
     const card = document.createElement("div");
     card.className = "story-card";
     card.style.opacity = iViewed ? "0.7" : "1";
+    let bgHTML = "";
+    const storyIsVideo = s.mediaType === "video" || (!s.mediaType && !!s.video);
+    const storyIsImage = s.mediaType === "image" || (!s.mediaType && !!s.image);
+    if(storyIsVideo && s.video){
+      bgHTML = `<video src="${escapeHTML(normalizeStoryVideoUrl(s.video))}" muted autoplay loop playsinline webkit-playsinline preload="auto" controlslist="nodownload noplaybackrate" disablepictureinpicture></video>`;
+    } else if(storyIsImage && s.image){
+      bgHTML = `<img src="${s.image}" alt="" loading="lazy">`;
+    } else {
+      bgHTML = `<div style="font-size:15px;padding:10px;">${escapeHTML(s.text||"")}</div>`;
+    }
     card.innerHTML = `
-      <div class="story-bg">
-        ${s.mediaType === "video" ? `<video src="${s.video}" muted style="width:100%;height:100%;object-fit:cover;"></video>` :
-          s.mediaType === "image" ? `<img src="${s.image}" alt="">` :
-          `<div style="font-size:15px;padding:10px;">${escapeHTML(s.text||"")}</div>`}
-      </div>
+      <div class="story-bg">${bgHTML}</div>
       <div class="story-card-footer">
         ${avatarHTML(user, "avatar")}
         <div class="name">${escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
-        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')" title="Delete">🗑</button>` : ""}
+        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')">🗑</button>` : ""}
       </div>
       ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;">👁 ${viewers.length}</div>` : ""}
     `;
-    card.onclick = () => {
-      if(uid === currentUser.id) openStoryViewersList(s.id);
-      else openStoryViewer(uid);
-    };
+    card.onclick = () => { if(uid === currentUser.id) openStoryViewersList(s.id); else openStoryViewer(uid); };
     card.oncontextmenu = (e) => { e.preventDefault(); if(uid === currentUser.id) deleteStory(s.id); };
     box.appendChild(card);
   });
 }
-
 async function deleteStory(sid){
   if(!confirm("Delete this story?")) return;
   try{ await deleteDoc(doc(db, "stories", sid)); showToast("Story deleted."); }catch(e){ showToast("Failed."); }
 }
-
 function openStoryViewersList(sid){
   const viewers = storyViewers[sid] || [];
   const reactions = storyReactions[sid] || {};
@@ -1816,92 +1772,112 @@ function openStoryViewersList(sid){
   else {
     body.innerHTML = "";
     viewers.forEach(uid => {
-      const u = uid === currentUser.id ? currentUser : getUser(uid);
-      if(!u) return;
-      const row = document.createElement("div");
-      row.className = "member-row";
+      const u = uid === currentUser.id ? currentUser : getUser(uid); if(!u) return;
+      const row = document.createElement("div"); row.className = "member-row";
       const r = reactions[uid] || "";
-      row.innerHTML = `
-        ${avatarHTML(u, "avatar")}
-        <div class="mi"><div class="mn">${escapeHTML(u.name)}</div><div class="mu">@${escapeHTML(u.username||'')}</div></div>
-        ${r ? `<div style="font-size:22px;">${r}</div>` : ""}
-      `;
+      row.innerHTML = `${avatarHTML(u, "avatar")}<div class="mi"><div class="mn">${escapeHTML(u.name)}</div><div class="mu">@${escapeHTML(u.username||'')}</div></div>${r ? `<div style="font-size:22px;">${r}</div>` : ""}`;
       body.appendChild(row);
     });
   }
   document.getElementById("storyViewersModal").classList.add("show");
 }
 function closeStoryViewers(){ document.getElementById("storyViewersModal").classList.remove("show"); }
-
 function openStoryViewer(startUserId){
   const byUser = {};
-  stories.forEach(s => {
-    if(!byUser[s.userId]) byUser[s.userId] = [];
-    byUser[s.userId].push(s);
-  });
-  const userIds = Object.keys(byUser);
-  if(userIds.length === 0) return;
+  stories.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
+  const userIds = Object.keys(byUser); if(userIds.length === 0) return;
   const ordered = [startUserId, ...userIds.filter(u => u !== startUserId)];
-  const flat = [];
-  ordered.forEach(uid => (byUser[uid] || []).forEach(s => flat.push(s)));
-  storyViewerState.list = flat;
-  storyViewerState.index = 0;
-  document.getElementById("storyViewer").classList.add("show");
-  showStoryAt(0);
+  const flat = []; ordered.forEach(uid => (byUser[uid] || []).forEach(s => flat.push(s)));
+  storyViewerState.list = flat; storyViewerState.index = 0;
+  document.getElementById("storyViewer").classList.add("show"); showStoryAt(0);
 }
-
 async function markStoryViewed(sid){
   if(!currentUser) return;
-  try{
-    await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), {
-      storyId: sid, uid: currentUser.id, viewedAt: serverTimestamp()
-    }, { merge: true });
-  }catch(e){}
+  try{ await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), { storyId: sid, uid: currentUser.id, viewedAt: serverTimestamp() }, { merge: true }); }catch(e){}
 }
 
+/* 🔥 FIXED: Story viewer */
 function showStoryAt(index){
   const state = storyViewerState;
   if(index >= state.list.length){ closeStoryViewer(); return; }
   if(index < 0) index = 0;
+  if(state.videoEl){ try{ state.videoEl.pause(); }catch(e){} state.videoEl = null; }
   state.index = index;
   const story = state.list[index];
-  const user = story.userId === currentUser?.id
-    ? currentUser
-    : (allUsers.find(u => u.id === story.userId) || { name: story.name || "User", username: story.username || "", image: story.userImage || "" });
-
+  const user = story.userId === currentUser?.id ? currentUser : (allUsers.find(u => u.id === story.userId) || { name: story.name||"User", username: story.username||"", image: story.userImage||"" });
   const av = document.getElementById("storyViewAvatar");
-  if(user.image) av.innerHTML = `<img src="${user.image}" alt="">`;
-  else av.textContent = getInitial(user);
+  if(user.image) av.innerHTML = `<img src="${user.image}" alt="">`; else av.textContent = getInitial(user);
   document.getElementById("storyViewName").textContent = user.name;
   const createdMs = story.created?.toMillis?.() || story.created || Date.now();
   document.getElementById("storyViewTime").textContent = timeAgo(createdMs);
 
   const content = document.getElementById("storyViewContent");
-  if(story.mediaType === "video"){
-    content.innerHTML = `<video src="${story.video}" autoplay muted playsinline style="width:100%;height:100%;object-fit:contain;"></video>` +
-      (story.text ? `<div class="story-view-caption">${escapeHTML(story.text)}</div>` : "");
-  } else if(story.mediaType === "image"){
-    content.innerHTML = `<img src="${story.image}" alt="">` +
-      (story.text ? `<div class="story-view-caption">${escapeHTML(story.text)}</div>` : "");
-  } else {
-    content.innerHTML = `<div class="story-view-text">${escapeHTML(story.text || "")}</div>`;
-  }
-
-  // mark viewed
-  if(story.userId !== currentUser.id) markStoryViewed(story.id);
-
-  // Progress bar
+  content.innerHTML = "";
   const bar = document.getElementById("storyProgressBar");
-  bar.style.transition = "none"; bar.style.width = "0%";
-  void bar.offsetWidth;
-  bar.style.transition = "width .1s linear";
 
-  // Footer with reactions (only if not my story)
+  const storyIsVideo = story.mediaType === "video" || (!story.mediaType && !!story.video);
+  const storyIsImage = story.mediaType === "image" || (!story.mediaType && !!story.image);
+
+  if(storyIsVideo && story.video){
+    const v = document.createElement("video");
+    v.src = normalizeStoryVideoUrl(story.video);
+    v.autoplay = true;
+    v.muted = true;
+    v.controls = true;
+    v.playsInline = true;
+    v.preload = "auto";
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
+    v.setAttribute("controlsList", "nodownload noplaybackrate");
+    v.setAttribute("disablePictureInPicture", "");
+    v.style.cssText = "width:100%;height:100%;object-fit:contain;background:#000;display:block;";
+
+    v.onloadeddata = () => {
+      v.play().catch(() => {});
+    };
+    v.oncanplay = () => {
+      if(v.paused) v.play().catch(() => {});
+    };
+    v.onended = () => { nextStory(); };
+    v.onerror = () => {
+      console.error("❌ Story video error:", { url: story.video, error: v.error });
+      showToast("Video load nahi ho saki.");
+    };
+
+    content.appendChild(v);
+    state.videoEl = v;
+    // Give the browser a second chance after the element is in the DOM.
+    requestAnimationFrame(() => v.play().catch(() => {}));
+    if(story.text){ const cap = document.createElement("div"); cap.className = "story-view-caption"; cap.textContent = story.text; content.appendChild(cap); }
+    bar.style.display = "none";
+    clearInterval(state.timer);
+    state.timer = null;
+  } else if(storyIsImage && story.image){
+    const img = document.createElement("img");
+    img.src = story.image;
+    img.alt = "";
+    img.style.cssText = "width:100%;height:100%;object-fit:contain;background:#000;display:block;";
+    img.onerror = () => { console.error("Image error:", story.image); showToast("Image load failed"); };
+    content.appendChild(img);
+    if(story.text){ const cap = document.createElement("div"); cap.className = "story-view-caption"; cap.textContent = story.text; content.appendChild(cap); }
+    bar.style.display = "block";
+    bar.style.transition = "none"; bar.style.width = "0%";
+    void bar.offsetWidth;
+    bar.style.transition = "width .1s linear";
+    startStoryTimer();
+  } else {
+    const t = document.createElement("div");
+    t.className = "story-view-text"; t.textContent = story.text || "";
+    content.appendChild(t);
+    bar.style.display = "block";
+    bar.style.transition = "none"; bar.style.width = "0%";
+    void bar.offsetWidth;
+    bar.style.transition = "width .1s linear";
+    startStoryTimer();
+  }
+  if(story.userId !== currentUser.id) markStoryViewed(story.id);
   updateStoryFooter();
-
-  startStoryTimer();
 }
-
 function updateStoryFooter(){
   const state = storyViewerState;
   const story = state.list[state.index];
@@ -1915,27 +1891,17 @@ function updateStoryFooter(){
   const myReaction = storyReactions[story.id]?.[currentUser.id] || "";
   const reactions = ["❤️","😂","😮","😢","👍"];
   footer.innerHTML = `<div class="story-reactions">${reactions.map(r => `<button data-r="${r}" style="${myReaction===r?'transform:scale(1.3);':''}">${r}</button>`).join("")}</div>`;
-  footer.querySelectorAll("button[data-r]").forEach(b => {
-    b.onclick = (e) => { e.stopPropagation(); sendStoryReaction(story.id, b.dataset.r); };
-  });
+  footer.querySelectorAll("button[data-r]").forEach(b => { b.onclick = (e) => { e.stopPropagation(); sendStoryReaction(story.id, b.dataset.r); }; });
 }
-
 async function sendStoryReaction(sid, emoji){
   if(!currentUser) return;
-  await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), {
-    storyId: sid, uid: currentUser.id, reaction: emoji, reactedAt: serverTimestamp()
-  }, { merge: true });
+  await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), { storyId: sid, uid: currentUser.id, reaction: emoji, reactedAt: serverTimestamp() }, { merge: true });
   showToast("Reaction sent");
 }
-
 function startStoryTimer(){
   const state = storyViewerState;
-  clearInterval(state.timer);
-  state.paused = false;
-  state.startTime = Date.now();
-  state.remaining = STORY_DURATION;
-  const bar = document.getElementById("storyProgressBar");
-  bar.style.width = "0%";
+  clearInterval(state.timer); state.paused = false; state.startTime = Date.now(); state.remaining = STORY_DURATION;
+  const bar = document.getElementById("storyProgressBar"); bar.style.width = "0%";
   state.timer = setInterval(() => {
     if(state.paused) return;
     const elapsed = Date.now() - state.startTime;
@@ -1944,32 +1910,13 @@ function startStoryTimer(){
     if(elapsed >= STORY_DURATION){ clearInterval(state.timer); nextStory(); }
   }, 100);
 }
-function pauseStoryTimer(){
-  const state = storyViewerState;
-  if(state.paused) return;
-  state.paused = true;
-  state.remaining = STORY_DURATION - (Date.now() - state.startTime);
-}
-function resumeStoryTimer(){
-  const state = storyViewerState;
-  if(!state.paused) return;
-  state.paused = false;
-  state.startTime = Date.now() - (STORY_DURATION - state.remaining);
-}
-function nextStory(){
-  const state = storyViewerState;
-  if(state.index + 1 < state.list.length) showStoryAt(state.index + 1);
-  else closeStoryViewer();
-}
-function prevStory(){
-  const state = storyViewerState;
-  if(state.index - 1 >= 0) showStoryAt(state.index - 1);
-  else showStoryAt(0);
-}
+function pauseStoryTimer(){ const s = storyViewerState; if(s.paused) return; s.paused = true; s.remaining = STORY_DURATION - (Date.now() - s.startTime); if(s.videoEl){ try{ s.videoEl.pause(); }catch(e){} } }
+function resumeStoryTimer(){ const s = storyViewerState; if(!s.paused) return; s.paused = false; s.startTime = Date.now() - (STORY_DURATION - s.remaining); if(s.videoEl){ try{ s.videoEl.play(); }catch(e){} } }
+function nextStory(){ const s = storyViewerState; if(s.videoEl){ try{ s.videoEl.pause(); }catch(e){} s.videoEl = null; } if(s.index + 1 < s.list.length) showStoryAt(s.index + 1); else closeStoryViewer(); }
+function prevStory(){ const s = storyViewerState; if(s.videoEl){ try{ s.videoEl.pause(); }catch(e){} s.videoEl = null; } if(s.index - 1 >= 0) showStoryAt(s.index - 1); else showStoryAt(0); }
 function closeStoryViewer(){
-  clearInterval(storyViewerState.timer);
-  storyViewerState.timer = null;
-  storyViewerState.paused = false;
+  if(storyViewerState.videoEl){ try{ storyViewerState.videoEl.pause(); storyViewerState.videoEl.src = ""; }catch(e){} storyViewerState.videoEl = null; }
+  clearInterval(storyViewerState.timer); storyViewerState.timer = null; storyViewerState.paused = false;
   document.getElementById("storyViewer").classList.remove("show");
 }
 (function setupStoryLongPress(){
@@ -1977,23 +1924,211 @@ function closeStoryViewer(){
   let timer = null;
   const onStart = () => { timer = setTimeout(() => pauseStoryTimer(), 200); };
   const onEnd = () => { if(timer){ clearTimeout(timer); timer = null; } resumeStoryTimer(); };
-  sv.addEventListener("mousedown", onStart);
-  sv.addEventListener("mouseup", onEnd);
-  sv.addEventListener("mouseleave", onEnd);
-  sv.addEventListener("touchstart", onStart, { passive:true });
-  sv.addEventListener("touchend", onEnd);
-  sv.addEventListener("touchcancel", onEnd);
+  sv.addEventListener("mousedown", onStart); sv.addEventListener("mouseup", onEnd); sv.addEventListener("mouseleave", onEnd);
+  sv.addEventListener("touchstart", onStart, { passive:true }); sv.addEventListener("touchend", onEnd); sv.addEventListener("touchcancel", onEnd);
 })();
+
+/* 🔥 Q&A ENVIRONMENT */
+function focusQaComposer(){ document.getElementById("qaInput").focus(); }
+function qaKey(e){ if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); postQuestion(); } }
+
+function qaAttachImage(input){
+  const f = input.files[0]; if(!f) return;
+  if(f.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    qaAttachedImage = { file: f, dataUrl: reader.result };
+    document.getElementById("qaImgPreviewBox").innerHTML = `<div class="qa-img-preview"><img src="${reader.result}"><button onclick="clearQaImage()">×</button></div>`;
+  };
+  reader.readAsDataURL(f);
+}
+function clearQaImage(){ qaAttachedImage = null; document.getElementById("qaImgPreviewBox").innerHTML = ""; document.getElementById("qaImageInput").value = ""; }
+
+async function postQuestion(){
+  const input = document.getElementById("qaInput");
+  const text = input.value.trim();
+  if(!text && !qaAttachedImage){ showToast("Kuch likho ya image attach karo."); return; }
+  input.value = "";
+  let imageUrl = "";
+  if(qaAttachedImage){
+    try{
+      showUploadProgress("Uploading", 0);
+      imageUrl = await uploadToCloudinaryWithProgress(qaAttachedImage.file, (pct) => showUploadProgress("Uploading", pct));
+      showUploadProgress("", null);
+    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
+    clearQaImage();
+  }
+  await addDoc(collection(db, "qa"), {
+    uid: currentUser.id, name: currentUser.name, userImage: currentUser.image || "",
+    text, image: imageUrl, likes: [], created: serverTimestamp(), replyCount: 0
+  });
+  showToast("Question posted!");
+}
+
+async function toggleQaLike(qid){
+  const post = qaPosts.find(p => p.id === qid); if(!post) return;
+  const likes = post.likes || [];
+  const has = likes.includes(currentUser.id);
+  await updateDoc(doc(db, "qa", qid), { likes: has ? arrayRemove(currentUser.id) : arrayUnion(currentUser.id) });
+}
+
+async function postQaReply(qid){
+  const ta = document.getElementById("qaReplyInput_" + qid);
+  const text = ta.value.trim();
+  const attach = qaReplyAttachments[qid];
+  if(!text && !attach) return;
+  ta.value = "";
+  let imageUrl = "";
+  if(attach){
+    try{
+      showUploadProgress("Uploading reply", 0);
+      imageUrl = await uploadToCloudinaryWithProgress(attach.file, (pct) => showUploadProgress("Uploading reply", pct));
+      showUploadProgress("", null);
+    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
+    qaReplyAttachments[qid] = null;
+    const box = document.getElementById("qaReplyImgPreview_" + qid);
+    if(box) box.innerHTML = "";
+  }
+  await addDoc(collection(db, "qa", qid, "replies"), {
+    uid: currentUser.id, name: currentUser.name, userImage: currentUser.image || "",
+    text, image: imageUrl, likes: [], created: serverTimestamp()
+  });
+  await updateDoc(doc(db, "qa", qid), { replyCount: increment(1) });
+  showToast("Reply posted!");
+}
+
+async function toggleQaReplyLike(qid, rid){
+  const snap = await getDoc(doc(db, "qa", qid, "replies", rid));
+  if(!snap.exists()) return;
+  const likes = snap.data().likes || [];
+  const has = likes.includes(currentUser.id);
+  await updateDoc(doc(db, "qa", qid, "replies", rid), { likes: has ? arrayRemove(currentUser.id) : arrayUnion(currentUser.id) });
+}
+
+async function deleteQaPost(qid){
+  if(!confirm("Delete this question?")) return;
+  await deleteDoc(doc(db, "qa", qid));
+}
+async function deleteQaReply(qid, rid){
+  if(!confirm("Delete this reply?")) return;
+  await deleteDoc(doc(db, "qa", qid, "replies", rid));
+  await updateDoc(doc(db, "qa", qid), { replyCount: increment(-1) });
+}
+
+function qaReplyAttach(qid, input){
+  const f = input.files[0]; if(!f) return;
+  if(f.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    qaReplyAttachments[qid] = { file: f, dataUrl: reader.result };
+    let box = document.getElementById("qaReplyImgPreview_" + qid);
+    if(!box){
+      const composer = document.getElementById("qaReplyComposer_" + qid);
+      box = document.createElement("div");
+      box.id = "qaReplyImgPreview_" + qid;
+      composer.parentNode.insertBefore(box, composer.nextSibling);
+    }
+    box.innerHTML = `<div class="qa-img-preview"><img src="${reader.result}"><button onclick="clearQaReplyImage('${qid}')">×</button></div>`;
+  };
+  reader.readAsDataURL(f);
+}
+function clearQaReplyImage(qid){
+  qaReplyAttachments[qid] = null;
+  const box = document.getElementById("qaReplyImgPreview_" + qid);
+  if(box) box.innerHTML = "";
+}
+
+function renderQa(){
+  const feed = document.getElementById("qaFeed");
+  if(qaPosts.length === 0){
+    feed.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--muted);">Koi question nahi. Pehla question tum pucho!</div>`;
+    return;
+  }
+  feed.innerHTML = "";
+  qaPosts.forEach(post => {
+    const u = post.uid === currentUser.id ? currentUser : (getUser(post.uid) || { name: post.name, image: post.userImage });
+    const likes = post.likes || [];
+    const liked = likes.includes(currentUser.id);
+    const createdMs = post.created?.toMillis?.() || post.created || Date.now();
+
+    const card = document.createElement("div");
+    card.className = "qa-card";
+    card.innerHTML = `
+      <div class="qa-head">
+        ${avatarHTML(u, "avatar")}
+        <div class="qi">
+          <div class="qn">${escapeHTML(u.name || post.name)}</div>
+          <div class="qt">${timeAgo(createdMs)}</div>
+        </div>
+        ${post.uid === currentUser.id ? `<button class="icon-btn" style="width:32px;height:32px;" onclick="deleteQaPost('${post.id}')">🗑</button>` : ""}
+      </div>
+      ${post.text ? `<div class="qa-body">${escapeHTML(post.text)}</div>` : ""}
+      ${post.image ? `<img src="${post.image}" class="qa-img-thumb" data-url="${escapeHTML(post.image)}" loading="lazy" onclick="openLightbox(this.dataset.url,'image')">` : ""}
+      <div class="qa-actions">
+        <button class="${liked?'liked':''}" onclick="toggleQaLike('${post.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
+        <button onclick="focusQaReply('${post.id}')">💬 ${post.replyCount||0}</button>
+      </div>
+      <div class="qa-replies" id="qaReplies_${post.id}"></div>
+      <div class="qa-reply-composer" id="qaReplyComposer_${post.id}">
+        <button class="attach" onclick="document.getElementById('qaReplyFile_${post.id}').click()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        </button>
+        <input type="file" id="qaReplyFile_${post.id}" accept="image/*" hidden onchange="qaReplyAttach('${post.id}', this)">
+        <textarea id="qaReplyInput_${post.id}" rows="1" placeholder="Reply likho..."></textarea>
+        <button class="send" onclick="postQaReply('${post.id}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
+        </button>
+      </div>
+    `;
+    feed.appendChild(card);
+    loadQaReplies(post.id);
+  });
+}
+
+function focusQaReply(qid){ document.getElementById("qaReplyInput_" + qid)?.focus(); }
+
+function loadQaReplies(qid){
+  if(qaReplyUnsubs[qid]){ qaReplyUnsubs[qid](); delete qaReplyUnsubs[qid]; }
+  const collRef = collection(db, "qa", qid, "replies");
+  const unsub = onSnapshot(collRef, (snap) => {
+    const replies = [];
+    snap.forEach(d => replies.push({ id: d.id, ...d.data() }));
+    replies.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
+    const box = document.getElementById("qaReplies_" + qid);
+    if(!box) return;
+    box.innerHTML = "";
+    replies.forEach(r => {
+      const ru = r.uid === currentUser.id ? currentUser : (getUser(r.uid) || { name: r.name, image: r.userImage });
+      const likes = r.likes || [];
+      const liked = likes.includes(currentUser.id);
+      const createdMs = r.created?.toMillis?.() || r.created || Date.now();
+      const el = document.createElement("div");
+      el.className = "qa-reply";
+      el.innerHTML = `
+        <div class="qa-reply-head">
+          ${avatarHTML(ru, "avatar")}
+          <div class="rn">${escapeHTML(ru.name || r.name)}</div>
+          <div class="rt">${timeAgo(createdMs)}</div>
+          ${r.uid === currentUser.id ? `<button class="icon-btn" style="width:26px;height:26px;margin-left:auto;" onclick="deleteQaReply('${qid}','${r.id}')">🗑</button>` : ""}
+        </div>
+        ${r.text ? `<div class="qa-reply-body">${escapeHTML(r.text)}</div>` : ""}
+        ${r.image ? `<img src="${r.image}" style="max-width:100%;border-radius:10px;margin-top:6px;cursor:zoom-in;" loading="lazy" onclick="openLightbox('${escapeHTML(r.image)}','image')">` : ""}
+        <div class="qa-reply-actions">
+          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
+        </div>
+      `;
+      box.appendChild(el);
+    });
+  });
+  qaReplyUnsubs[qid] = unsub;
+}
 
 /* CHAT INFO */
 function openChatInfo(){
   if(!currentChat) return;
-  const meta = chatMeta[currentChat];
-  if(!meta) return;
+  const meta = chatMeta[currentChat]; if(!meta) return;
   if(meta.type === "group") return openGroupInfo(meta.groupId);
-  if(meta.type === "ai") return;
-  const u = getUser(meta.otherId);
-  if(!u) return;
+  const u = getUser(meta.otherId); if(!u) return;
   const body = document.getElementById("chatInfoBody");
   const seen = u.lastSeen?.toMillis?.();
   body.innerHTML = `
@@ -2018,8 +2153,7 @@ function renderProfile(){
   document.getElementById("profileDisplayName").textContent = currentUser.name || "";
   document.getElementById("profileDisplayUsername").textContent = "@" + (currentUser.username || "");
   const avatar = document.getElementById("profileAvatar");
-  if(currentUser.image) avatar.innerHTML = `<img src="${currentUser.image}" alt="">`;
-  else avatar.textContent = getInitial(currentUser);
+  if(currentUser.image) avatar.innerHTML = `<img src="${currentUser.image}" alt="">`; else avatar.textContent = getInitial(currentUser);
 }
 async function saveProfile(){
   const name = document.getElementById("profileName").value.trim();
@@ -2028,22 +2162,13 @@ async function saveProfile(){
   if(!name || !username){ showToast("Name aur username required hain."); return; }
   await setDoc(doc(db, "users", currentUser.id), { name, username, bio }, { merge:true });
   currentUser.name = name; currentUser.username = username; currentUser.bio = bio;
-  renderProfile();
-  showToast("Profile saved.");
+  renderProfile(); showToast("Profile saved.");
 }
 async function changeProfileImage(input){
-  const file = input.files[0];
-  if(!file) return;
+  const file = input.files[0]; if(!file) return;
   if(file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
-  try{
-    showUploadProgress("Uploading", 0);
-    const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
-    currentUser.image = url;
-    await setDoc(doc(db, "users", currentUser.id), { image: url }, { merge:true });
-    renderProfile();
-    showUploadProgress("", null);
-    showToast("Profile updated.");
-  }catch(err){ console.error(err); showUploadProgress("", null); showToast("Upload failed."); }
+  try{ showUploadProgress("Uploading", 0); const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct)); currentUser.image = url; await setDoc(doc(db, "users", currentUser.id), { image: url }, { merge:true }); renderProfile(); showUploadProgress("", null); showToast("Profile updated."); }
+  catch(err){ console.error(err); showUploadProgress("", null); showToast("Upload failed."); }
   input.value = "";
 }
 
@@ -2053,6 +2178,7 @@ function showPage(page, button){
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
   if(page === "chats") document.getElementById("chatsPage").classList.add("active");
   if(page === "stories"){ document.getElementById("storiesPage").classList.add("active"); renderStories(); }
+  if(page === "qa"){ document.getElementById("qaPage").classList.add("active"); renderQa(); }
   if(page === "profile"){ document.getElementById("profilePage").classList.add("active"); renderProfile(); }
   if(button) button.classList.add("active");
   if(page !== "chats") document.body.classList.remove("chat-open");
@@ -2071,7 +2197,10 @@ Object.assign(window, {
   closeActionSheet, cancelReply, openLightbox, closeLightbox, nextStory, prevStory,
   sendMedia, openGroupModal, closeGroupModal, createGroup, openGroupInfo, closeGroupInfo,
   makeAdmin, removeAdmin, removeMember, editGroup, saveGroupEdit, deleteGroup,
-  openStoryViewersList, closeStoryViewers, deleteStory, openAiChat, openChatInfo, closeChatInfo
+  openStoryViewersList, closeStoryViewers, deleteStory, openChatInfo, closeChatInfo,
+  focusQaComposer, qaKey, qaAttachImage, clearQaImage, postQuestion, toggleQaLike,
+  postQaReply, toggleQaReplyLike, deleteQaPost, deleteQaReply, focusQaReply,
+  qaReplyAttach, clearQaReplyImage
 });
 </script>
 </body>
