@@ -322,7 +322,7 @@ img{max-width:100%;}
 @media(max-width:800px){
   .sidebar{display:none;}
   .chat-list{width:100%;border-right:0;}
-  .chat-window{position:absolute;inset:0;z-index:20;}
+  .chat-window{position:absolute;left:0;right:0;top:0;bottom:calc(60px + env(safe-area-inset-bottom));z-index:20;}
   .chat-window.open{display:flex;}
   .back-btn{display:grid;}
   .chat-empty{display:none;}
@@ -336,7 +336,6 @@ img{max-width:100%;}
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#0c111a;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:50;padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom));}
   .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 14px;}
   .mobile-nav button.active{color:var(--accent);}
-  body.chat-open .mobile-nav{display:none !important;}
   .page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-page{padding-bottom:0;}
   .qa-page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
@@ -632,7 +631,7 @@ img{max-width:100%;}
 /* Global bridge: inline HTML onclick handlers can run before the Firebase module finishes loading. */
 (function(){
   const names = [
-    "showPage","mobilePage","searchEverything","focusUserSearch","startNewChat","openChat","closeChat",
+    "showPage","mobilePage","searchEverything","focusUserSearch","startNewChat","openSocialChat","openChat","closeChat",
     "sendMessage","messageKey","toggleRecording","openStoryModal","closeStoryModal","createStory",
     "closeStoryViewer","saveProfile","changeProfileImage","switchAuthTab","handleAuth","logoutUser",
     "toggleSelectMode","exitSelectMode","selectAllMessages","deleteSelectedMessages","closeActionSheet","cancelReply",
@@ -694,7 +693,6 @@ const db = getFirestore(app);
 const CLOUDINARY_CLOUD_NAME = "rkmm5vma";
 const CLOUDINARY_UPLOAD_PRESET = "uoo-go";
 
-/* 🔥 FIXED UPLOAD: uses /auto/ + appends extension so browser renders correctly */
 function uploadToCloudinaryWithProgress(file, onProgress){
   return new Promise((resolve, reject) => {
     const mime = String(file.type || "").toLowerCase();
@@ -706,9 +704,6 @@ function uploadToCloudinaryWithProgress(file, onProgress){
     fd.append("file", file);
     fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-    // Use the correct Cloudinary resource type. This is especially important
-    // for videos: uploading through /auto/ can return a URL that some browsers
-    // do not render reliably inside <video>.
     const resourceType = isVideo ? "video" : (isAudio ? "video" : "image");
     const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
 
@@ -735,8 +730,6 @@ function uploadToCloudinaryWithProgress(file, onProgress){
         let finalUrl = data.secure_url || data.url || "";
         if(!finalUrl) throw new Error("Cloudinary returned no URL");
 
-        // Always request a browser-friendly MP4 delivery URL for videos.
-        // Do not manually append .mp4; Cloudinary handles the response format.
         if(isVideo){
           finalUrl = finalUrl.replace("/upload/", "/upload/f_mp4,q_auto/");
         } else if(isImage){
@@ -796,8 +789,8 @@ let selectedMessages = new Set();
 
 let qaPosts = [];
 let qaAttachedImage = null;
-let qaReplyAttachments = {}; // qid -> {file, dataUrl}
-let qaReplyUnsubs = {}; // qid -> unsub
+let qaReplyAttachments = {};
+let qaReplyUnsubs = {};
 
 let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000, videoEl: null };
 const STORY_DURATION = 15000;
@@ -991,9 +984,6 @@ function startRealtimeListeners(){
     if(currentChat) updateChatHeader(currentChat);
   });
 
-  // STORIES — robust realtime listener
-  // Keep the normal 24-hour story lifetime, but never hide a newly-created
-  // story just because Firebase has not resolved serverTimestamp() yet.
   unsubStories = onSnapshot(collection(db, "stories"), (snap) => {
     const now = Date.now();
     const cutoff = now - 24*60*60*1000;
@@ -1010,8 +1000,6 @@ function startRealtimeListeners(){
         createdMs = Date.parse(s.created);
       }
 
-      // Firebase serverTimestamp can be null briefly while the write is pending.
-      // Treat that story as fresh so it appears immediately.
       if(createdMs === null || (createdMs >= cutoff && createdMs <= now + 60000)){
         nextStories.push(s);
       }
@@ -1073,7 +1061,6 @@ function startRealtimeListeners(){
     if(document.getElementById("storyViewer").classList.contains("show")) updateStoryFooter();
   });
 
-  // Q&A listener
   unsubQa = onSnapshot(query(collection(db, "qa")), (snap) => {
     qaPosts = [];
     snap.forEach(d => qaPosts.push({ id: d.id, ...d.data() }));
@@ -1206,7 +1193,7 @@ function renderChats(filter=""){
     let preview = "Start a conversation", timeStr = "";
     if(last){
       if(last.deletedForAll) preview = "🚫 Message deleted";
-      else if(last.type==="image") preview = `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg> Image`;
+      else if(last.type==="image") preview = "📷 Image";
       else if(last.type==="video") preview = "🎥 Video";
       else if(last.type==="audio") preview = "🎤 Voice message";
       else if(last.type==="doc") preview = "📄 " + (last.fileName || "Document");
@@ -1296,17 +1283,49 @@ function focusUserSearch(){
 }
 
 /* OPEN CHAT */
-async function startNewChat(userId){
-  const user = getUser(userId); if(!user) return;
-  await ensureDmDoc(userId);
-  const cid = dmChatId(currentUser.id, userId);
-  chatMeta[cid] = { type: "dm", otherId: userId };
-  ensureChatListener(cid, false);
-  if(!chats[cid]) chats[cid] = [];
-  document.getElementById("chatSearch").value = "";
-  document.getElementById("userSearchBox").classList.remove("show");
-  renderChats(); openChat(cid);
-  showToast("Chat started with @" + user.username);
+function activateChatsPageForChat(){
+  // Always switch to the Chats page before opening a conversation.
+  // This is important when a chat is opened from Social Media/Profile.
+  showPage("chats");
+  document.querySelectorAll(".mobile-nav button").forEach(b => b.classList.remove("active"));
+  const chatNav = [...document.querySelectorAll(".mobile-nav button")].find(b => /Chats/i.test(b.textContent));
+  if(chatNav) chatNav.classList.add("active");
+}
+
+async function startNewChat(userId, options = {}){
+  if(!currentUser || !userId || userId === currentUser.id) return;
+  const user = getUser(userId);
+  if(!user){ showToast("User not found."); return; }
+
+  try{
+    activateChatsPageForChat();
+    await ensureDmDoc(userId);
+
+    const cid = dmChatId(currentUser.id, userId);
+    const alreadyHadChat = Boolean(chats[cid] && chats[cid].length);
+
+    chatMeta[cid] = { type: "dm", otherId: userId };
+    ensureChatListener(cid, false);
+    if(!chats[cid]) chats[cid] = [];
+
+    document.getElementById("chatSearch").value = "";
+    document.getElementById("userSearchBox").classList.remove("show");
+    renderChats();
+    openChat(cid);
+
+    if(!options.silent){
+      showToast(alreadyHadChat ? "Existing chat opened." : "Chat started with @" + (user.username || "user"));
+    }
+  }catch(e){
+    console.error("Start/open chat failed:", e);
+    showToast(e?.code === "permission-denied" ? "Chat is blocked by Firebase rules." : "Could not open chat.");
+  }
+}
+
+async function openSocialChat(userId){
+  if(!currentUser || !userId || userId === currentUser.id) return;
+  closePublicProfile();
+  await startNewChat(userId);
 }
 
 function updateChatHeader(cid){
@@ -1470,12 +1489,12 @@ function showMessageOptions(msg){
   if(!msg.deletedForAll) btns.push({ label: "Reply", action: () => startReply(msg) });
   if(!msg.deletedForAll){
     if(me){
-      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
-      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for everyone', danger: true, action: () => deleteMessageForAll(msg.id) });
+      btns.push({ label: "Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
+      btns.push({ label: "Delete for everyone", danger: true, action: () => deleteMessageForAll(msg.id) });
     } else {
-      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
+      btns.push({ label: "Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
     }
-  } else btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
+  } else btns.push({ label: "Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
   btns.push({ label: "Select multiple", action: () => enterSelectMode(msg.id) });
   openActionSheet("Message options", btns);
 }
@@ -1484,7 +1503,7 @@ function startReply(msg){
   const user = me ? currentUser : (getUser(msg.sender) || { name: "User" });
   let previewText = msg.text || "";
   if(!previewText){
-    if(msg.type === "image") previewText = `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg> Image`;
+    if(msg.type === "image") previewText = "📷 Image";
     else if(msg.type === "video") previewText = "🎥 Video";
     else if(msg.type === "audio") previewText = "🎤 Voice message";
     else if(msg.type === "doc") previewText = "📄 Document";
@@ -1531,11 +1550,11 @@ async function deleteSelectedMessages(){
   const meta = chatMeta[currentChat];
   const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
   openActionSheet(`${ids.length} messages`, [
-    { label: `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me`, danger: true, action: async () => {
+    { label: "Delete for me", danger: true, action: async () => {
       for(const id of ids){ await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() }); deletedMessages.add(id); }
       exitSelectMode(); showToast("Deleted for you.");
     }},
-    { label: `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for everyone (only mine)`, danger: true, action: async () => {
+    { label: "Delete for everyone (only mine)", danger: true, action: async () => {
       for(const id of ids){
         const msg = (chats[currentChat] || []).find(m => m.id === id);
         if(msg && msg.sender === currentUser.id){ try{ await updateDoc(doc(collRef, id), { deletedForAll:true, text:"", data:"", type:"deleted", replyTo:null }); }catch(e){} }
@@ -1788,8 +1807,6 @@ async function deleteGroup(gid){
 function normalizeStoryVideoUrl(url){
   if(!url) return "";
   const value = String(url);
-  // Old stories may contain a raw Cloudinary URL. Force a browser-friendly MP4
-  // delivery format without changing the stored Firestore value.
   if(value.includes("res.cloudinary.com") && value.includes("/upload/") && !value.includes("/f_mp4,")){
     return value.replace("/upload/", "/upload/f_mp4,q_auto/");
   }
@@ -1853,7 +1870,7 @@ function renderStories(){
         <div class="name">${escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
         ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
       </div>
-      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg> ${viewers.length}</div>` : ""}
+      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;">👁 ${viewers.length}</div>` : ""}
     `;
     card.onclick = () => { if(uid === currentUser.id) openStoryViewersList(s.id); else openStoryViewer(uid); };
     card.oncontextmenu = (e) => { e.preventDefault(); if(uid === currentUser.id) deleteStory(s.id); };
@@ -1896,7 +1913,6 @@ async function markStoryViewed(sid){
   try{ await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), { storyId: sid, uid: currentUser.id, viewedAt: serverTimestamp() }, { merge: true }); }catch(e){}
 }
 
-/* 🔥 FIXED: Story viewer */
 function showStoryAt(index){
   const state = storyViewerState;
   if(index >= state.list.length){ closeStoryViewer(); return; }
@@ -1932,12 +1948,8 @@ function showStoryAt(index){
     v.setAttribute("disablePictureInPicture", "");
     v.style.cssText = "width:100%;height:100%;object-fit:contain;background:#000;display:block;";
 
-    v.onloadeddata = () => {
-      v.play().catch(() => {});
-    };
-    v.oncanplay = () => {
-      if(v.paused) v.play().catch(() => {});
-    };
+    v.onloadeddata = () => { v.play().catch(() => {}); };
+    v.oncanplay = () => { if(v.paused) v.play().catch(() => {}); };
     v.onended = () => { nextStory(); };
     v.onerror = () => {
       console.error("❌ Story video error:", { url: story.video, error: v.error });
@@ -1946,7 +1958,6 @@ function showStoryAt(index){
 
     content.appendChild(v);
     state.videoEl = v;
-    // Give the browser a second chance after the element is in the DOM.
     requestAnimationFrame(() => v.play().catch(() => {}));
     if(story.text){ const cap = document.createElement("div"); cap.className = "story-view-caption"; cap.textContent = story.text; content.appendChild(cap); }
     bar.style.display="block"; bar.style.transition="none"; bar.style.width="0%"; void bar.offsetWidth; bar.style.transition="width .1s linear"; startStoryTimer();
@@ -1983,11 +1994,11 @@ function updateStoryFooter(){
   if(!story){ footer.innerHTML = ""; return; }
   if(story.userId === currentUser.id){
     const viewers = storyViewers[story.id] || [];
-    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg> ${viewers.length} viewers</div>`;
+    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;">👁 ${viewers.length} viewers</div>`;
     return;
   }
   const myReaction = storyReactions[story.id]?.[currentUser.id] || "";
-  const reactions = ["Like","Love","Wow","Sad","Thumbs up"];
+  const reactions = ["❤️","😂","😮","😢","👍"];
   footer.innerHTML = `<div class="story-reactions">${reactions.map(r => `<button data-r="${r}" style="${myReaction===r?'transform:scale(1.3);':''}">${r}</button>`).join("")}</div>`;
   footer.querySelectorAll("button[data-r]").forEach(b => { b.onclick = (e) => { e.stopPropagation(); sendStoryReaction(story.id, b.dataset.r); }; });
 }
@@ -2026,7 +2037,7 @@ function closeStoryViewer(){
   sv.addEventListener("touchstart", onStart, { passive:true }); sv.addEventListener("touchend", onEnd); sv.addEventListener("touchcancel", onEnd);
 })();
 
-/* 🔥 Q&A ENVIRONMENT */
+/* Q&A ENVIRONMENT */
 function focusQaComposer(){ document.getElementById("qaInput").focus(); }
 function qaKey(e){ if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); postQuestion(); } }
 
@@ -2107,7 +2118,7 @@ function qaScore(post){const likes=(post.likes||[]).length,replies=Number(post.r
 function renderQa(){
  const feed=document.getElementById("qaFeed"); if(qaPosts.length===0){feed.innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--muted);">Abhi koi post nahi. Pehli post aap karein!</div>`;return;}
  const ordered=[...qaPosts].sort((a,b)=>qaScore(b)-qaScore(a));feed.innerHTML="";
- ordered.forEach(post=>{const u=post.uid===currentUser.id?currentUser:(getUser(post.uid)||{name:post.name,username:post.username||"",image:post.userImage});const likes=post.likes||[],liked=likes.includes(currentUser.id),isFollowing=(u.followers||[]).includes(currentUser.id),createdMs=post.created?.toMillis?.()||post.created||Date.now();const card=document.createElement("div");card.className="qa-card";card.innerHTML=`<div class="qa-head"><div class="qa-author-click" onclick="openPublicProfile('${post.uid}')">${avatarHTML(u,"avatar")}</div><div class="qi qa-author-click" onclick="openPublicProfile('${post.uid}')"><div class="qn">${escapeHTML(u.name||post.name)}</div><div class="qt">@${escapeHTML(u.username||"")} · ${timeAgo(createdMs)}</div></div>${post.uid!==currentUser.id?`<button class="qa-follow-btn ${isFollowing?'following':''}" onclick="toggleFollow('${post.uid}')">${isFollowing?'Following':'Follow'}</button>`:`<button class="icon-btn" style="width:32px;height:32px;margin-left:auto;" title="Delete" onclick="deleteQaPost('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>`}</div>${post.text?`<div class="qa-body">${escapeHTML(post.text)}</div>`:""}${(post.media||post.image)?((post.mediaType==='video')?`<video src="${escapeHTML(post.media||post.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>`:`<img src="${escapeHTML(post.media||post.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`):""}<div class="qa-actions"><button class="${liked?'liked':''}" onclick="toggleQaLike('${post.id}')">${liked?'<svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>':'<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>'} ${likes.length}</button><button onclick="focusQaReply('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${post.replyCount||0}</button><button onclick="openPublicProfile('${post.uid}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/></svg> Profile</button></div><div class="qa-replies" id="qaReplies_${post.id}"></div><div class="qa-reply-composer" id="qaReplyComposer_${post.id}"><button class="attach" onclick="document.getElementById('qaReplyFile_${post.id}').click()"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg></button><input type="file" id="qaReplyFile_${post.id}" accept="image/*,video/*" hidden onchange="qaReplyAttach('${post.id}',this)"><textarea id="qaReplyInput_${post.id}" rows="1" placeholder="Reply likho..."></textarea><button class="send" onclick="postQaReply('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button></div>`;feed.appendChild(card);loadQaReplies(post.id);});
+ ordered.forEach(post=>{const u=post.uid===currentUser.id?currentUser:(getUser(post.uid)||{name:post.name,username:post.username||"",image:post.userImage});const likes=post.likes||[],liked=likes.includes(currentUser.id),isFollowing=(u.followers||[]).includes(currentUser.id),createdMs=post.created?.toMillis?.()||post.created||Date.now();const card=document.createElement("div");card.className="qa-card";card.innerHTML=`<div class="qa-head"><div class="qa-author-click" onclick="openPublicProfile('${post.uid}')">${avatarHTML(u,"avatar")}</div><div class="qi qa-author-click" onclick="openPublicProfile('${post.uid}')"><div class="qn">${escapeHTML(u.name||post.name)}</div><div class="qt">@${escapeHTML(u.username||"")} · ${timeAgo(createdMs)}</div></div>${post.uid!==currentUser.id?`<button class="qa-follow-btn ${isFollowing?'following':''}" onclick="toggleFollow('${post.uid}')">${isFollowing?'Following':'Follow'}</button>`:`<button class="icon-btn" style="width:32px;height:32px;margin-left:auto;" title="Delete" onclick="deleteQaPost('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>`}</div>${post.text?`<div class="qa-body">${escapeHTML(post.text)}</div>`:""}${(post.media||post.image)?((post.mediaType==='video')?`<video src="${escapeHTML(post.media||post.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>`:`<img src="${escapeHTML(post.media||post.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`):""}<div class="qa-actions"><button class="${liked?'liked':''}" onclick="toggleQaLike('${post.id}')">${liked?'❤️':'🤍'} ${likes.length}</button><button onclick="focusQaReply('${post.id}')">💬 ${post.replyCount||0}</button><button onclick="openPublicProfile('${post.uid}')">👤 Profile</button></div><div class="qa-replies" id="qaReplies_${post.id}"></div><div class="qa-reply-composer" id="qaReplyComposer_${post.id}"><button class="attach" onclick="document.getElementById('qaReplyFile_${post.id}').click()"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg></button><input type="file" id="qaReplyFile_${post.id}" accept="image/*,video/*" hidden onchange="qaReplyAttach('${post.id}',this)"><textarea id="qaReplyInput_${post.id}" rows="1" placeholder="Reply likho..."></textarea><button class="send" onclick="postQaReply('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button></div>`;feed.appendChild(card);loadQaReplies(post.id);});
 }
 
 function focusQaReply(qid){ document.getElementById("qaReplyInput_" + qid)?.focus(); }
@@ -2139,7 +2150,7 @@ function loadQaReplies(qid){
         ${r.text ? `<div class="qa-reply-body">${escapeHTML(r.text)}</div>` : ""}
         ${(r.media||r.image) ? (r.mediaType==='video' ? `<video src="${escapeHTML(r.media||r.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>` : `<img src="${escapeHTML(r.media||r.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`) : ""}
         <div class="qa-reply-actions">
-          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'<svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>':'<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>'} ${likes.length}</button>
+          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
         </div>
       `;
       box.appendChild(el);
@@ -2186,7 +2197,7 @@ function searchSocialMedia(value){
 /* PROFILE + SOCIAL GRAPH */
 function userFollowers(u){return Array.isArray(u?.followers)?u.followers:[]}function userFollowing(u){return Array.isArray(u?.following)?u.following:[]}function userLikeCount(uid){return qaPosts.filter(p=>p.uid===uid).reduce((n,p)=>n+(p.likes||[]).length,0)}function userPosts(uid){return qaPosts.filter(p=>p.uid===uid).sort((a,b)=>(b.created?.toMillis?.()||0)-(a.created?.toMillis?.()||0))}
 function renderProfile(){if(!currentUser)return;profileViewUser=currentUser;document.getElementById("profileDisplayName").textContent=currentUser.name||"User";document.getElementById("profileDisplayUsername").textContent="@"+(currentUser.username||"");document.getElementById("profileDisplayBio").textContent=currentUser.bio||"";const link=document.getElementById("profileDisplayLink");if(currentUser.link){link.href=currentUser.link;link.textContent=currentUser.link.replace(/^https?:\/\//,"").replace(/\/$/,"");link.style.display="inline-block"}else link.style.display="none";const avatar=document.getElementById("profileAvatar");if(currentUser.image)avatar.innerHTML=`<img src="${currentUser.image}" alt="">`;else avatar.textContent=getInitial(currentUser);document.getElementById("profileFollowers").textContent=userFollowers(currentUser).length;document.getElementById("profileFollowing").textContent=userFollowing(currentUser).length;document.getElementById("profileLikes").textContent=userLikeCount(currentUser.id);renderProfilePosts(currentUser.id);updateMessageRequestBadge();}
-function renderProfilePosts(uid){const grid=document.getElementById("profilePostsGrid"),posts=profileTab==="liked"?qaPosts.filter(p=>(p.likes||[]).includes(uid)):userPosts(uid);if(!posts.length){grid.innerHTML=`<div class="profile-empty">${profileTab==='liked'?'No liked posts yet.':'No posts yet.'}</div>`;return}grid.innerHTML=posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${(p.media||p.image)?(p.mediaType==='video'?`<video src="${escapeHTML(p.media||p.image)}" muted playsinline></video>`:`<img src="${escapeHTML(p.media||p.image)}" loading="lazy">`):`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg> ${likes.length} · <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${p.replyCount||0}</div></div>`}).join("")}
+function renderProfilePosts(uid){const grid=document.getElementById("profilePostsGrid"),posts=profileTab==="liked"?qaPosts.filter(p=>(p.likes||[]).includes(uid)):userPosts(uid);if(!posts.length){grid.innerHTML=`<div class="profile-empty">${profileTab==='liked'?'No liked posts yet.':'No posts yet.'}</div>`;return}grid.innerHTML=posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${(p.media||p.image)?(p.mediaType==='video'?`<video src="${escapeHTML(p.media||p.image)}" muted playsinline></video>`:`<img src="${escapeHTML(p.media||p.image)}" loading="lazy">`):`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta">❤️ ${likes.length} · 💬 ${p.replyCount||0}</div></div>`}).join("")}
 function toggleProfileTab(tab){profileTab=tab;document.getElementById("profilePostsTab").classList.toggle("active",tab==='posts');document.getElementById("profileLikedTab").classList.toggle("active",tab==='liked');renderProfilePosts(profileViewUser?.id||currentUser.id)}
 function openEditProfile(){if(!currentUser)return;document.getElementById("editProfileName").value=currentUser.name||"";document.getElementById("editProfileUsername").value=currentUser.username||"";document.getElementById("editProfileBio").value=currentUser.bio||"";document.getElementById("editProfileLink").value=currentUser.link||"";document.getElementById("editProfileModal").classList.add("show")}
 function closeEditProfile(){document.getElementById("editProfileModal").classList.remove("show")}
@@ -2197,8 +2208,6 @@ async function saveProfile(){
   const link=document.getElementById("editProfileLink").value.trim();
   if(!name||!username){showToast("Name aur username required hain.");return;}
   try{
-    // Username lookup is best-effort. If the current Firestore rules do not allow
-    // collection queries, do not break the editor; save the profile document itself.
     let duplicate=false;
     try{
       const existing=await getDocs(query(collection(db,"users"),where("username","==",username)));
@@ -2218,7 +2227,7 @@ async function saveProfile(){
 
 async function changeProfileImage(input){const file=input.files[0];if(!file)return;if(file.size>8*1024*1024){showToast("Image 8MB se choti rakho.");input.value="";return}try{showUploadProgress("Uploading",0);const url=await uploadToCloudinaryWithProgress(file,pct=>showUploadProgress("Uploading",pct));currentUser.image=url;await setDoc(doc(db,"users",currentUser.id),{image:url},{merge:true});renderProfile();showUploadProgress("",null);showToast("Profile updated.")}catch(err){console.error(err);showUploadProgress("",null);showToast("Upload failed.")}input.value=""}
 async function toggleFollow(uid){if(!currentUser||uid===currentUser.id)return;const target=getUser(uid);if(!target)return;const following=userFollowing(currentUser),isFollowing=following.includes(uid);await updateDoc(doc(db,"users",currentUser.id),{following:isFollowing?arrayRemove(uid):arrayUnion(uid)});await updateDoc(doc(db,"users",uid),{followers:isFollowing?arrayRemove(currentUser.id):arrayUnion(currentUser.id)});currentUser.following=isFollowing?following.filter(x=>x!==uid):[...following,uid];renderQa();renderProfile();if(document.getElementById("publicProfileModal").classList.contains("show"))openPublicProfile(uid)}
-function openPublicProfile(uid){if(uid===currentUser.id){showPage("profile");return}const u=getUser(uid);if(!u)return;const following=userFollowing(currentUser).includes(uid),posts=userPosts(uid),body=document.getElementById("publicProfileBody"),link=u.link?`<a class="social-profile-link" href="${escapeHTML(u.link)}" target="_blank" rel="noopener">${escapeHTML(u.link.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a>`:"";body.innerHTML=`<div class="public-profile-card"><div class="social-profile-head" style="padding:10px 0 15px;"><div class="social-profile-avatar">${u.image?`<img src="${escapeHTML(u.image)}">`:escapeHTML(getInitial(u))}</div><div class="social-profile-main"><h2>${escapeHTML(u.name||"User")}</h2><div class="social-profile-username">@${escapeHTML(u.username||"")}</div><div class="social-profile-bio">${escapeHTML(u.bio||"")}</div>${link}<div class="profile-stats"><div><b>${userFollowers(u).length}</b><span>Followers</span></div><div><b>${userLikeCount(uid)}</b><span>Likes</span></div><div><b>${userFollowing(u).length}</b><span>Following</span></div></div></div></div><div class="public-profile-actions"><button onclick="toggleFollow('${uid}')">${following?'Following':'Follow'}</button><button class="secondary" onclick="sendMessageRequest('${uid}')">Message</button></div><div class="public-posts">${posts.length?posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${p.image?`<img src="${escapeHTML(p.image)}">`:`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta">♥ ${likes.length} · <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${p.replyCount||0}</div></div>`}).join(""):`<div class="profile-empty">No posts yet.</div>`}</div></div>`;document.getElementById("publicProfileModal").classList.add("show")}
+function openPublicProfile(uid){if(uid===currentUser.id){showPage("profile");return}const u=getUser(uid);if(!u)return;const following=userFollowing(currentUser).includes(uid),posts=userPosts(uid),body=document.getElementById("publicProfileBody"),link=u.link?`<a class="social-profile-link" href="${escapeHTML(u.link)}" target="_blank" rel="noopener">${escapeHTML(u.link.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a>`:"";body.innerHTML=`<div class="public-profile-card"><div class="social-profile-head" style="padding:10px 0 15px;"><div class="social-profile-avatar">${u.image?`<img src="${escapeHTML(u.image)}">`:escapeHTML(getInitial(u))}</div><div class="social-profile-main"><h2>${escapeHTML(u.name||"User")}</h2><div class="social-profile-username">@${escapeHTML(u.username||"")}</div><div class="social-profile-bio">${escapeHTML(u.bio||"")}</div>${link}<div class="profile-stats"><div><b>${userFollowers(u).length}</b><span>Followers</span></div><div><b>${userLikeCount(uid)}</b><span>Likes</span></div><div><b>${userFollowing(u).length}</b><span>Following</span></div></div></div></div><div class="public-profile-actions"><button onclick="toggleFollow('${uid}')">${following?'Following':'Follow'}</button><button class="secondary" onclick="openSocialChat('${uid}')">Message</button></div><div class="public-posts">${posts.length?posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${p.image?`<img src="${escapeHTML(p.image)}">`:`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta">❤️ ${likes.length} · 💬 ${p.replyCount||0}</div></div>`}).join(""):`<div class="profile-empty">No posts yet.</div>`}</div></div>`;document.getElementById("publicProfileModal").classList.add("show")}
 function closePublicProfile(){document.getElementById("publicProfileModal").classList.remove("show")}function openQaPost(qid){showPage("qa");setTimeout(()=>{const el=document.getElementById("qaReplies_"+qid)?.closest(".qa-card");if(el)el.scrollIntoView({behavior:"smooth",block:"center"})},100)}
 async function sendMessageRequest(uid){
   if(!currentUser||uid===currentUser.id)return;
@@ -2234,7 +2243,7 @@ async function sendMessageRequest(uid){
     showToast("Message request sent.");
   }catch(e){
     console.error("Message request failed:",e);
-    showToast(e?.code==="permission-denied"?"Message requests are blocked by Firebase rules. Update the rules shown below the app code.":"Message request could not be sent.");
+    showToast(e?.code==="permission-denied"?"Message requests are blocked by Firebase rules.":"Message request could not be sent.");
   }
 }
 
@@ -2249,16 +2258,19 @@ function showPage(page, button){
   if(page === "qa"){ document.getElementById("qaPage").classList.add("active"); renderQa(); }
   if(page === "profile"){ document.getElementById("profilePage").classList.add("active"); renderProfile(); }
   if(button) button.classList.add("active");
-  if(page !== "chats") document.body.classList.remove("chat-open");
+  if(page !== "chats"){
+    document.body.classList.remove("chat-open");
+    document.getElementById("chatWindow")?.classList.remove("open");
+  }
 }
 function mobilePage(page, button){
   showPage(page);
   document.querySelectorAll(".mobile-nav button").forEach(b => b.classList.remove("active"));
-  button.classList.add("active");
+  if(button) button.classList.add("active");
 }
 
 const __uooGoExports = {
-  showPage, mobilePage, searchEverything, searchSocialMedia, focusUserSearch, startNewChat, openChat, closeChat,
+  showPage, mobilePage, searchEverything, searchSocialMedia, focusUserSearch, startNewChat, openSocialChat, openChat, closeChat,
   sendMessage, messageKey, toggleRecording, openStoryModal, closeStoryModal, createStory,
   closeStoryViewer, saveProfile, changeProfileImage, switchAuthTab, handleAuth, logoutUser,
   toggleSelectMode, exitSelectMode, selectAllMessages, deleteSelectedMessages,
