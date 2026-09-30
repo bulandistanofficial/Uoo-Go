@@ -16,6 +16,7 @@ html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
 button,input,textarea{font:inherit;outline:none;}
 button{border:0;cursor:pointer;background:none;color:inherit;}
+img{max-width:100%;}
 
 /* AUTH */
 .auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;overflow-y:auto;}
@@ -113,7 +114,7 @@ button{border:0;cursor:pointer;background:none;color:inherit;}
 .date-line{text-align:center;color:var(--muted);font-size:11px;margin:5px 0 12px;}
 .message-row{display:flex;align-items:center;gap:6px;position:relative;user-select:none;}
 .message-row.me{justify-content:flex-end;}
-.message{max-width:min(570px,80%);padding:9px 12px;border-radius:17px;background:var(--panel2);border:1px solid var(--border);cursor:pointer;transition:.15s;}
+.message{max-width:min(570px,80%);padding:9px 12px;border-radius:17px;background:var(--panel2);border:1px solid var(--border);cursor:pointer;transition:.15s;overflow:hidden;}
 .message-row.me .message{background:#173a34;border-color:#225c50;border-bottom-right-radius:5px;}
 .message-row:not(.me) .message{border-bottom-left-radius:5px;}
 .message-row.selected .message{outline:2px solid var(--accent);}
@@ -126,12 +127,14 @@ button{border:0;cursor:pointer;background:none;color:inherit;}
 .msg-checkbox svg{opacity:0;}
 .msg-checkbox.checked svg{opacity:1;}
 
-/* Reply quote inside bubble */
+/* 🔥 IMAGE in chat — fits bubble width */
+.msg-image{display:block;max-width:100%;max-height:min(400px,60vh);border-radius:12px;cursor:zoom-in;object-fit:contain;background:#0a0f16;}
+.msg-video{display:block;max-width:100%;max-height:min(400px,60vh);border-radius:12px;background:#000;}
+
 .reply-quote{background:rgba(255,255,255,.06);border-left:3px solid var(--accent);padding:5px 8px;border-radius:6px;margin-bottom:5px;font-size:12px;color:#b9c4d6;max-width:100%;overflow:hidden;}
 .reply-quote .rq-name{font-weight:700;color:var(--accent);font-size:11px;}
 .reply-quote .rq-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-/* Reply preview above input */
 .reply-preview{display:none;align-items:center;gap:10px;background:#1a2332;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:12px;}
 .reply-preview.show{display:flex;}
 .reply-preview .rp-info{flex:1;min-width:0;}
@@ -209,7 +212,15 @@ button{border:0;cursor:pointer;background:none;color:inherit;}
 .action-sheet-btn.danger{color:var(--danger);background:rgba(255,93,120,.1);}
 .action-sheet-cancel{width:100%;padding:15px;border-radius:13px;background:transparent;color:var(--muted);font-weight:600;margin-top:6px;border:1px solid var(--border);}
 
-.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:#151d29;border:1px solid var(--border);color:white;padding:12px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:.25s;z-index:400;font-size:13px;max-width:90vw;text-align:center;}
+/* 🔥 LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;overflow:hidden;}
+.lightbox.show{display:flex;}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:transform .2s;cursor:zoom-in;touch-action:none;}
+.lightbox img.zoomed{cursor:zoom-out;}
+.lightbox-close{position:absolute;top:15px;right:15px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:22px;display:grid;place-items:center;z-index:2;}
+.lightbox-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:8px 14px;border-radius:12px;font-size:12px;opacity:.7;}
+
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:#151d29;border:1px solid var(--border);color:white;padding:12px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:.25s;z-index:600;font-size:13px;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* MOBILE NAV */
@@ -224,25 +235,26 @@ button{border:0;cursor:pointer;background:none;color:inherit;}
   .back-btn{display:grid;}
   .chat-empty{display:none;}
   .messages{padding:16px 12px 16px;}
-  .message{max-width:85%;}
+  .message{max-width:82%;padding:7px 9px;}
   .message-text{font-size:14px;}
+
+  /* 🔥 Image fits screen on mobile */
+  .msg-image{max-width:100%;max-height:none;width:100%;}
+  .msg-video{max-width:100%;max-height:none;width:100%;}
+
   .streak-box{padding:6px 8px;font-size:12px;}
 
-  /* 🔥 Mobile nav at bottom */
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#0c111a;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:50;padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom));}
   .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 20px;}
   .mobile-nav button.active{color:var(--accent);}
 
-  /* 🔥 When chat window open, hide mobile nav & input area sits at bottom */
-  .chat-window.open ~ .mobile-nav,
+  /* Hide mobile nav when chat is open */
   body.chat-open .mobile-nav{display:none !important;}
 
   .page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-page{padding-bottom:0;}
 
-  /* 🔥 Input area fixed at bottom of chat */
   .chat-input-area{padding:8px 3% calc(8px + env(safe-area-inset-bottom));}
-  .chat-window{padding-bottom:0;}
 
   .story-page,.profile-page{padding-bottom:calc(75px + env(safe-area-inset-bottom));}
   .section-head{padding:18px;}
@@ -406,6 +418,13 @@ button{border:0;cursor:pointer;background:none;color:inherit;}
   <button onclick="mobilePage('profile',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
 </div>
 
+<!-- 🔥 LIGHTBOX for image zoom -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-hint" id="lightboxHint">Double tap to zoom</div>
+</div>
+
 <div class="modal" id="storyModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Add Story</h2><button class="close-btn" onclick="closeStoryModal()">×</button></div>
@@ -482,7 +501,7 @@ let streaks = {};
 let deletedChats = new Set();
 let deletedMessages = new Set();
 let currentChat = null;
-let replyTo = null; // message being replied to
+let replyTo = null;
 let unsubMessages = null;
 let unsubStories = null;
 let unsubUsers = null;
@@ -500,6 +519,10 @@ let selectedMessages = new Set();
 
 let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000 };
 const STORY_DURATION = 7000;
+
+/* LIGHTBOX state */
+let lbZoomed = false;
+let lbLastTap = 0;
 
 /* UTILS */
 function escapeHTML(t){ return String(t ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
@@ -547,6 +570,67 @@ function openActionSheet(title, buttons){
   document.getElementById("actionSheet").classList.add("show");
 }
 function closeActionSheet(){ document.getElementById("actionSheet").classList.remove("show"); }
+
+/* 🔥 LIGHTBOX */
+function openLightbox(url){
+  const lb = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImg");
+  img.src = url;
+  img.classList.remove("zoomed");
+  img.style.transform = "";
+  lbZoomed = false;
+  document.getElementById("lightboxHint").textContent = "Double tap to zoom";
+  document.getElementById("lightboxHint").style.opacity = "0.7";
+  lb.classList.add("show");
+}
+function closeLightbox(){
+  const lb = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImg");
+  img.src = "";
+  img.style.transform = "";
+  img.classList.remove("zoomed");
+  lbZoomed = false;
+  lb.classList.remove("show");
+}
+
+(function setupLightboxEvents(){
+  const lb = document.getElementById("lightbox");
+  const img = document.getElementById("lightboxImg");
+  const hint = document.getElementById("lightboxHint");
+
+  // Tap outside to close
+  lb.addEventListener("click", (e) => {
+    if(e.target === lb) closeLightbox();
+  });
+
+  // Double-tap to zoom on image
+  img.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const now = Date.now();
+    if(now - lbLastTap < 300){
+      // Double tap
+      if(lbZoomed){
+        img.style.transform = "";
+        img.classList.remove("zoomed");
+        hint.textContent = "Double tap to zoom";
+        lbZoomed = false;
+      } else {
+        img.style.transform = "scale(2.2)";
+        img.classList.add("zoomed");
+        hint.textContent = "Double tap to reset";
+        lbZoomed = true;
+      }
+      lbLastTap = 0;
+    } else {
+      lbLastTap = now;
+    }
+  });
+
+  // ESC to close
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && lb.classList.contains("show")) closeLightbox();
+  });
+})();
 
 /* AUTH */
 function switchAuthTab(mode){
@@ -669,7 +753,7 @@ function startRealtimeListeners(){
   startAllChatsListener();
 }
 
-/* 🔥 AUTO CHAT DISCOVERY */
+/* AUTO CHAT DISCOVERY */
 function startAllChatsListener(){
   unsubAllChats = onSnapshot(collection(db, "chats"), (snap) => {
     const stillActive = new Set();
@@ -711,7 +795,7 @@ function startAllChatsListener(){
   });
 }
 
-/* ENSURE LISTENER for a given chat */
+/* ENSURE LISTENER for a specific chat */
 function ensureChatListener(otherId){
   if(allChatListeners.has(otherId)) return;
   const cid = chatIdFor(currentUser.id, otherId);
@@ -726,6 +810,20 @@ function ensureChatListener(otherId){
   });
   allChatListeners.set(otherId, unsub);
   if(!chats[otherId]) chats[otherId] = [];
+}
+
+/* 🔥 CREATE the empty chat doc so it shows in chat list immediately
+   (Firestore mein empty chat document create karo, taake allChats listener catch kare) */
+async function ensureChatDoc(otherId){
+  if(!currentUser || !otherId) return;
+  const cid = chatIdFor(currentUser.id, otherId);
+  try{
+    await setDoc(doc(db, "chats", cid), {
+      participants: [currentUser.id, otherId],
+      lastActivity: serverTimestamp(),
+      createdAt: serverTimestamp()
+    }, { merge: true });
+  }catch(e){ console.error("ensureChatDoc:", e); }
 }
 
 /* CHAT LIST */
@@ -788,7 +886,6 @@ function renderChats(filter=""){
         <div class="chat-preview">${escapeHTML(preview)}</div>
       </div>`;
     el.onclick = () => openChat(user.id);
-    // 🔥 Long press or right-click for chat options (not single click, warna chat nahi khulegi)
     let lpTimer = null, moved = false;
     const startLP = () => { moved = false; lpTimer = setTimeout(() => { if(!moved) showChatOptions(user.id); }, 600); };
     const endLP = () => { if(lpTimer){ clearTimeout(lpTimer); lpTimer = null; } };
@@ -856,14 +953,20 @@ function focusUserSearch(){
   input.focus(); input.value = "@"; searchEverything("@");
 }
 
-/* OPEN CHAT */
-function startNewChat(userId){
+/* 🔥 OPEN CHAT — start new chat with empty entry */
+async function startNewChat(userId){
   const user = getUser(userId);
   if(!user) return;
+
+  // 🔥 Create the chat doc in Firestore so allChats listener catches it → shows in list
+  await ensureChatDoc(userId);
+  ensureChatListener(userId);
+
   if(!chats[userId]) chats[userId] = [];
-  ensureChatListener(userId); // 🔥 ensure listener so future messages appear
+
   document.getElementById("chatSearch").value = "";
   document.getElementById("userSearchBox").classList.remove("show");
+
   renderChats();
   openChat(userId);
   showToast("Chat started with @" + user.username);
@@ -890,7 +993,7 @@ function openChat(userId){
   cancelReply();
   document.getElementById("chatEmpty").style.display = "none";
   document.getElementById("chatWindow").classList.add("open");
-  document.body.classList.add("chat-open"); // 🔥 hide mobile nav when chat open
+  document.body.classList.add("chat-open");
 
   updateChatHeader(userId);
   updateStreakUI();
@@ -920,7 +1023,6 @@ function renderMessages(){
     const me = msg.sender === currentUser.id;
     let content = "";
 
-    // Reply quote
     let replyBlock = "";
     if(msg.replyTo && msg.replyTo.text !== undefined){
       replyBlock = `
@@ -933,11 +1035,11 @@ function renderMessages(){
     if(msg.deletedForAll){
       content = `<div class="deleted-text">🚫 This message was deleted</div>`;
     } else if(msg.type === "image"){
-      content = `<img src="${msg.data}" style="max-width:280px;max-height:350px;border-radius:12px;display:block;">`;
+      content = `<img class="msg-image" src="${msg.data}" alt="" data-url="${escapeHTML(msg.data)}">`;
     } else if(msg.type === "video"){
-      content = `<video controls src="${msg.data}" style="max-width:280px;border-radius:12px;display:block;"></video>`;
+      content = `<video class="msg-video" controls src="${msg.data}" preload="metadata"></video>`;
     } else if(msg.type === "audio"){
-      content = `<audio controls src="${msg.data}" style="max-width:260px;"></audio>`;
+      content = `<audio controls src="${msg.data}" style="max-width:100%;"></audio>`;
     } else {
       content = `<div class="message-text">${escapeHTML(msg.text || "")}</div>`;
     }
@@ -964,10 +1066,20 @@ function renderMessages(){
       ${me && selectMode ? checkbox : ""}
     `;
 
+    // 🔥 Image click → lightbox
+    const imgEl = row.querySelector(".msg-image");
+    if(imgEl){
+      imgEl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openLightbox(imgEl.dataset.url);
+      });
+    }
+
     const msgEl = row.querySelector(".message");
-    // 🔥 SINGLE CLICK → options (delete / reply / select)
     msgEl.onclick = (e) => {
       e.stopPropagation();
+      // If click on image, lightbox already handled above
+      if(e.target.classList.contains("msg-image")) return;
       if(selectMode) toggleMsgSelection(msg.id);
       else showMessageOptions(msg);
     };
@@ -981,7 +1093,6 @@ function showMessageOptions(msg){
   const me = msg.sender === currentUser.id;
   const btns = [];
 
-  // Reply always available (unless deleted for all)
   if(!msg.deletedForAll){
     btns.push({ label: "↩ Reply", action: () => startReply(msg) });
   }
@@ -1026,7 +1137,7 @@ function cancelReply(){
   if(rp) rp.classList.remove("show");
 }
 
-/* DELETE MESSAGE */
+/* DELETE */
 async function deleteMessageForMe(msgId){
   if(!currentUser) return;
   const id = `${currentUser.id}_${msgId}`;
@@ -1128,7 +1239,7 @@ async function deleteSelectedMessages(){
   ]);
 }
 
-/* SEND */
+/* 🔥 SEND — ensure chat doc + listener + list update */
 async function sendMessage(){
   if(!currentChat || !currentUser){ showToast("Pehle chat open karo."); return; }
   const input = document.getElementById("messageInput");
@@ -1136,10 +1247,9 @@ async function sendMessage(){
   if(!text) return;
   input.value = "";
 
-  // 🔥 Ensure chat listener so it appears in list immediately
+  // Ensure chat doc + listener
+  await ensureChatDoc(currentChat);
   ensureChatListener(currentChat);
-
-  // 🔥 Ensure chat entry exists so it shows in chat list
   if(!chats[currentChat]) chats[currentChat] = [];
 
   const payload = { sender: currentUser.id, type: "text", text, time: timeNow() };
@@ -1151,7 +1261,7 @@ async function sendMessage(){
   await pushMessage(payload);
   await updateStreak(currentChat);
   updateStreakUI();
-  renderChats(); // 🔥 immediate chat list update
+  renderChats();
 }
 
 async function pushMessage(payload){
@@ -1160,7 +1270,6 @@ async function pushMessage(payload){
   await addDoc(collection(db, "chats", cid, "messages"), {
     ...payload, senderId: currentUser.id, created: serverTimestamp()
   });
-  // Un-delete chat if it was deleted
   if(deletedChats.has(currentChat)){
     const did = `${currentUser.id}_${currentChat}`;
     try{ await deleteDoc(doc(db, "deletedChats", did)); }catch(e){}
@@ -1184,8 +1293,11 @@ async function sendImage(input){
   const maxSize = isVideo ? 20*1024*1024 : 8*1024*1024;
   if(file.size > maxSize){ showToast(`File ${isVideo?"20MB":"8MB"} se choti rakho.`); input.value=""; return; }
   showToast("Uploading...");
+
+  await ensureChatDoc(currentChat);
   ensureChatListener(currentChat);
   if(!chats[currentChat]) chats[currentChat] = [];
+
   try{
     const url = await uploadToCloudinary(file);
     const payload = { sender: currentUser.id, type: isVideo ? "video":"image", data: url, time: timeNow() };
@@ -1213,6 +1325,7 @@ async function toggleRecording(){
       const blob = new Blob(audioChunks, { type:"audio/webm" });
       stream.getTracks().forEach(t => t.stop());
       showToast("Uploading voice...");
+      await ensureChatDoc(currentChat);
       ensureChatListener(currentChat);
       if(!chats[currentChat]) chats[currentChat] = [];
       try{
@@ -1478,7 +1591,6 @@ function showPage(page, button){
   if(page === "stories"){ document.getElementById("storiesPage").classList.add("active"); renderStories(); }
   if(page === "profile"){ document.getElementById("profilePage").classList.add("active"); renderProfile(); }
   if(button) button.classList.add("active");
-  // If leaving chats page, remove chat-open so mobile nav shows
   if(page !== "chats") document.body.classList.remove("chat-open");
 }
 function mobilePage(page, button){
@@ -1493,7 +1605,7 @@ Object.assign(window, {
   openStoryModal, closeStoryModal, createStory, closeStoryViewer,
   saveProfile, changeProfileImage, switchAuthTab, handleAuth, logoutUser,
   toggleSelectMode, exitSelectMode, selectAllMessages, deleteSelectedMessages,
-  closeActionSheet, cancelReply
+  closeActionSheet, cancelReply, openLightbox, closeLightbox
 });
 </script>
 </body>
