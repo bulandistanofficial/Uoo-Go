@@ -209,6 +209,33 @@ img{max-width:100%;}
 .save-btn{margin-top:20px;width:100%;padding:13px;border-radius:13px;background:var(--accent);color:#06100d;font-weight:800;}
 .logout-btn{margin-top:12px;width:100%;padding:13px;border-radius:13px;background:rgba(255,93,120,.1);border:1px solid rgba(255,93,120,.3);color:var(--danger);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;}
 
+
+/* SOCIAL PROFILE + FEED */
+.story-upload-note{color:var(--muted);font-size:12px;margin-top:8px;} .story-upload-progress{display:none;margin-top:12px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:9px 11px;} .story-upload-progress.show{display:block;} .story-upload-label{font-size:12px;color:var(--muted);} .story-upload-track{height:6px;background:#090e16;border-radius:5px;overflow:hidden;margin-top:6px;} .story-upload-track>div{height:100%;width:0;background:var(--accent);transition:width .15s;}
+.social-profile{max-width:820px;margin:0 auto;background:var(--panel);border:1px solid var(--border);border-radius:22px;overflow:hidden;} .social-profile-head{display:flex;gap:22px;padding:30px 30px 18px;} .social-profile-avatar{width:105px;height:105px;min-width:105px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#061017;font-size:34px;font-weight:800;overflow:hidden;} .social-profile-avatar img{width:100%;height:100%;object-fit:cover;} .social-profile-main{flex:1;min-width:0;} .social-profile-name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;} .social-profile-name-row h2{font-size:24px;} .social-profile-username{color:var(--muted);font-size:13px;margin-top:3px;} .social-profile-bio{font-size:14px;line-height:1.45;margin-top:10px;white-space:pre-wrap;} .social-profile-link{display:inline-block;color:var(--accent2);font-size:13px;margin-top:7px;word-break:break-all;}
+.profile-stats{display:flex;gap:28px;margin-top:17px;} .profile-stats div{display:flex;flex-direction:column;gap:3px;} .profile-stats b{font-size:16px;} .profile-stats span{font-size:11px;color:var(--muted);} .profile-actions{display:flex;gap:9px;padding:0 30px 18px;} .profile-edit-btn,.profile-icon-btn,.profile-request-btn{border:1px solid var(--border);background:var(--panel2);border-radius:11px;padding:9px 14px;font-weight:700;} .profile-icon-btn{width:42px;padding:0;color:#ff6b8a;font-size:20px;} .profile-request-btn{margin-left:auto;font-size:12px;padding:8px 11px;} .profile-request-btn span{display:inline-grid;place-items:center;min-width:19px;height:19px;border-radius:10px;background:var(--danger);color:#fff;margin-left:5px;font-size:10px;}
+.profile-grid-head{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);} .profile-grid-head button{padding:13px;color:var(--muted);font-weight:700;} .profile-grid-head button.active{color:var(--text);box-shadow:inset 0 -2px var(--accent);} .profile-post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);min-height:180px;} .profile-post-tile{aspect-ratio:1/1;background:var(--panel2);overflow:hidden;position:relative;cursor:pointer;} .profile-post-tile img{width:100%;height:100%;object-fit:cover;} .profile-post-tile .post-tile-text{padding:14px;font-size:13px;line-height:1.4;height:100%;overflow:hidden;} .profile-post-tile .tile-meta{position:absolute;bottom:0;left:0;right:0;padding:9px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:11px;} .profile-empty{grid-column:1/-1;text-align:center;padding:45px 20px;color:var(--muted);} .profile-edit-box{padding:20px 30px 30px;border-top:1px solid var(--border);} .public-profile-modal-box{max-height:92vh;} .public-profile-card{padding:4px;} .public-profile-actions{display:flex;gap:8px;margin:15px 0;} .public-profile-actions button{flex:1;padding:11px;border-radius:11px;background:var(--accent);color:#06100d;font-weight:800;} .public-profile-actions button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border);} .public-posts{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:16px;} .public-posts .profile-post-tile{min-width:0;} .qa-author-click{cursor:pointer;} .qa-head .qa-follow-btn{margin-left:auto;padding:7px 10px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);font-size:11px;font-weight:700;} .qa-head .qa-follow-btn.following{background:var(--accent);color:#06100d;border-color:var(--accent);} .message-request-row{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid var(--border);} .message-request-row:last-child{border-bottom:0;} .message-request-info{flex:1;min-width:0;} .message-request-actions{display:flex;gap:6px;} .message-request-actions button{padding:7px 10px;border-radius:9px;background:var(--accent);color:#06100d;font-size:11px;font-weight:800;} .message-request-actions button.reject{background:rgba(255,93,120,.12);color:var(--danger);border:1px solid rgba(255,93,120,.25);}
+@media(max-width:800px){.social-profile{border-radius:0;border-left:0;border-right:0;}.social-profile-head{padding:22px 16px 15px;gap:15px;}.social-profile-avatar{width:82px;height:82px;min-width:82px;font-size:28px;}.social-profile-name-row h2{font-size:20px;}.profile-stats{gap:18px;}.profile-actions{padding:0 16px 15px;}.profile-edit-box{padding:16px;}}
+
+/* Uoo Go Social Media */
+.social-brand-title{font-weight:900;letter-spacing:.2px;font-size:20px;}
+.social-brand-uoo{background:linear-gradient(90deg,var(--accent),#fff,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.social-brand-social{font-weight:800;color:var(--text);}
+.social-search-wrap{position:relative;margin:0 16px 8px;}
+.social-search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);}
+.social-search-input{width:100%;padding:12px 14px 12px 40px;border:1px solid var(--border);border-radius:14px;background:var(--panel);color:var(--text);outline:none;}
+.social-search-input:focus{border-color:var(--accent);}
+.social-search-results{display:none;margin:0 16px 8px;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.social-search-results.show{display:block;}
+.social-search-result{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;}
+.social-search-result:last-child{border-bottom:0;}
+.social-search-result:hover{background:var(--panel2);}
+.social-search-result-info{flex:1;min-width:0;}
+.social-search-result-title{font-weight:750;font-size:13px;}
+.social-search-result-sub{color:var(--muted);font-size:11px;margin-top:2px;}
+.social-search-type{font-size:10px;color:var(--muted);border:1px solid var(--border);padding:4px 7px;border-radius:999px;}
+.qa-media-video{width:100%;max-height:520px;border-radius:12px;margin-top:10px;background:#000;display:block;}
+.qa-composer textarea{resize:none;}
 /* Q&A */
 .qa-page{flex-direction:column;overflow:hidden;}
 .qa-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;}
@@ -322,6 +349,8 @@ img{max-width:100%;}
   .auth-box{padding:22px;}
   .qa-scroll{padding:12px;}
 }
+
+.profile-edit-form{padding:6px 0 4px;}.profile-edit-form .field{margin-bottom:13px;}.profile-edit-form .save-btn{width:100%;margin-top:4px;}.qa-media{max-width:100%;max-height:520px;width:auto;border-radius:12px;margin-top:10px;display:block;object-fit:contain;background:#070b10;}.qa-media-video{width:100%;max-height:520px;}.qa-img-preview video{max-width:100%;max-height:260px;border-radius:10px;display:block;}.icon-svg{width:18px;height:18px;display:inline-block;vertical-align:middle;}
 </style>
 </head>
 
@@ -453,9 +482,14 @@ img{max-width:100%;}
 
     <section class="page qa-page" id="qaPage">
       <div class="section-head">
-        <div class="section-title">Q&amp;A</div>
-        <button class="add-btn" onclick="focusQaComposer()">Ask Question</button>
+        <div class="section-title social-brand-title"><span class="social-brand-uoo">Uoo Go</span> <span class="social-brand-social">Social Media</span></div>
+        <button class="add-btn" onclick="focusQaComposer()">Add Post</button>
       </div>
+      <div class="social-search-wrap">
+        <svg class="social-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="socialSearchInput" class="social-search-input" type="search" placeholder="Search people or posts..." oninput="searchSocialMedia(this.value)">
+      </div>
+      <div id="socialSearchResults" class="social-search-results"></div>
       <div class="qa-scroll">
         <div class="qa-feed" id="qaFeed">
           <div style="text-align:center;padding:40px 20px;color:var(--muted);">Loading...</div>
@@ -463,11 +497,11 @@ img{max-width:100%;}
       </div>
       <div style="padding:12px;border-top:1px solid var(--border);background:#0b1018;flex:none;">
         <div class="qa-composer" id="qaComposerBox">
-          <button class="attach" onclick="document.getElementById('qaImageInput').click()" title="Attach image">
+          <button class="attach" onclick="document.getElementById('qaImageInput').click()" title="Attach image or video">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
           </button>
-          <input type="file" id="qaImageInput" accept="image/*" hidden onchange="qaAttachImage(this)">
-          <textarea id="qaInput" rows="1" placeholder="Ask a question..." onkeydown="qaKey(event)"></textarea>
+          <input type="file" id="qaImageInput" accept="image/*,video/*" hidden onchange="qaAttachMedia(this)">
+          <textarea id="qaInput" rows="1" placeholder="Write a post..." onkeydown="qaKey(event)"></textarea>
           <button class="send" onclick="postQuestion()" title="Post">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
           </button>
@@ -477,23 +511,21 @@ img{max-width:100%;}
     </section>
 
     <section class="page profile-page" id="profilePage">
-      <div class="profile-box">
-        <div class="profile-top">
-          <div class="profile-avatar" id="profileAvatar">A</div>
-          <div>
-            <h2 id="profileDisplayName">User</h2>
-            <p id="profileDisplayUsername" style="color:var(--muted);margin-top:5px;">@user</p>
+      <div class="social-profile" id="socialProfile">
+        <div class="social-profile-head">
+          <div class="social-profile-avatar" id="profileAvatar">A</div>
+          <div class="social-profile-main">
+            <div class="social-profile-name-row"><h2 id="profileDisplayName">User</h2><button class="profile-request-btn" onclick="openMessageRequests()">Message Requests <span id="requestBadge">0</span></button></div>
+            <div class="social-profile-username" id="profileDisplayUsername">@user</div>
+            <div class="social-profile-bio" id="profileDisplayBio">Uoo Go user</div>
+            <a class="social-profile-link" id="profileDisplayLink" href="#" target="_blank" rel="noopener" style="display:none"></a>
+            <div class="profile-stats"><div><b id="profileFollowers">0</b><span>Followers</span></div><div><b id="profileLikes">0</b><span>Likes</span></div><div><b id="profileFollowing">0</b><span>Following</span></div></div>
           </div>
         </div>
-        <div class="field"><label>Name</label><input id="profileName" type="text"></div>
-        <div class="field"><label>Username</label><input id="profileUsername" type="text"></div>
-        <div class="field"><label>Bio</label><textarea id="profileBio"></textarea></div>
-        <div class="field"><label>Profile Image</label><input id="profileImage" type="file" accept="image/*" onchange="changeProfileImage(this)"></div>
-        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
-        <button class="logout-btn" onclick="logoutUser()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg>
-          Logout
-        </button>
+        <div class="profile-actions" id="profileActions"><button class="profile-edit-btn" onclick="openEditProfile()">Edit Profile</button><button class="profile-icon-btn" onclick="toggleProfileTab('liked')" title="Liked posts"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg></button></div>
+        <div class="profile-grid-head"><button id="profilePostsTab" class="active" onclick="toggleProfileTab('posts')">Posts</button><button id="profileLikedTab" onclick="toggleProfileTab('liked')">Liked</button></div>
+        <div id="profilePostsGrid" class="profile-post-grid"></div>
+        
       </div>
     </section>
   </main>
@@ -522,6 +554,11 @@ img{max-width:100%;}
     <div class="modal-head"><h2>Add Story</h2><button class="close-btn" onclick="closeStoryModal()">×</button></div>
     <textarea id="storyText" placeholder="Write your story..."></textarea>
     <input type="file" id="storyImage" accept="image/*,video/*">
+    <div class="story-upload-note">Video stories: maximum 15 seconds.</div>
+    <div class="story-upload-progress" id="storyUploadProgress">
+      <div class="story-upload-label" id="storyUploadLabel">Uploading… 0%</div>
+      <div class="story-upload-track"><div id="storyUploadBar"></div></div>
+    </div>
     <button class="modal-submit" onclick="createStory()">Publish Story</button>
   </div>
 </div>
@@ -576,6 +613,11 @@ img{max-width:100%;}
   </div>
 </div>
 
+
+<div class="modal" id="publicProfileModal"><div class="modal-box public-profile-modal-box"><div class="modal-head"><h2>Profile</h2><button class="close-btn" onclick="closePublicProfile()">×</button></div><div id="publicProfileBody"></div></div></div>
+<div class="modal" id="editProfileModal"><div class="modal-box"><div class="modal-head"><h2>Edit Profile</h2><button class="close-btn" onclick="closeEditProfile()">×</button></div><div class="profile-edit-form"><div class="field"><label>Name</label><input id="editProfileName" type="text"></div><div class="field"><label>Username</label><input id="editProfileUsername" type="text"></div><div class="field"><label>Bio</label><textarea id="editProfileBio" rows="3"></textarea></div><div class="field"><label>Social / Website Link</label><input id="editProfileLink" type="url" placeholder="https://example.com"></div><div class="field"><label>Profile Image</label><input id="editProfileImage" type="file" accept="image/*" onchange="changeProfileImage(this)"></div><button class="save-btn" onclick="saveProfile()">Save Profile</button></div></div></div>
+
+<div class="modal" id="messageRequestsModal"><div class="modal-box"><div class="modal-head"><h2>Message Requests</h2><button class="close-btn" onclick="closeMessageRequests()">×</button></div><div id="messageRequestsBody"></div></div></div>
 <div class="action-sheet" id="actionSheet">
   <div class="action-sheet-box">
     <div class="action-sheet-title" id="actionSheetTitle">Options</div>
@@ -586,10 +628,55 @@ img{max-width:100%;}
 
 <div class="toast" id="toast"></div>
 
+<script>
+/* Global bridge: inline HTML onclick handlers can run before the Firebase module finishes loading. */
+(function(){
+  const names = [
+    "showPage","mobilePage","searchEverything","focusUserSearch","startNewChat","openChat","closeChat",
+    "sendMessage","messageKey","toggleRecording","openStoryModal","closeStoryModal","createStory",
+    "closeStoryViewer","saveProfile","changeProfileImage","switchAuthTab","handleAuth","logoutUser",
+    "toggleSelectMode","exitSelectMode","selectAllMessages","deleteSelectedMessages","closeActionSheet","cancelReply",
+    "openLightbox","closeLightbox","nextStory","prevStory","sendMedia","openGroupModal","closeGroupModal",
+    "createGroup","openGroupInfo","closeGroupInfo","makeAdmin","removeAdmin","removeMember","editGroup",
+    "saveGroupEdit","deleteGroup","openStoryViewersList","closeStoryViewers","deleteStory","openChatInfo",
+    "closeChatInfo","focusQaComposer","qaKey","qaAttachMedia","qaAttachImage","clearQaImage","postQuestion","toggleQaLike",
+    "postQaReply","toggleQaReplyLike","deleteQaPost","deleteQaReply","focusQaReply","qaReplyAttach",
+    "clearQaReplyImage","toggleFollow","openPublicProfile","closePublicProfile","toggleProfileTab","openEditProfile",
+    "openMessageRequests","closeMessageRequests","acceptMessageRequest","rejectMessageRequest","sendMessageRequest","openQaPost"
+  ];
+  function callWhenReady(name,args){
+    const fn=window.__uooGoFns && window.__uooGoFns[name];
+    if(typeof fn==='function') return fn.apply(window,args);
+    let tries=0;
+    const timer=setInterval(()=>{
+      const f=window.__uooGoFns && window.__uooGoFns[name];
+      if(typeof f==='function'){ clearInterval(timer); f.apply(window,args); }
+      else if(++tries>100){ clearInterval(timer); console.error(name+' is not available.'); }
+    },50);
+  }
+  window.mobilePage=function(page,button){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.mobile-nav button').forEach(b=>b.classList.remove('active'));
+    const map={chats:'chatsPage',stories:'storiesPage',qa:'qaPage',profile:'profilePage'};
+    const el=document.getElementById(map[page]);
+    if(el) el.classList.add('active');
+    if(button) button.classList.add('active');
+    if(page!=='chats') document.body.classList.remove('chat-open');
+    callWhenReady('mobilePage',[page,button]);
+  };
+  window.handleAuth=function(){ return callWhenReady('handleAuth',arguments); };
+  names.forEach(name=>{
+    if(name==='mobilePage'||name==='handleAuth') return;
+    window[name]=function(){ return callWhenReady(name,arguments); };
+  });
+  window.__uooGoFns={};
+})();
+</script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, getDoc, addDoc, deleteDoc, updateDoc, query, where, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, addDoc, deleteDoc, updateDoc, query, where, getDocs, onSnapshot, serverTimestamp, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD5L__mrY6HIl5V5HtsRk6V-5jOJejBwME",
@@ -694,6 +781,11 @@ let unsubAllChats = null;
 let unsubMyGroups = null;
 let unsubStoryViewers = null;
 let unsubQa = null;
+let unsubMessageRequests = null;
+let messageRequests = [];
+let profileViewUser = null;
+let profileTab = "posts";
+let qaSessionSeed = Math.random();
 let allChatListeners = new Map();
 let mediaRecorder = null;
 let audioChunks = [];
@@ -708,7 +800,7 @@ let qaReplyAttachments = {}; // qid -> {file, dataUrl}
 let qaReplyUnsubs = {}; // qid -> unsub
 
 let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000, videoEl: null };
-const STORY_DURATION = 7000;
+const STORY_DURATION = 15000;
 
 let lbZoomed = false, lbLastTap = 0;
 
@@ -832,9 +924,11 @@ async function handleAuth(){
       const name = document.getElementById("authName").value.trim();
       const username = document.getElementById("authUsername").value.trim().replace(/^@/,"").replace(/\s/g,"").toLowerCase();
       if(!name || !username){ errEl.textContent = "Name aur username required hain."; return; }
+      const existingUser = await getDocs(query(collection(db,"users"),where("username","==",username)));
+      if(!existingUser.empty){ errEl.textContent = "Username already taken. Please choose another username."; return; }
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", cred.user.uid), {
-        name, username, bio:"Uoo Go user", image:"", email, online:true, lastSeen: serverTimestamp(), created: serverTimestamp()
+        name, username, bio:"Uoo Go user", link:"", image:"", followers:[], following:[], email, online:true, lastSeen: serverTimestamp(), created: serverTimestamp()
       });
       showToast("Account created!");
     } else {
@@ -847,13 +941,13 @@ async function handleAuth(){
   }
 }
 async function logoutUser(){
-  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers, unsubQa].forEach(u => { if(u) u(); });
+  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers, unsubQa, unsubMessageRequests].forEach(u => { if(u) u(); });
   for(const unsub of allChatListeners.values()) unsub();
   for(const unsub of Object.values(qaReplyUnsubs)) unsub();
   qaReplyUnsubs = {};
   allChatListeners.clear();
   if(currentUser){ try{ await setDoc(doc(db, "users", currentUser.id), { online:false, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} }
-  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {};
+  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {}; messageRequests = []; profileViewUser = null;
   document.body.classList.remove("chat-open");
   document.getElementById("chatWindow")?.classList.remove("open");
   document.getElementById("chatEmpty").style.display = "flex";
@@ -986,6 +1080,13 @@ function startRealtimeListeners(){
     qaPosts.sort((a,b) => (b.created?.toMillis?.()||0) - (a.created?.toMillis?.()||0));
     renderQa();
   });
+
+  unsubMessageRequests = onSnapshot(query(collection(db, "messageRequests"), where("to", "==", currentUser.id)), (snap) => {
+    messageRequests = [];
+    snap.forEach(d => messageRequests.push({ id:d.id, ...d.data() }));
+    messageRequests.sort((a,b) => (b.created?.toMillis?.()||0) - (a.created?.toMillis?.()||0));
+    updateMessageRequestBadge();
+  });
 }
 
 function startAllChatsListener(){
@@ -1105,7 +1206,7 @@ function renderChats(filter=""){
     let preview = "Start a conversation", timeStr = "";
     if(last){
       if(last.deletedForAll) preview = "🚫 Message deleted";
-      else if(last.type==="image") preview = "📷 Image";
+      else if(last.type==="image") preview = `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg> Image`;
       else if(last.type==="video") preview = "🎥 Video";
       else if(last.type==="audio") preview = "🎤 Voice message";
       else if(last.type==="doc") preview = "📄 " + (last.fileName || "Document");
@@ -1366,25 +1467,24 @@ function renderMessages(){
 function showMessageOptions(msg){
   const me = msg.sender === currentUser.id;
   const btns = [];
-  if(!msg.deletedForAll) btns.push({ label: "↩ Reply", action: () => startReply(msg) });
+  if(!msg.deletedForAll) btns.push({ label: "Reply", action: () => startReply(msg) });
   if(!msg.deletedForAll){
     if(me){
-      btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
-      btns.push({ label: "🗑 Delete for everyone", danger: true, action: () => deleteMessageForAll(msg.id) });
+      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
+      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for everyone', danger: true, action: () => deleteMessageForAll(msg.id) });
     } else {
-      btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
+      btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
     }
-  } else btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
-  btns.push({ label: "☑ Select multiple", action: () => enterSelectMode(msg.id) });
+  } else btns.push({ label: '<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me', danger: true, action: () => deleteMessageForMe(msg.id) });
+  btns.push({ label: "Select multiple", action: () => enterSelectMode(msg.id) });
   openActionSheet("Message options", btns);
 }
-
 function startReply(msg){
   const me = msg.sender === currentUser.id;
   const user = me ? currentUser : (getUser(msg.sender) || { name: "User" });
   let previewText = msg.text || "";
   if(!previewText){
-    if(msg.type === "image") previewText = "📷 Image";
+    if(msg.type === "image") previewText = `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg> Image`;
     else if(msg.type === "video") previewText = "🎥 Video";
     else if(msg.type === "audio") previewText = "🎤 Voice message";
     else if(msg.type === "doc") previewText = "📄 Document";
@@ -1431,11 +1531,11 @@ async function deleteSelectedMessages(){
   const meta = chatMeta[currentChat];
   const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
   openActionSheet(`${ids.length} messages`, [
-    { label: "🗑 Delete for me", danger: true, action: async () => {
+    { label: `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for me`, danger: true, action: async () => {
       for(const id of ids){ await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() }); deletedMessages.add(id); }
       exitSelectMode(); showToast("Deleted for you.");
     }},
-    { label: "🗑 Delete for everyone (only mine)", danger: true, action: async () => {
+    { label: `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg> Delete for everyone (only mine)`, danger: true, action: async () => {
       for(const id of ids){
         const msg = (chats[currentChat] || []).find(m => m.id === id);
         if(msg && msg.sender === currentUser.id){ try{ await updateDoc(doc(collRef, id), { deletedForAll:true, text:"", data:"", type:"deleted", replyTo:null }); }catch(e){} }
@@ -1705,13 +1805,13 @@ async function createStory(){
   let mediaUrl = "", mediaType = "text";
   if(file){
     const isVideo = file.type.startsWith("video/");
-    if(isVideo){ try{ const d = await getVideoDuration(file); if(d > 60){ showToast("Story video 60 sec se choti rakho."); return; } }catch(e){} }
+    if(isVideo){ try{ const d = await getVideoDuration(file); if(d > 15){ showToast("Story videos can be maximum 15 seconds long. Please choose a shorter video."); return; } }catch(e){} }
     try{
-      showUploadProgress("Uploading story", 0);
-      mediaUrl = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading story", pct));
-      showUploadProgress("", null);
-      mediaType = isVideo ? "video" : "image";
-    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
+      const progress=document.getElementById("storyUploadProgress"),label=document.getElementById("storyUploadLabel"),bar=document.getElementById("storyUploadBar");
+      progress.classList.add("show"); label.textContent="Uploading… 0%"; bar.style.width="0%";
+      mediaUrl=await uploadToCloudinaryWithProgress(file,pct=>{label.textContent=`Uploading… ${pct}%`;bar.style.width=pct+"%";});
+      label.textContent="Upload complete — 100%"; bar.style.width="100%"; setTimeout(()=>progress.classList.remove("show"),700); mediaType=isVideo?"video":"image";
+    }catch(e){document.getElementById("storyUploadProgress")?.classList.remove("show");showToast("Upload failed.");return;}
   }
   await addDoc(collection(db, "stories"), {
     userId: currentUser.id, name: currentUser.name, username: currentUser.username,
@@ -1751,9 +1851,9 @@ function renderStories(){
       <div class="story-card-footer">
         ${avatarHTML(user, "avatar")}
         <div class="name">${escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
-        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')">🗑</button>` : ""}
+        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
       </div>
-      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;">👁 ${viewers.length}</div>` : ""}
+      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg> ${viewers.length}</div>` : ""}
     `;
     card.onclick = () => { if(uid === currentUser.id) openStoryViewersList(s.id); else openStoryViewer(uid); };
     card.oncontextmenu = (e) => { e.preventDefault(); if(uid === currentUser.id) deleteStory(s.id); };
@@ -1849,9 +1949,7 @@ function showStoryAt(index){
     // Give the browser a second chance after the element is in the DOM.
     requestAnimationFrame(() => v.play().catch(() => {}));
     if(story.text){ const cap = document.createElement("div"); cap.className = "story-view-caption"; cap.textContent = story.text; content.appendChild(cap); }
-    bar.style.display = "none";
-    clearInterval(state.timer);
-    state.timer = null;
+    bar.style.display="block"; bar.style.transition="none"; bar.style.width="0%"; void bar.offsetWidth; bar.style.transition="width .1s linear"; startStoryTimer();
   } else if(storyIsImage && story.image){
     const img = document.createElement("img");
     img.src = story.image;
@@ -1885,11 +1983,11 @@ function updateStoryFooter(){
   if(!story){ footer.innerHTML = ""; return; }
   if(story.userId === currentUser.id){
     const viewers = storyViewers[story.id] || [];
-    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;">👁 ${viewers.length} viewers</div>`;
+    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.5"/></svg> ${viewers.length} viewers</div>`;
     return;
   }
   const myReaction = storyReactions[story.id]?.[currentUser.id] || "";
-  const reactions = ["❤️","😂","😮","😢","👍"];
+  const reactions = ["Like","Love","Wow","Sad","Thumbs up"];
   footer.innerHTML = `<div class="story-reactions">${reactions.map(r => `<button data-r="${r}" style="${myReaction===r?'transform:scale(1.3);':''}">${r}</button>`).join("")}</div>`;
   footer.querySelectorAll("button[data-r]").forEach(b => { b.onclick = (e) => { e.stopPropagation(); sendStoryReaction(story.id, b.dataset.r); }; });
 }
@@ -1932,15 +2030,16 @@ function closeStoryViewer(){
 function focusQaComposer(){ document.getElementById("qaInput").focus(); }
 function qaKey(e){ if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); postQuestion(); } }
 
-function qaAttachImage(input){
-  const f = input.files[0]; if(!f) return;
-  if(f.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
-  const reader = new FileReader();
-  reader.onload = () => {
-    qaAttachedImage = { file: f, dataUrl: reader.result };
-    document.getElementById("qaImgPreviewBox").innerHTML = `<div class="qa-img-preview"><img src="${reader.result}"><button onclick="clearQaImage()">×</button></div>`;
-  };
-  reader.readAsDataURL(f);
+async function qaAttachMedia(input){
+  const f=input.files[0]; if(!f) return;
+  const mime=String(f.type||'').toLowerCase();
+  if(!mime.startsWith('image/') && !mime.startsWith('video/')){showToast('Only images and videos are allowed.');input.value='';return;}
+  const maxSize=mime.startsWith('video/')?40*1024*1024:8*1024*1024;
+  if(f.size>maxSize){showToast(mime.startsWith('video/')?'Video 40MB se choti rakho.':'Image 8MB se choti rakho.');input.value='';return;}
+  if(mime.startsWith('video/')){
+    try{const duration=await new Promise((resolve,reject)=>{const v=document.createElement('video');v.preload='metadata';v.onloadedmetadata=()=>{URL.revokeObjectURL(v.src);resolve(v.duration)};v.onerror=()=>reject(new Error('bad video'));v.src=URL.createObjectURL(f);});if(duration>15.01){showToast('Video can be maximum 15 seconds long.');input.value='';return;}}catch(e){showToast('Could not read the video.');input.value='';return;}
+  }
+  const reader=new FileReader(); reader.onload=()=>{qaAttachedImage={file:f,dataUrl:reader.result,mediaType:mime.startsWith('video/')?'video':'image'};const preview=mime.startsWith('video/')?`<video src="${reader.result}" controls playsinline></video>`:`<img src="${reader.result}">`;document.getElementById('qaImgPreviewBox').innerHTML=`<div class="qa-img-preview">${preview}<button onclick="clearQaImage()">×</button></div>`;};reader.readAsDataURL(f);
 }
 function clearQaImage(){ qaAttachedImage = null; document.getElementById("qaImgPreviewBox").innerHTML = ""; document.getElementById("qaImageInput").value = ""; }
 
@@ -1949,19 +2048,13 @@ async function postQuestion(){
   const text = input.value.trim();
   if(!text && !qaAttachedImage){ showToast("Kuch likho ya image attach karo."); return; }
   input.value = "";
-  let imageUrl = "";
+  let mediaUrl="", mediaType="";
   if(qaAttachedImage){
-    try{
-      showUploadProgress("Uploading", 0);
-      imageUrl = await uploadToCloudinaryWithProgress(qaAttachedImage.file, (pct) => showUploadProgress("Uploading", pct));
-      showUploadProgress("", null);
-    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
+    try{showUploadProgress("Uploading",0);mediaUrl=await uploadToCloudinaryWithProgress(qaAttachedImage.file,pct=>showUploadProgress("Uploading",pct));showUploadProgress("",null);mediaType=qaAttachedImage.mediaType||'image';}
+    catch(e){showUploadProgress("",null);showToast("Upload failed.");return;}
     clearQaImage();
   }
-  await addDoc(collection(db, "qa"), {
-    uid: currentUser.id, name: currentUser.name, userImage: currentUser.image || "",
-    text, image: imageUrl, likes: [], created: serverTimestamp(), replyCount: 0
-  });
+  await addDoc(collection(db,"qa"),{uid:currentUser.id,name:currentUser.name,userImage:currentUser.image||"",text,image:mediaType==='image'?mediaUrl:"",media:mediaUrl,mediaType,likes:[],created:serverTimestamp(),replyCount:0});
   showToast("Question posted!");
 }
 
@@ -1978,21 +2071,9 @@ async function postQaReply(qid){
   const attach = qaReplyAttachments[qid];
   if(!text && !attach) return;
   ta.value = "";
-  let imageUrl = "";
-  if(attach){
-    try{
-      showUploadProgress("Uploading reply", 0);
-      imageUrl = await uploadToCloudinaryWithProgress(attach.file, (pct) => showUploadProgress("Uploading reply", pct));
-      showUploadProgress("", null);
-    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
-    qaReplyAttachments[qid] = null;
-    const box = document.getElementById("qaReplyImgPreview_" + qid);
-    if(box) box.innerHTML = "";
-  }
-  await addDoc(collection(db, "qa", qid, "replies"), {
-    uid: currentUser.id, name: currentUser.name, userImage: currentUser.image || "",
-    text, image: imageUrl, likes: [], created: serverTimestamp()
-  });
+  let mediaUrl="",mediaType="";
+  if(attach){try{showUploadProgress("Uploading reply",0);mediaUrl=await uploadToCloudinaryWithProgress(attach.file,pct=>showUploadProgress("Uploading reply",pct));showUploadProgress("",null);mediaType=attach.mediaType||'image';}catch(e){showUploadProgress("",null);showToast("Upload failed.");return;}qaReplyAttachments[qid]=null;const box=document.getElementById("qaReplyImgPreview_"+qid);if(box)box.innerHTML="";}
+  await addDoc(collection(db,"qa",qid,"replies"),{uid:currentUser.id,name:currentUser.name,userImage:currentUser.image||"",text,image:mediaType==='image'?mediaUrl:"",media:mediaUrl,mediaType,likes:[],created:serverTimestamp()});
   await updateDoc(doc(db, "qa", qid), { replyCount: increment(1) });
   showToast("Reply posted!");
 }
@@ -2015,74 +2096,18 @@ async function deleteQaReply(qid, rid){
   await updateDoc(doc(db, "qa", qid), { replyCount: increment(-1) });
 }
 
-function qaReplyAttach(qid, input){
-  const f = input.files[0]; if(!f) return;
-  if(f.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
-  const reader = new FileReader();
-  reader.onload = () => {
-    qaReplyAttachments[qid] = { file: f, dataUrl: reader.result };
-    let box = document.getElementById("qaReplyImgPreview_" + qid);
-    if(!box){
-      const composer = document.getElementById("qaReplyComposer_" + qid);
-      box = document.createElement("div");
-      box.id = "qaReplyImgPreview_" + qid;
-      composer.parentNode.insertBefore(box, composer.nextSibling);
-    }
-    box.innerHTML = `<div class="qa-img-preview"><img src="${reader.result}"><button onclick="clearQaReplyImage('${qid}')">×</button></div>`;
-  };
-  reader.readAsDataURL(f);
-}
+async function qaReplyAttach(qid,input){const f=input.files[0];if(!f)return;const mime=String(f.type||'').toLowerCase();if(!mime.startsWith('image/')&&!mime.startsWith('video/')){showToast('Only images and videos are allowed.');input.value='';return;}const max=mime.startsWith('video/')?40*1024*1024:8*1024*1024;if(f.size>max){showToast(mime.startsWith('video/')?'Video 40MB se choti rakho.':'Image 8MB se choti rakho.');input.value='';return;}if(mime.startsWith('video/')){try{const d=await new Promise((res,rej)=>{const v=document.createElement('video');v.preload='metadata';v.onloadedmetadata=()=>{URL.revokeObjectURL(v.src);res(v.duration)};v.onerror=()=>rej();v.src=URL.createObjectURL(f)});if(d>15.01){showToast('Video can be maximum 15 seconds long.');input.value='';return;}}catch(e){showToast('Could not read the video.');input.value='';return;}}const reader=new FileReader();reader.onload=()=>{qaReplyAttachments[qid]={file:f,dataUrl:reader.result,mediaType:mime.startsWith('video/')?'video':'image'};let box=document.getElementById('qaReplyImgPreview_'+qid);if(!box){const composer=document.getElementById('qaReplyComposer_'+qid);box=document.createElement('div');box.id='qaReplyImgPreview_'+qid;composer.parentNode.insertBefore(box,composer.nextSibling);}const preview=mime.startsWith('video/')?`<video src="${reader.result}" controls playsinline></video>`:`<img src="${reader.result}">`;box.innerHTML=`<div class="qa-img-preview">${preview}<button onclick="clearQaReplyImage('${qid}')">×</button></div>`;};reader.readAsDataURL(f)}
 function clearQaReplyImage(qid){
   qaReplyAttachments[qid] = null;
   const box = document.getElementById("qaReplyImgPreview_" + qid);
   if(box) box.innerHTML = "";
 }
 
+function qaScore(post){const likes=(post.likes||[]).length,replies=Number(post.replyCount||0);const ageMs=Date.now()-(post.created?.toMillis?.()||post.created||Date.now());const freshness=Math.max(0,1-ageMs/(7*24*60*60*1000));const engagement=likes*3+replies*5;const stableRandom=Math.abs(Math.sin((post.id.length+qaSessionSeed*1000)*12.9898));return engagement*.72+freshness*4+stableRandom*7;}
 function renderQa(){
-  const feed = document.getElementById("qaFeed");
-  if(qaPosts.length === 0){
-    feed.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--muted);">Koi question nahi. Pehla question tum pucho!</div>`;
-    return;
-  }
-  feed.innerHTML = "";
-  qaPosts.forEach(post => {
-    const u = post.uid === currentUser.id ? currentUser : (getUser(post.uid) || { name: post.name, image: post.userImage });
-    const likes = post.likes || [];
-    const liked = likes.includes(currentUser.id);
-    const createdMs = post.created?.toMillis?.() || post.created || Date.now();
-
-    const card = document.createElement("div");
-    card.className = "qa-card";
-    card.innerHTML = `
-      <div class="qa-head">
-        ${avatarHTML(u, "avatar")}
-        <div class="qi">
-          <div class="qn">${escapeHTML(u.name || post.name)}</div>
-          <div class="qt">${timeAgo(createdMs)}</div>
-        </div>
-        ${post.uid === currentUser.id ? `<button class="icon-btn" style="width:32px;height:32px;" onclick="deleteQaPost('${post.id}')">🗑</button>` : ""}
-      </div>
-      ${post.text ? `<div class="qa-body">${escapeHTML(post.text)}</div>` : ""}
-      ${post.image ? `<img src="${post.image}" class="qa-img-thumb" data-url="${escapeHTML(post.image)}" loading="lazy" onclick="openLightbox(this.dataset.url,'image')">` : ""}
-      <div class="qa-actions">
-        <button class="${liked?'liked':''}" onclick="toggleQaLike('${post.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
-        <button onclick="focusQaReply('${post.id}')">💬 ${post.replyCount||0}</button>
-      </div>
-      <div class="qa-replies" id="qaReplies_${post.id}"></div>
-      <div class="qa-reply-composer" id="qaReplyComposer_${post.id}">
-        <button class="attach" onclick="document.getElementById('qaReplyFile_${post.id}').click()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-        </button>
-        <input type="file" id="qaReplyFile_${post.id}" accept="image/*" hidden onchange="qaReplyAttach('${post.id}', this)">
-        <textarea id="qaReplyInput_${post.id}" rows="1" placeholder="Reply likho..."></textarea>
-        <button class="send" onclick="postQaReply('${post.id}')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
-        </button>
-      </div>
-    `;
-    feed.appendChild(card);
-    loadQaReplies(post.id);
-  });
+ const feed=document.getElementById("qaFeed"); if(qaPosts.length===0){feed.innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--muted);">Abhi koi post nahi. Pehli post aap karein!</div>`;return;}
+ const ordered=[...qaPosts].sort((a,b)=>qaScore(b)-qaScore(a));feed.innerHTML="";
+ ordered.forEach(post=>{const u=post.uid===currentUser.id?currentUser:(getUser(post.uid)||{name:post.name,username:post.username||"",image:post.userImage});const likes=post.likes||[],liked=likes.includes(currentUser.id),isFollowing=(u.followers||[]).includes(currentUser.id),createdMs=post.created?.toMillis?.()||post.created||Date.now();const card=document.createElement("div");card.className="qa-card";card.innerHTML=`<div class="qa-head"><div class="qa-author-click" onclick="openPublicProfile('${post.uid}')">${avatarHTML(u,"avatar")}</div><div class="qi qa-author-click" onclick="openPublicProfile('${post.uid}')"><div class="qn">${escapeHTML(u.name||post.name)}</div><div class="qt">@${escapeHTML(u.username||"")} · ${timeAgo(createdMs)}</div></div>${post.uid!==currentUser.id?`<button class="qa-follow-btn ${isFollowing?'following':''}" onclick="toggleFollow('${post.uid}')">${isFollowing?'Following':'Follow'}</button>`:`<button class="icon-btn" style="width:32px;height:32px;margin-left:auto;" title="Delete" onclick="deleteQaPost('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>`}</div>${post.text?`<div class="qa-body">${escapeHTML(post.text)}</div>`:""}${(post.media||post.image)?((post.mediaType==='video')?`<video src="${escapeHTML(post.media||post.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>`:`<img src="${escapeHTML(post.media||post.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`):""}<div class="qa-actions"><button class="${liked?'liked':''}" onclick="toggleQaLike('${post.id}')">${liked?'<svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>':'<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>'} ${likes.length}</button><button onclick="focusQaReply('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${post.replyCount||0}</button><button onclick="openPublicProfile('${post.uid}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/></svg> Profile</button></div><div class="qa-replies" id="qaReplies_${post.id}"></div><div class="qa-reply-composer" id="qaReplyComposer_${post.id}"><button class="attach" onclick="document.getElementById('qaReplyFile_${post.id}').click()"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.2-2h5.6L16 5"/></svg></button><input type="file" id="qaReplyFile_${post.id}" accept="image/*,video/*" hidden onchange="qaReplyAttach('${post.id}',this)"><textarea id="qaReplyInput_${post.id}" rows="1" placeholder="Reply likho..."></textarea><button class="send" onclick="postQaReply('${post.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button></div>`;feed.appendChild(card);loadQaReplies(post.id);});
 }
 
 function focusQaReply(qid){ document.getElementById("qaReplyInput_" + qid)?.focus(); }
@@ -2109,12 +2134,12 @@ function loadQaReplies(qid){
           ${avatarHTML(ru, "avatar")}
           <div class="rn">${escapeHTML(ru.name || r.name)}</div>
           <div class="rt">${timeAgo(createdMs)}</div>
-          ${r.uid === currentUser.id ? `<button class="icon-btn" style="width:26px;height:26px;margin-left:auto;" onclick="deleteQaReply('${qid}','${r.id}')">🗑</button>` : ""}
+          ${r.uid === currentUser.id ? `<button class="icon-btn" style="width:26px;height:26px;margin-left:auto;" onclick="deleteQaReply('${qid}','${r.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
         </div>
         ${r.text ? `<div class="qa-reply-body">${escapeHTML(r.text)}</div>` : ""}
-        ${r.image ? `<img src="${r.image}" style="max-width:100%;border-radius:10px;margin-top:6px;cursor:zoom-in;" loading="lazy" onclick="openLightbox('${escapeHTML(r.image)}','image')">` : ""}
+        ${(r.media||r.image) ? (r.mediaType==='video' ? `<video src="${escapeHTML(r.media||r.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>` : `<img src="${escapeHTML(r.media||r.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`) : ""}
         <div class="qa-reply-actions">
-          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
+          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'<svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>':'<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>'} ${likes.length}</button>
         </div>
       `;
       box.appendChild(el);
@@ -2144,33 +2169,76 @@ function openChatInfo(){
 }
 function closeChatInfo(){ document.getElementById("chatInfoModal").classList.remove("show"); }
 
-/* PROFILE */
-function renderProfile(){
-  if(!currentUser) return;
-  document.getElementById("profileName").value = currentUser.name || "";
-  document.getElementById("profileUsername").value = currentUser.username || "";
-  document.getElementById("profileBio").value = currentUser.bio || "";
-  document.getElementById("profileDisplayName").textContent = currentUser.name || "";
-  document.getElementById("profileDisplayUsername").textContent = "@" + (currentUser.username || "");
-  const avatar = document.getElementById("profileAvatar");
-  if(currentUser.image) avatar.innerHTML = `<img src="${currentUser.image}" alt="">`; else avatar.textContent = getInitial(currentUser);
+function searchSocialMedia(value){
+  const term=String(value||"").trim().toLowerCase();
+  const box=document.getElementById("socialSearchResults");
+  if(!box)return;
+  if(!term){box.classList.remove("show");box.innerHTML="";return;}
+  const users=allUsers.filter(u=>(u.name||"").toLowerCase().includes(term)||(u.username||"").toLowerCase().includes(term)).slice(0,8);
+  const posts=qaPosts.filter(p=>(p.text||"").toLowerCase().includes(term)||(p.name||"").toLowerCase().includes(term)).slice(0,8);
+  if(!users.length&&!posts.length){box.innerHTML='<div style="padding:14px;color:var(--muted);font-size:12px;">No people or posts found.</div>';box.classList.add("show");return;}
+  box.innerHTML="";
+  users.forEach(u=>{const row=document.createElement("div");row.className="social-search-result";row.innerHTML=`${avatarHTML(u,"avatar")}<div class="social-search-result-info"><div class="social-search-result-title">${escapeHTML(u.name||"User")}</div><div class="social-search-result-sub">@${escapeHTML(u.username||"")}</div></div><span class="social-search-type">Profile</span>`;row.onclick=()=>{document.getElementById("socialSearchResults").classList.remove("show");if(u.id===currentUser.id)showPage("profile");else openPublicProfile(u.id)};box.appendChild(row);});
+  posts.forEach(p=>{const u=getUser(p.uid)||{name:p.name||"User",image:p.userImage};const row=document.createElement("div");row.className="social-search-result";row.innerHTML=`${avatarHTML(u,"avatar")}<div class="social-search-result-info"><div class="social-search-result-title">${escapeHTML((p.text||"Post").slice(0,70))}</div><div class="social-search-result-sub">by @${escapeHTML(u.username||"")}</div></div><span class="social-search-type">Post</span>`;row.onclick=()=>{document.getElementById("socialSearchResults").classList.remove("show");openQaPost(p.id)};box.appendChild(row);});
+  box.classList.add("show");
 }
+
+/* PROFILE + SOCIAL GRAPH */
+function userFollowers(u){return Array.isArray(u?.followers)?u.followers:[]}function userFollowing(u){return Array.isArray(u?.following)?u.following:[]}function userLikeCount(uid){return qaPosts.filter(p=>p.uid===uid).reduce((n,p)=>n+(p.likes||[]).length,0)}function userPosts(uid){return qaPosts.filter(p=>p.uid===uid).sort((a,b)=>(b.created?.toMillis?.()||0)-(a.created?.toMillis?.()||0))}
+function renderProfile(){if(!currentUser)return;profileViewUser=currentUser;document.getElementById("profileDisplayName").textContent=currentUser.name||"User";document.getElementById("profileDisplayUsername").textContent="@"+(currentUser.username||"");document.getElementById("profileDisplayBio").textContent=currentUser.bio||"";const link=document.getElementById("profileDisplayLink");if(currentUser.link){link.href=currentUser.link;link.textContent=currentUser.link.replace(/^https?:\/\//,"").replace(/\/$/,"");link.style.display="inline-block"}else link.style.display="none";const avatar=document.getElementById("profileAvatar");if(currentUser.image)avatar.innerHTML=`<img src="${currentUser.image}" alt="">`;else avatar.textContent=getInitial(currentUser);document.getElementById("profileFollowers").textContent=userFollowers(currentUser).length;document.getElementById("profileFollowing").textContent=userFollowing(currentUser).length;document.getElementById("profileLikes").textContent=userLikeCount(currentUser.id);renderProfilePosts(currentUser.id);updateMessageRequestBadge();}
+function renderProfilePosts(uid){const grid=document.getElementById("profilePostsGrid"),posts=profileTab==="liked"?qaPosts.filter(p=>(p.likes||[]).includes(uid)):userPosts(uid);if(!posts.length){grid.innerHTML=`<div class="profile-empty">${profileTab==='liked'?'No liked posts yet.':'No posts yet.'}</div>`;return}grid.innerHTML=posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${(p.media||p.image)?(p.mediaType==='video'?`<video src="${escapeHTML(p.media||p.image)}" muted playsinline></video>`:`<img src="${escapeHTML(p.media||p.image)}" loading="lazy">`):`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 8.8c0 5.4-8.8 10-8.8 10s-8.8-4.6-8.8-10A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg> ${likes.length} · <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${p.replyCount||0}</div></div>`}).join("")}
+function toggleProfileTab(tab){profileTab=tab;document.getElementById("profilePostsTab").classList.toggle("active",tab==='posts');document.getElementById("profileLikedTab").classList.toggle("active",tab==='liked');renderProfilePosts(profileViewUser?.id||currentUser.id)}
+function openEditProfile(){if(!currentUser)return;document.getElementById("editProfileName").value=currentUser.name||"";document.getElementById("editProfileUsername").value=currentUser.username||"";document.getElementById("editProfileBio").value=currentUser.bio||"";document.getElementById("editProfileLink").value=currentUser.link||"";document.getElementById("editProfileModal").classList.add("show")}
+function closeEditProfile(){document.getElementById("editProfileModal").classList.remove("show")}
 async function saveProfile(){
-  const name = document.getElementById("profileName").value.trim();
-  const username = document.getElementById("profileUsername").value.trim().replace(/^@/,"").replace(/\s/g,"").toLowerCase();
-  const bio = document.getElementById("profileBio").value.trim();
-  if(!name || !username){ showToast("Name aur username required hain."); return; }
-  await setDoc(doc(db, "users", currentUser.id), { name, username, bio }, { merge:true });
-  currentUser.name = name; currentUser.username = username; currentUser.bio = bio;
-  renderProfile(); showToast("Profile saved.");
+  const name=document.getElementById("editProfileName").value.trim();
+  const username=document.getElementById("editProfileUsername").value.trim().replace(/^@/,"").replace(/\s/g,"").toLowerCase();
+  const bio=document.getElementById("editProfileBio").value.trim();
+  const link=document.getElementById("editProfileLink").value.trim();
+  if(!name||!username){showToast("Name aur username required hain.");return;}
+  try{
+    // Username lookup is best-effort. If the current Firestore rules do not allow
+    // collection queries, do not break the editor; save the profile document itself.
+    let duplicate=false;
+    try{
+      const existing=await getDocs(query(collection(db,"users"),where("username","==",username)));
+      duplicate=existing.docs.some(d=>d.id!==currentUser.id);
+    }catch(e){ console.warn("Username lookup unavailable; continuing with profile save."); }
+    if(duplicate){showToast("Username already taken. Please choose another username.");return;}
+    await setDoc(doc(db,"users",currentUser.id),{name,username,bio,link},{merge:true});
+    Object.assign(currentUser,{name,username,bio,link});
+    const idx=allUsers.findIndex(u=>u.id===currentUser.id);
+    if(idx>=0)allUsers[idx]={...allUsers[idx],name,username,bio,link};
+    closeEditProfile();renderProfile();renderQa();showToast("Profile saved.");
+  }catch(e){
+    console.error("Profile save failed:",e);
+    showToast(e?.code==="permission-denied"?"Profile save is blocked by Firebase rules.":"Profile update failed.");
+  }
 }
-async function changeProfileImage(input){
-  const file = input.files[0]; if(!file) return;
-  if(file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
-  try{ showUploadProgress("Uploading", 0); const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct)); currentUser.image = url; await setDoc(doc(db, "users", currentUser.id), { image: url }, { merge:true }); renderProfile(); showUploadProgress("", null); showToast("Profile updated."); }
-  catch(err){ console.error(err); showUploadProgress("", null); showToast("Upload failed."); }
-  input.value = "";
+
+async function changeProfileImage(input){const file=input.files[0];if(!file)return;if(file.size>8*1024*1024){showToast("Image 8MB se choti rakho.");input.value="";return}try{showUploadProgress("Uploading",0);const url=await uploadToCloudinaryWithProgress(file,pct=>showUploadProgress("Uploading",pct));currentUser.image=url;await setDoc(doc(db,"users",currentUser.id),{image:url},{merge:true});renderProfile();showUploadProgress("",null);showToast("Profile updated.")}catch(err){console.error(err);showUploadProgress("",null);showToast("Upload failed.")}input.value=""}
+async function toggleFollow(uid){if(!currentUser||uid===currentUser.id)return;const target=getUser(uid);if(!target)return;const following=userFollowing(currentUser),isFollowing=following.includes(uid);await updateDoc(doc(db,"users",currentUser.id),{following:isFollowing?arrayRemove(uid):arrayUnion(uid)});await updateDoc(doc(db,"users",uid),{followers:isFollowing?arrayRemove(currentUser.id):arrayUnion(currentUser.id)});currentUser.following=isFollowing?following.filter(x=>x!==uid):[...following,uid];renderQa();renderProfile();if(document.getElementById("publicProfileModal").classList.contains("show"))openPublicProfile(uid)}
+function openPublicProfile(uid){if(uid===currentUser.id){showPage("profile");return}const u=getUser(uid);if(!u)return;const following=userFollowing(currentUser).includes(uid),posts=userPosts(uid),body=document.getElementById("publicProfileBody"),link=u.link?`<a class="social-profile-link" href="${escapeHTML(u.link)}" target="_blank" rel="noopener">${escapeHTML(u.link.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a>`:"";body.innerHTML=`<div class="public-profile-card"><div class="social-profile-head" style="padding:10px 0 15px;"><div class="social-profile-avatar">${u.image?`<img src="${escapeHTML(u.image)}">`:escapeHTML(getInitial(u))}</div><div class="social-profile-main"><h2>${escapeHTML(u.name||"User")}</h2><div class="social-profile-username">@${escapeHTML(u.username||"")}</div><div class="social-profile-bio">${escapeHTML(u.bio||"")}</div>${link}<div class="profile-stats"><div><b>${userFollowers(u).length}</b><span>Followers</span></div><div><b>${userLikeCount(uid)}</b><span>Likes</span></div><div><b>${userFollowing(u).length}</b><span>Following</span></div></div></div></div><div class="public-profile-actions"><button onclick="toggleFollow('${uid}')">${following?'Following':'Follow'}</button><button class="secondary" onclick="sendMessageRequest('${uid}')">Message</button></div><div class="public-posts">${posts.length?posts.map(p=>{const likes=p.likes||[];return `<div class="profile-post-tile" onclick="openQaPost('${p.id}')">${p.image?`<img src="${escapeHTML(p.image)}">`:`<div class="post-tile-text">${escapeHTML(p.text||'Question')}</div>`}<div class="tile-meta">♥ ${likes.length} · <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-4-.9L4 19l1-3.2A7.3 7.3 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg> ${p.replyCount||0}</div></div>`}).join(""):`<div class="profile-empty">No posts yet.</div>`}</div></div>`;document.getElementById("publicProfileModal").classList.add("show")}
+function closePublicProfile(){document.getElementById("publicProfileModal").classList.remove("show")}function openQaPost(qid){showPage("qa");setTimeout(()=>{const el=document.getElementById("qaReplies_"+qid)?.closest(".qa-card");if(el)el.scrollIntoView({behavior:"smooth",block:"center"})},100)}
+async function sendMessageRequest(uid){
+  if(!currentUser||uid===currentUser.id)return;
+  try{
+    const rid=`${uid}_${currentUser.id}`,ref=doc(db,"messageRequests",rid);
+    const snap=await getDoc(ref);
+    if(snap.exists()){
+      const d=snap.data();
+      if(d.status==='accepted'){closePublicProfile();await startNewChat(uid);return;}
+      if(d.status==='pending'){showToast("Message request is already pending.");return;}
+    }
+    await setDoc(ref,{from:currentUser.id,to:uid,status:'pending',created:serverTimestamp()});
+    showToast("Message request sent.");
+  }catch(e){
+    console.error("Message request failed:",e);
+    showToast(e?.code==="permission-denied"?"Message requests are blocked by Firebase rules. Update the rules shown below the app code.":"Message request could not be sent.");
+  }
 }
+
+function updateMessageRequestBadge(){const b=document.getElementById("requestBadge");if(b)b.textContent=messageRequests.filter(r=>r.status==='pending').length}function openMessageRequests(){const body=document.getElementById("messageRequestsBody"),pending=messageRequests.filter(r=>r.status==='pending');if(!pending.length)body.innerHTML=`<div class="profile-empty">No message requests.</div>`;else{body.innerHTML="";pending.forEach(r=>{const u=getUser(r.from)||{name:"User",image:"",username:""},row=document.createElement("div");row.className="message-request-row";row.innerHTML=`${avatarHTML(u,"avatar")}<div class="message-request-info"><b>${escapeHTML(u.name)}</b><div style="color:var(--muted);font-size:11px;">@${escapeHTML(u.username||"")} wants to message you</div></div><div class="message-request-actions"><button onclick="acceptMessageRequest('${r.id}','${r.from}')">Accept</button><button class="reject" onclick="rejectMessageRequest('${r.id}')">Reject</button></div>`;body.appendChild(row)})}document.getElementById("messageRequestsModal").classList.add("show")}function closeMessageRequests(){document.getElementById("messageRequestsModal").classList.remove("show")}async function acceptMessageRequest(rid,fromUid){try{await updateDoc(doc(db,"messageRequests",rid),{status:"accepted",acceptedAt:serverTimestamp()});const cid=[currentUser.id,fromUid].sort().join("__");await setDoc(doc(db,"chats",cid),{participants:[currentUser.id,fromUid],lastActivity:serverTimestamp()},{merge:true});closeMessageRequests();await startNewChat(fromUid);showToast("Message request accepted. Chat started.")}catch(e){console.error("Accept request failed:",e);showToast(e?.code==="permission-denied"?"Chat request action is blocked by Firebase rules.":"Could not accept request.")}}async function rejectMessageRequest(rid){try{await deleteDoc(doc(db,"messageRequests",rid));openMessageRequests();showToast("Message request rejected.")}catch(e){console.error("Reject request failed:",e);showToast(e?.code==="permission-denied"?"Request removal is blocked by Firebase rules.":"Could not reject request.")}}
 
 /* NAV */
 function showPage(page, button){
@@ -2189,8 +2257,8 @@ function mobilePage(page, button){
   button.classList.add("active");
 }
 
-Object.assign(window, {
-  showPage, mobilePage, searchEverything, focusUserSearch, startNewChat, openChat, closeChat,
+const __uooGoExports = {
+  showPage, mobilePage, searchEverything, searchSocialMedia, focusUserSearch, startNewChat, openChat, closeChat,
   sendMessage, messageKey, toggleRecording, openStoryModal, closeStoryModal, createStory,
   closeStoryViewer, saveProfile, changeProfileImage, switchAuthTab, handleAuth, logoutUser,
   toggleSelectMode, exitSelectMode, selectAllMessages, deleteSelectedMessages,
@@ -2198,10 +2266,15 @@ Object.assign(window, {
   sendMedia, openGroupModal, closeGroupModal, createGroup, openGroupInfo, closeGroupInfo,
   makeAdmin, removeAdmin, removeMember, editGroup, saveGroupEdit, deleteGroup,
   openStoryViewersList, closeStoryViewers, deleteStory, openChatInfo, closeChatInfo,
-  focusQaComposer, qaKey, qaAttachImage, clearQaImage, postQuestion, toggleQaLike,
+  focusQaComposer, qaKey, qaAttachMedia, clearQaImage, postQuestion, toggleQaLike,
   postQaReply, toggleQaReplyLike, deleteQaPost, deleteQaReply, focusQaReply,
-  qaReplyAttach, clearQaReplyImage
-});
+  qaReplyAttach, clearQaReplyImage, toggleFollow, openPublicProfile, closePublicProfile,
+  toggleProfileTab, openEditProfile, closeEditProfile, openMessageRequests, closeMessageRequests, acceptMessageRequest,
+  rejectMessageRequest, sendMessageRequest, openQaPost
+};
+Object.assign(window.__uooGoFns, __uooGoExports);
+Object.assign(window, __uooGoExports);
+if(!window.qaAttachImage) window.qaAttachImage = window.qaAttachMedia;
 </script>
 </body>
 </html>
