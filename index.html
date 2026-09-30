@@ -158,35 +158,7 @@ img{max-width:100%;}
 .tool-btn:hover{color:var(--accent);background:#1c2534;}
 .message-input{flex:1;resize:none;max-height:100px;min-height:38px;background:transparent;border:0;outline:0;color:var(--text);padding:9px 3px;font-size:14px;}
 .send-btn{width:42px;height:42px;border-radius:13px;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
-
 .recording{color:#ff637c !important;background:rgba(255,93,120,.12) !important;}
-/* VOICE RECORDER */
-.voice-recorder{display:none;align-items:center;gap:9px;background:var(--panel2);border:1px solid var(--border);border-radius:15px;padding:7px 9px;margin-bottom:7px;min-height:52px;}
-.voice-recorder.show{display:flex;}
-.voice-recorder.recording-mode{border-color:rgba(255,99,124,.45);box-shadow:0 0 0 1px rgba(255,99,124,.08) inset;}
-.voice-recorder.preview-mode{border-color:rgba(255,255,255,.12);}
-.voice-recorder .vr-cancel{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.06);color:var(--muted);display:grid;place-items:center;flex:none;}
-.voice-recorder .vr-cancel:hover{color:#ff637c;background:rgba(255,99,124,.1);}
-.voice-recorder .vr-main{flex:1;min-width:0;display:flex;align-items:center;gap:9px;}
-.voice-recorder .vr-dot{width:9px;height:9px;border-radius:50%;background:#ff637c;flex:none;box-shadow:0 0 0 5px rgba(255,99,124,.08);}
-.voice-recorder .vr-time{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;min-width:34px;color:var(--text);}
-.voice-wave{height:32px;flex:1;display:flex;align-items:center;justify-content:center;gap:3px;overflow:hidden;}
-.voice-wave i{display:block;width:3px;height:8px;border-radius:4px;background:var(--accent);opacity:.55;transform-origin:center;}
-.voice-recorder.recording-mode .voice-wave i{animation:voiceWave .72s ease-in-out infinite alternate;}
-.voice-wave i:nth-child(2n){animation-delay:.08s}.voice-wave i:nth-child(3n){animation-delay:.16s}.voice-wave i:nth-child(4n){animation-delay:.24s}
-@keyframes voiceWave{from{height:6px;opacity:.35}to{height:27px;opacity:.9}}
-.voice-preview-audio{width:min(100%,270px);height:34px;min-width:120px;display:none;}
-.voice-recorder.preview-mode .voice-preview-audio{display:block;}
-.vr-send{width:38px;height:38px;border-radius:12px;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
-.vr-stop{width:38px;height:38px;border-radius:12px;background:rgba(255,99,124,.12);color:#ff637c;display:grid;place-items:center;flex:none;}
-.voice-recorder.preview-mode .vr-stop{display:none;}
-.voice-recorder.recording-mode .vr-send{display:none;}
-.voice-recorder .vr-status{font-size:11px;color:var(--muted);white-space:nowrap;display:none;}
-.voice-recorder.recording-mode .vr-status{display:block;}
-@media(max-width:520px){.voice-wave{gap:2px}.voice-wave i{width:2px}.voice-preview-audio{width:180px}.voice-recorder{gap:6px}}
-.msg-bubble:has(audio){padding:8px 10px;min-width:190px;}
-.msg-bubble audio{display:block;width:min(100%,280px);height:36px;}
-
 
 /* STORIES */
 .story-page{flex-direction:column;overflow-y:auto;}
@@ -454,24 +426,6 @@ img{max-width:100%;}
             </div>
             <button onclick="cancelReply()">✕</button>
           </div>
-          <div class="voice-recorder" id="voiceRecorder">
-            <button class="vr-cancel" onclick="cancelVoiceRecording()" title="Cancel">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            </button>
-            <div class="vr-main">
-              <span class="vr-dot"></span>
-              <span class="vr-time" id="voiceTimer">0:00</span>
-              <div class="voice-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              <span class="vr-status">Recording</span>
-              <audio class="voice-preview-audio" id="voicePreviewAudio" controls preload="metadata"></audio>
-            </div>
-            <button class="vr-stop" onclick="stopRecording()" title="Stop">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
-            </button>
-            <button class="vr-send" id="voiceSendBtn" onclick="sendPendingVoice()" title="Send voice">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg>
-            </button>
-          </div>
           <div class="chat-input">
             <button class="tool-btn" onclick="document.getElementById('imageInput').click()" title="Photo/Video">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
@@ -482,7 +436,6 @@ img{max-width:100%;}
             <input type="file" id="imageInput" accept="image/*,video/*" hidden onchange="sendMedia(this, 'media')">
             <input type="file" id="docInput" hidden onchange="sendMedia(this, 'doc')">
             <textarea id="messageInput" class="message-input" rows="1" placeholder="Write a message..." onkeydown="messageKey(event)"></textarea>
-            <button class="tool-btn" id="aiBtn" onclick="openQuickAI()" title="AI Quick Reply" style="font-size:11px;font-weight:800;">AI</button>
             <button class="tool-btn" id="micBtn" onclick="toggleRecording()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg></button>
             <button class="send-btn" onclick="sendMessage()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button>
           </div>
@@ -657,47 +610,63 @@ const CLOUDINARY_UPLOAD_PRESET = "uoo-go";
 /* 🔥 FIXED UPLOAD: uses /auto/ + appends extension so browser renders correctly */
 function uploadToCloudinaryWithProgress(file, onProgress){
   return new Promise((resolve, reject) => {
-    const isVideo = file.type.startsWith("video/");
-    const isImage = file.type.startsWith("image/");
-    const isAudio = file.type.startsWith("audio/");
+    const mime = String(file.type || "").toLowerCase();
+    const isVideo = mime.startsWith("video/");
+    const isImage = mime.startsWith("image/");
+    const isAudio = mime.startsWith("audio/");
 
     const fd = new FormData();
     fd.append("file", file);
     fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-    // Use /auto/ endpoint — Cloudinary auto-detects. CORS works here.
-    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
+    // Use the correct Cloudinary resource type. This is especially important
+    // for videos: uploading through /auto/ can return a URL that some browsers
+    // do not render reliably inside <video>.
+    const resourceType = isVideo ? "video" : (isAudio ? "video" : "image");
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
+    xhr.open("POST", url, true);
+    xhr.responseType = "text";
+    xhr.setRequestHeader("Accept", "application/json");
+
     xhr.upload.onprogress = (e) => {
-      if(e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
-    };
-    xhr.onload = () => {
-      if(xhr.status >= 200 && xhr.status < 300){
-        try{
-          const data = JSON.parse(xhr.responseText);
-          let finalUrl = data.secure_url;
-
-          // 🔥 Append extension if not present, so browser knows the type
-          if(isVideo && !/\.(mp4|webm|mov|m4v|mkv|avi)$/i.test(finalUrl)){
-            // Use Cloudinary transformation to force mp4 output
-            finalUrl = finalUrl.replace("/upload/", "/upload/f_mp4,q_auto/") + (finalUrl.includes(".") ? "" : ".mp4");
-          } else if(isImage && !/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i.test(finalUrl)){
-            finalUrl = finalUrl.replace("/upload/", "/upload/f_jpg,q_auto/") + (finalUrl.includes(".") ? "" : ".jpg");
-          } else if(isAudio && !/\.(mp3|webm|m4a|wav|ogg)$/i.test(finalUrl)){
-            finalUrl = finalUrl.replace("/upload/", "/upload/f_webm,q_auto/") + (finalUrl.includes(".") ? "" : ".webm");
-          }
-
-          console.log("✅ Uploaded:", finalUrl);
-          resolve(finalUrl);
-        }catch(e){ reject(e); }
-      } else {
-        console.error("❌ Cloudinary error:", xhr.responseText);
-        reject(new Error("Upload failed: " + xhr.status));
+      if(e.lengthComputable && onProgress){
+        onProgress(Math.round((e.loaded / e.total) * 100));
       }
     };
-    xhr.onerror = () => reject(new Error("Network error"));
+
+    xhr.onload = () => {
+      if(xhr.status < 200 || xhr.status >= 300){
+        console.error("❌ Cloudinary upload error:", xhr.responseText);
+        reject(new Error("Upload failed: " + xhr.status));
+        return;
+      }
+
+      try{
+        const data = JSON.parse(xhr.responseText);
+        let finalUrl = data.secure_url || data.url || "";
+        if(!finalUrl) throw new Error("Cloudinary returned no URL");
+
+        // Always request a browser-friendly MP4 delivery URL for videos.
+        // Do not manually append .mp4; Cloudinary handles the response format.
+        if(isVideo){
+          finalUrl = finalUrl.replace("/upload/", "/upload/f_mp4,q_auto/");
+        } else if(isImage){
+          finalUrl = finalUrl.replace("/upload/", "/upload/f_auto,q_auto/");
+        }
+
+        console.log("✅ Uploaded:", { type: mime, resourceType, url: finalUrl });
+        resolve(finalUrl);
+      }catch(e){
+        console.error("❌ Cloudinary response parse error:", e, xhr.responseText);
+        reject(e);
+      }
+    };
+
+    xhr.onerror = () => reject(new Error("Network error while uploading"));
+    xhr.ontimeout = () => reject(new Error("Upload timed out"));
+    xhr.timeout = 180000;
     xhr.send(fd);
   });
 }
@@ -729,11 +698,6 @@ let allChatListeners = new Map();
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
-let voiceStartedAt = 0;
-let voiceTimerInterval = null;
-let pendingVoiceBlob = null;
-let pendingVoiceUrl = null;
-let voiceMimeType = "audio/webm";
 let authMode = "login";
 let selectMode = false;
 let selectedMessages = new Set();
@@ -1543,119 +1507,40 @@ function getVideoDuration(file){
   });
 }
 
-function formatVoiceTime(sec){
-  sec = Math.max(0, Math.floor(sec || 0));
-  const m = Math.floor(sec / 60), s = String(sec % 60).padStart(2,"0");
-  return `${m}:${s}`;
-}
-function setVoiceRecorder(mode){
-  const box = document.getElementById("voiceRecorder");
-  if(!box) return;
-  box.classList.toggle("show", !!mode);
-  box.classList.toggle("recording-mode", mode === "recording");
-  box.classList.toggle("preview-mode", mode === "preview");
-  const timer = document.getElementById("voiceTimer");
-  if(timer && mode === "recording") timer.textContent = "0:00";
-}
-function startVoiceTimer(){
-  clearInterval(voiceTimerInterval);
-  voiceStartedAt = Date.now();
-  voiceTimerInterval = setInterval(() => {
-    const el = document.getElementById("voiceTimer");
-    if(el) el.textContent = formatVoiceTime((Date.now()-voiceStartedAt)/1000);
-  }, 250);
-}
-function stopVoiceTimer(){ clearInterval(voiceTimerInterval); voiceTimerInterval = null; }
-function resetVoicePreview(){
-  stopVoiceTimer();
-  if(pendingVoiceUrl){ URL.revokeObjectURL(pendingVoiceUrl); pendingVoiceUrl = null; }
-  pendingVoiceBlob = null;
-  const a = document.getElementById("voicePreviewAudio");
-  if(a){ a.pause(); a.removeAttribute("src"); a.load(); }
-  setVoiceRecorder(null);
-}
 async function toggleRecording(){
   if(!currentChat){ showToast("Pehle chat open karo."); return; }
   if(isRecording){ stopRecording(); return; }
   try{
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio:{ echoCancellation:true, noiseSuppression:true, autoGainControl:true, channelCount:1, sampleRate:48000 }
-    });
+    const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
     audioChunks = [];
-    const preferred = ["audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus"];
-    voiceMimeType = preferred.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || "audio/webm";
-    mediaRecorder = new MediaRecorder(stream, { mimeType: voiceMimeType, audioBitsPerSecond: 64000 });
-    mediaRecorder.ondataavailable = e => { if(e.data && e.data.size > 0) audioChunks.push(e.data); };
-    mediaRecorder.onstop = () => {
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = e => { if(e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = async () => {
+      const blob = new Blob(audioChunks, { type:"audio/webm" });
       stream.getTracks().forEach(t => t.stop());
-      const blob = new Blob(audioChunks, { type: voiceMimeType });
-      if(!blob.size){ resetVoicePreview(); showToast("Voice record nahi hui."); return; }
-      pendingVoiceBlob = blob;
-      pendingVoiceUrl = URL.createObjectURL(blob);
-      const audio = document.getElementById("voicePreviewAudio");
-      if(audio){ audio.src = pendingVoiceUrl; audio.load(); }
-      setVoiceRecorder("preview");
-      const timer = document.getElementById("voiceTimer");
-      if(timer) timer.textContent = formatVoiceTime((Date.now()-voiceStartedAt)/1000);
+      try{
+        showUploadProgress("Uploading", 0);
+        const file = new File([blob], `voice_${Date.now()}.webm`, { type:"audio/webm" });
+        const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
+        const meta = chatMeta[currentChat];
+        const payload = { sender: currentUser.id, senderName: currentUser.name, type: "audio", data: url, time: timeNow(), seenBy: [currentUser.id] };
+        if(replyTo){ payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text }; cancelReply(); }
+        await pushMessage(payload);
+        if(meta.type !== "group") await updateStreak(currentChat);
+        updateStreakUI(); renderChats();
+        showUploadProgress("", null);
+        showToast("Voice sent.");
+      }catch(err){ console.error(err); showUploadProgress("", null); showToast("Voice upload failed."); }
     };
-    mediaRecorder.start(250);
-    isRecording = true;
-    setVoiceRecorder("recording");
-    startVoiceTimer();
-    document.getElementById("micBtn")?.classList.add("recording");
-  }catch(err){ console.error(err); showToast("Microphone permission do."); }
+    mediaRecorder.start(); isRecording = true;
+    document.getElementById("micBtn").classList.add("recording");
+    showToast("Recording... dobara mic dabao.");
+  }catch(err){ showToast("Microphone permission do."); }
 }
 function stopRecording(){
   if(mediaRecorder && mediaRecorder.state !== "inactive") mediaRecorder.stop();
   isRecording = false;
-  stopVoiceTimer();
-  document.getElementById("micBtn")?.classList.remove("recording");
-}
-function cancelVoiceRecording(){
-  if(mediaRecorder && mediaRecorder.state !== "inactive"){
-    mediaRecorder.onstop = () => { mediaRecorder.stream?.getTracks?.().forEach(t=>t.stop()); };
-    mediaRecorder.stop();
-  }
-  isRecording = false;
-  document.getElementById("micBtn")?.classList.remove("recording");
-  resetVoicePreview();
-}
-async function sendPendingVoice(){
-  if(!pendingVoiceBlob || !currentChat) return;
-  const blob = pendingVoiceBlob;
-  const ext = voiceMimeType.includes("ogg") ? "ogg" : "webm";
-  try{
-    const sendBtn = document.getElementById("voiceSendBtn");
-    if(sendBtn) sendBtn.disabled = true;
-    showUploadProgress("Uploading voice", 0);
-    const file = new File([blob], `voice_${Date.now()}.${ext}`, { type: voiceMimeType });
-    const url = await uploadToCloudinaryWithProgress(file, pct => showUploadProgress("Uploading voice", pct));
-    const meta = chatMeta[currentChat];
-    const payload = { sender: currentUser.id, senderName: currentUser.name, type:"audio", data:url, time:timeNow(), seenBy:[currentUser.id] };
-    if(replyTo){ payload.replyTo = { id:replyTo.id, name:replyTo.name, text:replyTo.text }; cancelReply(); }
-    await pushMessage(payload);
-    if(meta.type !== "group") await updateStreak(currentChat);
-    updateStreakUI(); renderChats();
-    showUploadProgress("", null);
-    resetVoicePreview();
-    showToast("Voice sent.");
-  }catch(err){ console.error(err); showUploadProgress("", null); showToast("Voice upload failed."); }
-  finally{ const sendBtn=document.getElementById("voiceSendBtn"); if(sendBtn) sendBtn.disabled=false; }
-}
-function openQuickAI(){
-  const input = document.getElementById("messageInput");
-  if(!input) return;
-  const last = [...document.querySelectorAll(".msg-bubble")].slice(-1)[0];
-  const text = last?.innerText?.trim() || "";
-  let reply = "Sure 👍";
-  if(/hello|hi|hey/i.test(text)) reply = "Hello! 👋 How are you?";
-  else if(/thanks|thank you/i.test(text)) reply = "You're welcome 😊";
-  else if(/where|when|what|how|why/i.test(text)) reply = "Let me check and get back to you.";
-  else if(text) reply = "Got it 👍";
-  input.value = reply;
-  input.focus();
-  input.dispatchEvent(new Event("input", {bubbles:true}));
-  showToast("AI quick reply added.");
+  document.getElementById("micBtn").classList.remove("recording");
 }
 
 /* STREAKS */
@@ -1800,6 +1685,17 @@ async function deleteGroup(gid){
 }
 
 /* STORIES */
+function normalizeStoryVideoUrl(url){
+  if(!url) return "";
+  const value = String(url);
+  // Old stories may contain a raw Cloudinary URL. Force a browser-friendly MP4
+  // delivery format without changing the stored Firestore value.
+  if(value.includes("res.cloudinary.com") && value.includes("/upload/") && !value.includes("/f_mp4,")){
+    return value.replace("/upload/", "/upload/f_mp4,q_auto/");
+  }
+  return value;
+}
+
 function openStoryModal(){ document.getElementById("storyModal").classList.add("show"); }
 function closeStoryModal(){ document.getElementById("storyModal").classList.remove("show"); }
 async function createStory(){
@@ -1826,15 +1722,6 @@ async function createStory(){
   document.getElementById("storyText").value = ""; document.getElementById("storyImage").value = "";
   closeStoryModal(); showToast("Story published.");
 }
-function normalizeStoryVideoUrl(url){
-  if(!url) return "";
-  const value = String(url);
-  if(value.includes("res.cloudinary.com") && value.includes("/upload/") && !value.includes("/f_mp4,")){
-    return value.replace("/upload/", "/upload/f_mp4,q_auto/");
-  }
-  return value;
-}
-
 function renderStories(){
   const box = document.getElementById("stories");
   box.innerHTML = "";
@@ -1935,21 +1822,31 @@ function showStoryAt(index){
     const v = document.createElement("video");
     v.src = normalizeStoryVideoUrl(story.video);
     v.autoplay = true;
+    v.muted = true;
+    v.controls = true;
     v.playsInline = true;
+    v.preload = "auto";
     v.setAttribute("playsinline", "");
     v.setAttribute("webkit-playsinline", "");
     v.setAttribute("controlsList", "nodownload noplaybackrate");
     v.setAttribute("disablePictureInPicture", "");
-    v.onloadeddata = () => { v.play().catch(() => {}); };
-    v.oncanplay = () => { if(v.paused) v.play().catch(() => {}); };
-    v.muted = true;
-    v.controls = true;
-    v.preload = "auto";
     v.style.cssText = "width:100%;height:100%;object-fit:contain;background:#000;display:block;";
+
+    v.onloadeddata = () => {
+      v.play().catch(() => {});
+    };
+    v.oncanplay = () => {
+      if(v.paused) v.play().catch(() => {});
+    };
     v.onended = () => { nextStory(); };
-    v.onerror = () => { console.error("❌ Story video error:", { url: story.video, error: v.error }); showToast("Video load nahi ho saki."); };
+    v.onerror = () => {
+      console.error("❌ Story video error:", { url: story.video, error: v.error });
+      showToast("Video load nahi ho saki.");
+    };
+
     content.appendChild(v);
     state.videoEl = v;
+    // Give the browser a second chance after the element is in the DOM.
     requestAnimationFrame(() => v.play().catch(() => {}));
     if(story.text){ const cap = document.createElement("div"); cap.className = "story-view-caption"; cap.textContent = story.text; content.appendChild(cap); }
     bar.style.display = "none";
