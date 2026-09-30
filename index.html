@@ -11,6 +11,7 @@
 :root{
   --bg:#080b12; --panel:#101520; --panel2:#151c29; --border:#242d3c;
   --text:#f5f7fb; --muted:#8994a7; --accent:#72f2c4; --accent2:#5ecbff; --danger:#ff5d78;
+  --blue:#3aa0ff;
 }
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
@@ -57,21 +58,23 @@ img{max-width:100%;}
 .chat-head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
 .chat-title{font-size:25px;font-weight:800;}
 .new-chat-btn{width:40px;height:40px;border-radius:12px;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
-.search-box{height:45px;background:var(--panel2);border:1px solid var(--border);border-radius:13px;display:flex;align-items:center;padding:0 13px;gap:10px;}
+.new-chat-btn.alt{background:var(--panel2);color:var(--text);}
+.search-box{height:45px;background:var(--panel2);border:1px solid var(--border);border-radius:13px;display:flex;align-items:center;padding:0 13px;gap:10px;margin-top:10px;}
 .search-box svg{color:var(--muted);flex:none;}
 .search-box input{width:100%;border:0;outline:0;background:transparent;color:var(--text);}
-.search-box input::placeholder{color:#667186;}
 .chat-items{overflow-y:auto;flex:1;padding:5px 9px 20px;-webkit-overflow-scrolling:touch;}
-.chat-item{padding:12px 10px;border-radius:15px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:.15s;user-select:none;}
+.chat-item{padding:12px 10px;border-radius:15px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:.15s;user-select:none;position:relative;}
 .chat-item:hover,.chat-item.selected{background:var(--panel2);}
 .chat-item:active{background:#1c2534;}
-.avatar{width:52px;height:52px;min-width:52px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;color:#071017;background:linear-gradient(135deg,#72f2c4,#5ecbff);overflow:hidden;}
+.avatar{width:52px;height:52px;min-width:52px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;color:#071017;background:linear-gradient(135deg,#72f2c4,#5ecbff);overflow:hidden;position:relative;}
 .avatar img{width:100%;height:100%;object-fit:cover;}
+.avatar.online-dot::after{content:"";position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#55e6a8;border-radius:50%;border:2px solid #0c111a;}
 .chat-info{min-width:0;flex:1;}
 .chat-top{display:flex;justify-content:space-between;gap:10px;}
 .chat-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .chat-time{color:var(--muted);font-size:11px;white-space:nowrap;}
 .chat-preview{color:var(--muted);font-size:13px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.unread-badge{position:absolute;right:10px;bottom:12px;background:var(--blue);color:#fff;font-size:11px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 6px;}
 
 .user-search{display:none;padding:0 15px 10px;max-height:45vh;overflow-y:auto;}
 .user-search.show{display:block;}
@@ -86,8 +89,6 @@ img{max-width:100%;}
 .chat-empty{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;}
 .empty-box{max-width:380px;}
 .empty-logo{width:80px;height:80px;margin:auto;border-radius:25px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061017;font-size:35px;font-weight:900;margin-bottom:20px;}
-.empty-box h2{margin-bottom:9px;}
-.empty-box p{color:var(--muted);line-height:1.6;}
 
 /* CHAT WINDOW */
 .chat-window{flex:1;display:none;flex-direction:column;min-width:0;background:radial-gradient(circle at 80% 10%,rgba(94,203,255,.06),transparent 30%),#090e16;position:relative;}
@@ -112,24 +113,35 @@ img{max-width:100%;}
 /* MESSAGES */
 .messages{flex:1;overflow-y:auto;padding:20px 4%;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch;}
 .date-line{text-align:center;color:var(--muted);font-size:11px;margin:5px 0 12px;}
-.message-row{display:flex;align-items:center;gap:6px;position:relative;user-select:none;}
+.message-row{display:flex;align-items:flex-start;gap:8px;position:relative;user-select:none;}
 .message-row.me{justify-content:flex-end;}
-.message{max-width:min(570px,80%);padding:9px 12px;border-radius:17px;background:var(--panel2);border:1px solid var(--border);cursor:pointer;transition:.15s;overflow:hidden;}
+.message-col{display:flex;flex-direction:column;max-width:min(570px,80%);}
+.message-row.me .message-col{align-items:flex-end;}
+.msg-sender{font-size:11px;font-weight:700;margin-bottom:3px;padding-left:6px;display:flex;align-items:center;gap:6px;}
+.msg-sender .mini-av{width:18px;height:18px;border-radius:50%;overflow:hidden;display:grid;place-items:center;font-size:9px;color:#061017;background:linear-gradient(135deg,var(--accent),var(--accent2));}
+.msg-sender .mini-av img{width:100%;height:100%;object-fit:cover;}
+.message{padding:9px 12px;border-radius:17px;background:var(--panel2);border:1px solid var(--border);cursor:pointer;transition:.15s;overflow:hidden;width:100%;}
 .message-row.me .message{background:#173a34;border-color:#225c50;border-bottom-right-radius:5px;}
 .message-row:not(.me) .message{border-bottom-left-radius:5px;}
 .message-row.selected .message{outline:2px solid var(--accent);}
 .message-text{line-height:1.4;word-break:break-word;font-size:14px;}
 .message-meta{display:flex;justify-content:flex-end;align-items:center;gap:5px;margin-top:4px;color:#8090a5;font-size:10px;}
-.seen{color:var(--accent2);}
+.tick{display:inline-flex;align-items:center;}
+.tick svg{width:14px;height:14px;}
+.tick.single{color:#8090a5;}
+.tick.double{color:#8090a5;}
+.tick.blue{color:var(--blue);}
 .deleted-text{font-style:italic;color:var(--muted);font-size:13px;}
-.msg-checkbox{width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;flex:none;}
+.msg-checkbox{width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;flex:none;margin-top:22px;}
 .msg-checkbox.checked{background:var(--accent);border-color:var(--accent);color:#06100d;}
 .msg-checkbox svg{opacity:0;}
 .msg-checkbox.checked svg{opacity:1;}
 
-/* 🔥 IMAGE in chat — fits bubble width */
 .msg-image{display:block;max-width:100%;max-height:min(400px,60vh);border-radius:12px;cursor:zoom-in;object-fit:contain;background:#0a0f16;}
 .msg-video{display:block;max-width:100%;max-height:min(400px,60vh);border-radius:12px;background:#000;}
+.msg-file{display:flex;align-items:center;gap:10px;padding:8px;background:rgba(255,255,255,.05);border-radius:10px;text-decoration:none;color:var(--text);}
+.msg-file svg{flex:none;color:var(--accent);}
+.msg-file .fname{font-size:13px;font-weight:600;word-break:break-all;}
 
 .reply-quote{background:rgba(255,255,255,.06);border-left:3px solid var(--accent);padding:5px 8px;border-radius:6px;margin-bottom:5px;font-size:12px;color:#b9c4d6;max-width:100%;overflow:hidden;}
 .reply-quote .rq-name{font-weight:700;color:var(--accent);font-size:11px;}
@@ -141,6 +153,12 @@ img{max-width:100%;}
 .reply-preview .rp-name{color:var(--accent);font-weight:700;font-size:11px;}
 .reply-preview .rp-text{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
 .reply-preview button{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--text);font-size:16px;flex:none;}
+
+/* Upload progress */
+.upload-progress{display:none;padding:8px 12px;background:#1a2332;border:1px solid var(--border);border-radius:12px;margin-bottom:8px;font-size:12px;}
+.upload-progress.show{display:block;}
+.upload-bar{height:6px;background:#0a0f16;border-radius:3px;overflow:hidden;margin-top:6px;}
+.upload-bar > div{height:100%;background:var(--accent);width:0%;transition:width .2s;}
 
 /* INPUT */
 .chat-input-area{padding:10px 4%;border-top:1px solid var(--border);background:#0b1018;flex:none;position:relative;}
@@ -162,8 +180,9 @@ img{max-width:100%;}
 .story-bg img{width:100%;height:100%;object-fit:cover;}
 .story-card-footer{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:center;gap:8px;}
 .story-card-footer .avatar{width:32px;height:32px;min-width:32px;font-size:13px;}
-.story-card-footer .name{font-weight:700;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.story-card-footer .name{font-weight:700;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
 
+/* Story viewer */
 .story-view{width:min(420px,100%);height:min(750px,92vh);max-height:92dvh;border-radius:25px;overflow:hidden;background:#05080d;position:relative;display:flex;flex-direction:column;}
 .story-progress{position:absolute;top:8px;left:8px;right:8px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;z-index:5;overflow:hidden;}
 .story-progress-bar{height:100%;background:#fff;width:0%;transition:width .1s linear;border-radius:2px;}
@@ -177,8 +196,13 @@ img{max-width:100%;}
 .story-view-content img{width:100%;height:100%;object-fit:contain;}
 .story-view-text{padding:30px;font-size:24px;line-height:1.5;text-align:center;color:#fff;overflow-y:auto;max-height:100%;}
 .story-view-caption{position:absolute;bottom:20px;left:15px;right:15px;background:rgba(0,0,0,.6);color:#fff;padding:10px 14px;border-radius:12px;font-size:14px;text-align:center;z-index:5;}
-.story-pause-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.7);color:#fff;padding:14px 22px;border-radius:14px;font-size:14px;z-index:10;opacity:0;transition:.2s;pointer-events:none;}
-.story-pause-hint.show{opacity:1;}
+.story-tap-left,.story-tap-right{position:absolute;top:0;bottom:0;width:35%;z-index:7;cursor:pointer;}
+.story-tap-left{left:0;}
+.story-tap-right{right:0;}
+.story-view-footer{position:absolute;bottom:20px;left:15px;right:15px;z-index:8;display:flex;gap:8px;justify-content:center;pointer-events:none;}
+.story-reactions{display:flex;gap:8px;background:rgba(0,0,0,.6);padding:8px 12px;border-radius:24px;pointer-events:auto;}
+.story-reactions button{font-size:22px;padding:0;background:none;transition:transform .15s;}
+.story-reactions button:hover{transform:scale(1.3);}
 
 /* PROFILE */
 .profile-page{padding:20px;overflow-y:auto;}
@@ -196,11 +220,11 @@ img{max-width:100%;}
 /* MODALS */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
 .modal.show{display:flex;}
-.modal-box{width:min(450px,100%);background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:22px;max-height:90vh;overflow-y:auto;}
+.modal-box{width:min(480px,100%);background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:22px;max-height:90vh;overflow-y:auto;}
 .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .close-btn{width:35px;height:35px;border-radius:10px;background:var(--panel2);color:var(--text);font-size:20px;line-height:1;}
 .modal textarea{width:100%;min-height:130px;resize:none;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:14px;outline:0;padding:14px;font-size:14px;}
-.modal input[type="file"]{width:100%;margin-top:12px;color:var(--muted);}
+.modal input[type="file"],.modal input[type="text"]{width:100%;margin-top:12px;color:var(--text);background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px;}
 .modal-submit{width:100%;margin-top:15px;padding:13px;border-radius:13px;background:var(--accent);color:#06100d;font-weight:800;}
 
 .action-sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:300;}
@@ -212,21 +236,34 @@ img{max-width:100%;}
 .action-sheet-btn.danger{color:var(--danger);background:rgba(255,93,120,.1);}
 .action-sheet-cancel{width:100%;padding:15px;border-radius:13px;background:transparent;color:var(--muted);font-weight:600;margin-top:6px;border:1px solid var(--border);}
 
-/* 🔥 LIGHTBOX */
+/* LIGHTBOX */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;z-index:500;padding:20px;overflow:hidden;}
 .lightbox.show{display:flex;}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:transform .2s;cursor:zoom-in;touch-action:none;}
 .lightbox img.zoomed{cursor:zoom-out;}
 .lightbox-close{position:absolute;top:15px;right:15px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:22px;display:grid;place-items:center;z-index:2;}
+.lightbox-tools{position:absolute;top:15px;left:15px;display:flex;gap:8px;z-index:2;}
+.lightbox-tools a,.lightbox-tools button{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:18px;display:grid;place-items:center;text-decoration:none;}
 .lightbox-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:8px 14px;border-radius:12px;font-size:12px;opacity:.7;}
 
 .toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:#151d29;border:1px solid var(--border);color:white;padding:12px 18px;border-radius:13px;opacity:0;pointer-events:none;transition:.25s;z-index:600;font-size:13px;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* MOBILE NAV */
-.mobile-nav{display:none;}
+/* AI CHAT */
+.ai-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#061017;border-radius:6px;font-size:9px;font-weight:800;}
 
-/* ============ MOBILE ============ */
+/* MEMBER LIST */
+.member-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border);}
+.member-row:last-child{border-bottom:0;}
+.member-row .avatar{width:40px;height:40px;min-width:40px;font-size:14px;}
+.member-row .mi{flex:1;min-width:0;}
+.member-row .mn{font-weight:600;font-size:14px;}
+.member-row .mu{color:var(--muted);font-size:12px;margin-top:2px;}
+.member-row .role{font-size:11px;padding:3px 8px;border-radius:8px;background:rgba(114,242,196,.12);color:var(--accent);font-weight:700;}
+.member-row .role.member{background:var(--panel2);color:var(--muted);}
+
+/* MOBILE */
+.mobile-nav{display:none;}
 @media(max-width:800px){
   .sidebar{display:none;}
   .chat-list{width:100%;border-right:0;}
@@ -235,42 +272,25 @@ img{max-width:100%;}
   .back-btn{display:grid;}
   .chat-empty{display:none;}
   .messages{padding:16px 12px 16px;}
-  .message{max-width:82%;padding:7px 9px;}
+  .message-col{max-width:82%;}
+  .message{padding:7px 9px;}
   .message-text{font-size:14px;}
-
-  /* 🔥 Image fits screen on mobile */
   .msg-image{max-width:100%;max-height:none;width:100%;}
   .msg-video{max-width:100%;max-height:none;width:100%;}
-
   .streak-box{padding:6px 8px;font-size:12px;}
-
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#0c111a;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:50;padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom));}
   .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 20px;}
   .mobile-nav button.active{color:var(--accent);}
-
-  /* Hide mobile nav when chat is open */
   body.chat-open .mobile-nav{display:none !important;}
-
   .page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-page{padding-bottom:0;}
-
   .chat-input-area{padding:8px 3% calc(8px + env(safe-area-inset-bottom));}
-
   .story-page,.profile-page{padding-bottom:calc(75px + env(safe-area-inset-bottom));}
   .section-head{padding:18px;}
-  .section-title{font-size:22px;}
   .stories{padding:15px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;}
   .story-card{height:200px;}
   .profile-box{padding:18px;}
   .auth-box{padding:22px;}
-}
-@media(max-width:400px){
-  .header-user .avatar{width:38px;height:38px;min-width:38px;font-size:14px;}
-  .header-user-name{font-size:14px;}
-  .streak-box{padding:5px 7px;font-size:11px;}
-  .tool-btn{width:34px;height:34px;}
-  .send-btn{width:38px;height:38px;}
-  .icon-btn{width:34px;height:34px;}
 }
 </style>
 </head>
@@ -302,6 +322,7 @@ img{max-width:100%;}
     <div class="nav">
       <button class="nav-btn active" onclick="showPage('chats',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
       <button class="nav-btn" onclick="showPage('stories',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/><path d="M17 7h.01"/></svg>Stories</button>
+      <button class="nav-btn" onclick="openAiChat()"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6z"/></svg>Uoo Go Ai</button>
       <button class="nav-btn" onclick="showPage('profile',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
     </div>
   </aside>
@@ -312,7 +333,10 @@ img{max-width:100%;}
         <div class="chat-head">
           <div class="chat-head-row">
             <div class="chat-title">Chats</div>
-            <button class="new-chat-btn" onclick="focusUserSearch()"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+            <div style="display:flex;gap:8px;">
+              <button class="new-chat-btn alt" onclick="openGroupModal()" title="New group"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c.5-3.5 3-6 6-6s5.5 2.5 6 6"/><circle cx="17" cy="8" r="3"/><path d="M15 20c.5-2.5 2-4.5 4-5"/></svg></button>
+              <button class="new-chat-btn" onclick="focusUserSearch()" title="New chat"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
           </div>
           <div class="search-box">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
@@ -337,7 +361,7 @@ img{max-width:100%;}
       <div class="chat-window" id="chatWindow">
         <div class="chat-header">
           <button class="back-btn" onclick="closeChat()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg></button>
-          <div class="header-user">
+          <div class="header-user" id="headerUserBox" onclick="openChatInfo()">
             <div class="avatar" id="headerAvatar">A</div>
             <div class="header-user-info">
               <div class="header-user-name" id="headerName">User</div>
@@ -363,16 +387,26 @@ img{max-width:100%;}
         <div class="messages" id="messages"></div>
 
         <div class="chat-input-area">
+          <div class="upload-progress" id="uploadProgress">
+            <div id="uploadLabel">Uploading...</div>
+            <div class="upload-bar"><div id="uploadBar"></div></div>
+          </div>
           <div class="reply-preview" id="replyPreview">
             <div class="rp-info">
               <div class="rp-name" id="replyPreviewName">Replying to</div>
               <div class="rp-text" id="replyPreviewText"></div>
             </div>
-            <button onclick="cancelReply()" title="Cancel reply">✕</button>
+            <button onclick="cancelReply()">✕</button>
           </div>
           <div class="chat-input">
-            <button class="tool-btn" onclick="chooseImage()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button>
-            <input type="file" id="imageInput" accept="image/*,video/*" hidden onchange="sendImage(this)">
+            <button class="tool-btn" onclick="document.getElementById('imageInput').click()" title="Photo/Video">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            </button>
+            <button class="tool-btn" onclick="document.getElementById('docInput').click()" title="Document">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            </button>
+            <input type="file" id="imageInput" accept="image/*,video/*" hidden onchange="sendMedia(this, 'media')">
+            <input type="file" id="docInput" hidden onchange="sendMedia(this, 'doc')">
             <textarea id="messageInput" class="message-input" rows="1" placeholder="Write a message..." onkeydown="messageKey(event)"></textarea>
             <button class="tool-btn" id="micBtn" onclick="toggleRecording()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/></svg></button>
             <button class="send-btn" onclick="sendMessage()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></button>
@@ -415,25 +449,33 @@ img{max-width:100%;}
 <div class="mobile-nav" id="mobileNav">
   <button class="active" onclick="mobilePage('chats',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
   <button onclick="mobilePage('stories',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/></svg>Stories</button>
+  <button onclick="openAiChat()"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6z"/></svg>AI</button>
   <button onclick="mobilePage('profile',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
 </div>
 
-<!-- 🔥 LIGHTBOX for image zoom -->
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
+  <div class="lightbox-tools">
+    <a id="lbDownload" download target="_blank" title="Download">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
+    </a>
+  </div>
   <button class="lightbox-close" onclick="closeLightbox()">×</button>
   <img id="lightboxImg" src="" alt="">
-  <div class="lightbox-hint" id="lightboxHint">Double tap to zoom</div>
+  <div class="lightbox-hint">Double tap to zoom</div>
 </div>
 
+<!-- STORY MODAL -->
 <div class="modal" id="storyModal">
   <div class="modal-box">
     <div class="modal-head"><h2>Add Story</h2><button class="close-btn" onclick="closeStoryModal()">×</button></div>
     <textarea id="storyText" placeholder="Write your story..."></textarea>
-    <input type="file" id="storyImage" accept="image/*">
+    <input type="file" id="storyImage" accept="image/*,video/*">
     <button class="modal-submit" onclick="createStory()">Publish Story</button>
   </div>
 </div>
 
+<!-- STORY VIEWER -->
 <div class="modal" id="storyViewer">
   <div class="story-view" id="storyView">
     <div class="story-progress"><div class="story-progress-bar" id="storyProgressBar"></div></div>
@@ -446,10 +488,49 @@ img{max-width:100%;}
       <button class="story-close" onclick="closeStoryViewer()">×</button>
     </div>
     <div class="story-view-content" id="storyViewContent"></div>
-    <div class="story-pause-hint" id="storyPauseHint">⏸ Paused — release to resume</div>
+    <div class="story-tap-left" onclick="prevStory()"></div>
+    <div class="story-tap-right" onclick="nextStory()"></div>
+    <div class="story-view-footer" id="storyFooter"></div>
   </div>
 </div>
 
+<!-- GROUP MODAL -->
+<div class="modal" id="groupModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Create Group</h2><button class="close-btn" onclick="closeGroupModal()">×</button></div>
+    <div class="field"><label>Group Name</label><input id="groupName" type="text" placeholder="Group name"></div>
+    <div class="field"><label>Group Image (optional)</label><input id="groupImage" type="file" accept="image/*"></div>
+    <div class="field"><label>Select Members (you will be admin)</label></div>
+    <div id="groupMembers" style="max-height:200px;overflow-y:auto;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:8px;"></div>
+    <button class="modal-submit" onclick="createGroup()">Create Group</button>
+  </div>
+</div>
+
+<!-- GROUP INFO / MEMBERS MODAL -->
+<div class="modal" id="groupInfoModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Group Info</h2><button class="close-btn" onclick="closeGroupInfo()">×</button></div>
+    <div id="groupInfoBody"></div>
+  </div>
+</div>
+
+<!-- CHAT INFO MODAL -->
+<div class="modal" id="chatInfoModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Chat Info</h2><button class="close-btn" onclick="closeChatInfo()">×</button></div>
+    <div id="chatInfoBody"></div>
+  </div>
+</div>
+
+<!-- STORY VIEWERS LIST -->
+<div class="modal" id="storyViewersModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Story Viewers</h2><button class="close-btn" onclick="closeStoryViewers()">×</button></div>
+    <div id="storyViewersBody"></div>
+  </div>
+</div>
+
+<!-- ACTION SHEET -->
 <div class="action-sheet" id="actionSheet">
   <div class="action-sheet-box">
     <div class="action-sheet-title" id="actionSheetTitle">Options</div>
@@ -463,7 +544,7 @@ img{max-width:100%;}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore, collection, doc, setDoc, getDoc, addDoc, deleteDoc, updateDoc, query, where, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, updateDoc, query, where, onSnapshot, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD5L__mrY6HIl5V5HtsRk6V-5jOJejBwME",
@@ -481,34 +562,56 @@ const db = getFirestore(app);
 const CLOUDINARY_CLOUD_NAME = "rkmm5vma";
 const CLOUDINARY_UPLOAD_PRESET = "uoo-go";
 
-async function uploadToCloudinary(file){
-  const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  const res = await fetch(url, { method:"POST", body: fd });
-  if(!res.ok) throw new Error("Cloudinary upload failed");
-  const data = await res.json();
-  return data.secure_url;
+/* Upload to Cloudinary with progress */
+function uploadToCloudinaryWithProgress(file, onProgress){
+  return new Promise((resolve, reject) => {
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`);
+    xhr.upload.onprogress = (e) => {
+      if(e.lengthComputable && onProgress){
+        onProgress(Math.round((e.loaded / e.total) * 100));
+      }
+    };
+    xhr.onload = () => {
+      if(xhr.status >= 200 && xhr.status < 300){
+        try{
+          const data = JSON.parse(xhr.responseText);
+          resolve(data.secure_url);
+        }catch(e){ reject(e); }
+      } else {
+        reject(new Error("Upload failed: " + xhr.status));
+      }
+    };
+    xhr.onerror = () => reject(new Error("Network error"));
+    xhr.send(fd);
+  });
 }
 
 /* STATE */
 let currentUser = null;
 let allUsers = [];
-let chats = {};
+let chats = {}; // key: chatId (either uid__uid or group_<id>)
+let chatMeta = {}; // key: chatId -> { type: 'dm'|'group', otherId?, groupId? }
+let groups = {};
 let stories = [];
 let streaks = {};
 let deletedChats = new Set();
 let deletedMessages = new Set();
+let storyViewers = {}; // storyId -> [userIds]
+let storyReactions = {}; // storyId -> { userId: emoji }
 let currentChat = null;
 let replyTo = null;
-let unsubMessages = null;
 let unsubStories = null;
 let unsubUsers = null;
 let unsubStreaks = null;
 let unsubDeletedChats = null;
 let unsubDeletedMessages = null;
 let unsubAllChats = null;
+let unsubMyGroups = null;
+let unsubStoryViewers = null;
 let allChatListeners = new Map();
 let mediaRecorder = null;
 let audioChunks = [];
@@ -516,11 +619,12 @@ let isRecording = false;
 let authMode = "login";
 let selectMode = false;
 let selectedMessages = new Set();
+let aiMode = false;
 
 let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000 };
 const STORY_DURATION = 7000;
 
-/* LIGHTBOX state */
+/* LIGHTBOX */
 let lbZoomed = false;
 let lbLastTap = 0;
 
@@ -531,7 +635,8 @@ function getInitial(u){ return u?.name?.charAt(0).toUpperCase() || "U"; }
 function timeNow(){ return new Date().toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" }); }
 function dateKey(){ const d = new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
 function yesterdayKey(){ const d = new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
-function chatIdFor(a, b){ return [a, b].sort().join("__"); }
+function dmChatId(a, b){ return [a, b].sort().join("__"); }
+function isGroupChat(cid){ return cid.startsWith("group_"); }
 function timeAgo(ms){
   const s = Math.floor((Date.now() - ms)/1000);
   if(s < 60) return "just now";
@@ -540,19 +645,25 @@ function timeAgo(ms){
   return Math.floor(s/86400)+"d ago";
 }
 function avatarHTML(user, className="avatar"){
-  if(user?.image) return `<div class="${className}"><img src="${user.image}" alt=""></div>`;
+  if(user?.image) return `<div class="${className}">${user.online?'':''}<img src="${user.image}" alt=""></div>`;
   return `<div class="${className}">${escapeHTML(getInitial(user))}</div>`;
 }
-function truncate(str, n=60){
-  str = String(str || "");
-  return str.length > n ? str.slice(0, n) + "…" : str;
-}
+function truncate(str, n=60){ str = String(str || ""); return str.length > n ? str.slice(0, n) + "…" : str; }
 let toastTimer;
 function showToast(m){
   const t = document.getElementById("toast");
   t.textContent = m; t.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+function showUploadProgress(label, pct){
+  const box = document.getElementById("uploadProgress");
+  const lb = document.getElementById("uploadLabel");
+  const bar = document.getElementById("uploadBar");
+  if(pct === null){ box.classList.remove("show"); return; }
+  box.classList.add("show");
+  lb.textContent = `${label} ${pct}%`;
+  bar.style.width = pct + "%";
 }
 
 /* ACTION SHEET */
@@ -571,7 +682,7 @@ function openActionSheet(title, buttons){
 }
 function closeActionSheet(){ document.getElementById("actionSheet").classList.remove("show"); }
 
-/* 🔥 LIGHTBOX */
+/* LIGHTBOX */
 function openLightbox(url){
   const lb = document.getElementById("lightbox");
   const img = document.getElementById("lightboxImg");
@@ -579,57 +690,30 @@ function openLightbox(url){
   img.classList.remove("zoomed");
   img.style.transform = "";
   lbZoomed = false;
-  document.getElementById("lightboxHint").textContent = "Double tap to zoom";
-  document.getElementById("lightboxHint").style.opacity = "0.7";
+  document.getElementById("lbDownload").href = url;
   lb.classList.add("show");
 }
 function closeLightbox(){
-  const lb = document.getElementById("lightbox");
   const img = document.getElementById("lightboxImg");
-  img.src = "";
-  img.style.transform = "";
-  img.classList.remove("zoomed");
+  img.src = ""; img.style.transform = ""; img.classList.remove("zoomed");
   lbZoomed = false;
-  lb.classList.remove("show");
+  document.getElementById("lightbox").classList.remove("show");
 }
-
 (function setupLightboxEvents(){
   const lb = document.getElementById("lightbox");
   const img = document.getElementById("lightboxImg");
-  const hint = document.getElementById("lightboxHint");
-
-  // Tap outside to close
-  lb.addEventListener("click", (e) => {
-    if(e.target === lb) closeLightbox();
-  });
-
-  // Double-tap to zoom on image
+  const hint = lb.querySelector(".lightbox-hint");
+  lb.addEventListener("click", (e) => { if(e.target === lb) closeLightbox(); });
   img.addEventListener("click", (e) => {
     e.stopPropagation();
     const now = Date.now();
     if(now - lbLastTap < 300){
-      // Double tap
-      if(lbZoomed){
-        img.style.transform = "";
-        img.classList.remove("zoomed");
-        hint.textContent = "Double tap to zoom";
-        lbZoomed = false;
-      } else {
-        img.style.transform = "scale(2.2)";
-        img.classList.add("zoomed");
-        hint.textContent = "Double tap to reset";
-        lbZoomed = true;
-      }
+      if(lbZoomed){ img.style.transform = ""; img.classList.remove("zoomed"); hint.textContent = "Double tap to zoom"; lbZoomed = false; }
+      else { img.style.transform = "scale(2.2)"; img.classList.add("zoomed"); hint.textContent = "Double tap to reset"; lbZoomed = true; }
       lbLastTap = 0;
-    } else {
-      lbLastTap = now;
-    }
+    } else lbLastTap = now;
   });
-
-  // ESC to close
-  document.addEventListener("keydown", (e) => {
-    if(e.key === "Escape" && lb.classList.contains("show")) closeLightbox();
-  });
+  document.addEventListener("keydown", (e) => { if(e.key === "Escape" && lb.classList.contains("show")) closeLightbox(); });
 })();
 
 /* AUTH */
@@ -641,7 +725,6 @@ function switchAuthTab(mode){
   document.getElementById("authSubmitBtn").textContent = mode === "login" ? "Login" : "Create Account";
   document.getElementById("authError").textContent = "";
 }
-
 async function handleAuth(){
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
@@ -655,7 +738,7 @@ async function handleAuth(){
       if(!name || !username){ errEl.textContent = "Name aur username required hain."; return; }
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, "users", cred.user.uid), {
-        name, username, bio:"Uoo Go user", image:"", email, online:true, created: serverTimestamp()
+        name, username, bio:"Uoo Go user", image:"", email, online:true, lastSeen: serverTimestamp(), created: serverTimestamp()
       });
       showToast("Account created!");
     } else {
@@ -667,14 +750,12 @@ async function handleAuth(){
     errEl.textContent = (err.code || "").replace("auth/","").replaceAll("-"," ") || err.message;
   }
 }
-
 async function logoutUser(){
-  [unsubMessages, unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats].forEach(u => { if(u) u(); });
-  unsubMessages = unsubStories = unsubUsers = unsubStreaks = unsubDeletedChats = unsubDeletedMessages = unsubAllChats = null;
+  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers].forEach(u => { if(u) u(); });
   for(const unsub of allChatListeners.values()) unsub();
   allChatListeners.clear();
-  if(currentUser){ try{ await setDoc(doc(db, "users", currentUser.id), { online:false }, { merge:true }); }catch(e){} }
-  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {};
+  if(currentUser){ try{ await setDoc(doc(db, "users", currentUser.id), { online:false, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} }
+  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {};
   document.body.classList.remove("chat-open");
   document.getElementById("chatWindow")?.classList.remove("open");
   document.getElementById("chatEmpty").style.display = "flex";
@@ -689,16 +770,19 @@ onAuthStateChanged(auth, async (user) => {
   const authScreen = document.getElementById("authScreen");
   if(user){
     const snap = await getDoc(doc(db, "users", user.uid));
-    if(snap.exists()){
-      currentUser = { id: user.uid, ...snap.data() };
-    } else {
+    if(snap.exists()) currentUser = { id: user.uid, ...snap.data() };
+    else {
       currentUser = { id: user.uid, name:"User", username:"user", bio:"", image:"", email: user.email };
-      await setDoc(doc(db, "users", user.uid), {
-        name: currentUser.name, username: currentUser.username, bio: currentUser.bio,
-        image: currentUser.image, email: user.email, online: true, created: serverTimestamp()
-      });
+      await setDoc(doc(db, "users", user.uid), { ...currentUser, online: true, lastSeen: serverTimestamp(), created: serverTimestamp() });
     }
-    await setDoc(doc(db, "users", user.uid), { online:true }, { merge:true });
+    await setDoc(doc(db, "users", user.uid), { online:true, lastSeen: serverTimestamp() }, { merge:true });
+
+    // online/offline heartbeat
+    const setOnline = async (v) => { if(currentUser) try{ await setDoc(doc(db, "users", currentUser.id), { online:v, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} };
+    document.addEventListener("visibilitychange", () => setOnline(!document.hidden));
+    window.addEventListener("beforeunload", () => { navigator.sendBeacon && setOnline(false); });
+    setInterval(() => setOnline(!document.hidden), 60000);
+
     authScreen.classList.add("hidden");
     startRealtimeListeners();
     renderProfile();
@@ -740,7 +824,7 @@ function startRealtimeListeners(){
 
   unsubDeletedChats = onSnapshot(query(collection(db, "deletedChats"), where("uid","==",currentUser.id)), (snap) => {
     deletedChats = new Set();
-    snap.forEach(d => deletedChats.add(d.data().other));
+    snap.forEach(d => deletedChats.add(d.data().chatId));
     renderChats();
   });
 
@@ -750,80 +834,112 @@ function startRealtimeListeners(){
     if(currentChat) renderMessages();
   });
 
-  startAllChatsListener();
+  // My groups
+  unsubMyGroups = onSnapshot(query(collection(db, "groups"), where("members", "array-contains", currentUser.id)), (snap) => {
+    groups = {};
+    snap.forEach(d => { groups[d.id] = { id: d.id, ...d.data() }; });
+    startAllChatsListener();
+    renderChats();
+  });
+
+  // Story viewers cache
+  unsubStoryViewers = onSnapshot(collection(db, "storyViews"), (snap) => {
+    storyViewers = {};
+    storyReactions = {};
+    snap.forEach(d => {
+      const data = d.data();
+      if(data.storyId){
+        if(!storyViewers[data.storyId]) storyViewers[data.storyId] = [];
+        storyViewers[data.storyId].push(data.uid);
+        if(data.reaction){
+          if(!storyReactions[data.storyId]) storyReactions[data.storyId] = {};
+          storyReactions[data.storyId][data.uid] = data.reaction;
+        }
+      }
+    });
+    if(document.getElementById("storyViewer").classList.contains("show")) updateStoryFooter();
+  });
 }
 
-/* AUTO CHAT DISCOVERY */
+/* AUTO CHAT DISCOVERY — DM + Group */
 function startAllChatsListener(){
-  unsubAllChats = onSnapshot(collection(db, "chats"), (snap) => {
-    const stillActive = new Set();
-
+  unsubAllChats && unsubAllChats();
+  // DM chats
+  const dmUnsub = onSnapshot(collection(db, "chats"), (snap) => {
+    const still = new Set();
     snap.forEach(chatDoc => {
       const cid = chatDoc.id;
       const parts = cid.split("__");
       if(parts.length !== 2) return;
       if(!parts.includes(currentUser.id)) return;
-
-      const otherId = parts[0] === currentUser.id ? parts[1] : parts[0];
-      stillActive.add(otherId);
-
-      if(!allChatListeners.has(otherId)){
+      still.add(cid);
+      chatMeta[cid] = { type: "dm", otherId: parts[0] === currentUser.id ? parts[1] : parts[0] };
+      if(!allChatListeners.has(cid)){
         const q = query(collection(db, "chats", cid, "messages"));
         const unsub = onSnapshot(q, (msgSnap) => {
           const list = [];
           msgSnap.forEach(d => list.push({ id:d.id, ...d.data() }));
           list.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
-          chats[otherId] = list;
-          if(currentChat === otherId) renderMessages();
+          chats[cid] = list;
+          if(currentChat === cid) renderMessages();
           renderChats();
         });
-        allChatListeners.set(otherId, unsub);
+        allChatListeners.set(cid, unsub);
       }
     });
-
-    for(const [otherId, unsub] of allChatListeners.entries()){
-      if(!stillActive.has(otherId)){
-        unsub();
-        allChatListeners.delete(otherId);
-        delete chats[otherId];
-      }
+    for(const [cid, unsub] of allChatListeners.entries()){
+      if(!cid.startsWith("group_") && !still.has(cid)){ unsub(); allChatListeners.delete(cid); delete chats[cid]; delete chatMeta[cid]; }
     }
-
     renderChats();
-  }, (err) => {
-    console.error("All chats listener error:", err);
   });
+
+  // Group chats
+  const groupIds = Object.keys(groups);
+  groupIds.forEach(gid => {
+    const cid = "group_" + gid;
+    chatMeta[cid] = { type: "group", groupId: gid };
+    if(!allChatListeners.has(cid)){
+      const q = query(collection(db, "groups", gid, "messages"));
+      const unsub = onSnapshot(q, (msgSnap) => {
+        const list = [];
+        msgSnap.forEach(d => list.push({ id:d.id, ...d.data() }));
+        list.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
+        chats[cid] = list;
+        if(currentChat === cid) renderMessages();
+        renderChats();
+      });
+      allChatListeners.set(cid, unsub);
+    }
+  });
+
+  // Cleanup: group chats jinke groups nahi rahe
+  for(const [cid, unsub] of allChatListeners.entries()){
+    if(cid.startsWith("group_")){
+      const gid = cid.replace("group_", "");
+      if(!groups[gid]){ unsub(); allChatListeners.delete(cid); delete chats[cid]; delete chatMeta[cid]; }
+    }
+  }
 }
 
-/* ENSURE LISTENER for a specific chat */
-function ensureChatListener(otherId){
-  if(allChatListeners.has(otherId)) return;
-  const cid = chatIdFor(currentUser.id, otherId);
-  const q = query(collection(db, "chats", cid, "messages"));
-  const unsub = onSnapshot(q, (msgSnap) => {
+function ensureChatListener(cid, isGroupChat){
+  if(allChatListeners.has(cid)) return;
+  const collRef = isGroupChat ? collection(db, "groups", cid.replace("group_",""), "messages") : collection(db, "chats", cid, "messages");
+  const unsub = onSnapshot(query(collRef), (snap) => {
     const list = [];
-    msgSnap.forEach(d => list.push({ id:d.id, ...d.data() }));
+    snap.forEach(d => list.push({ id:d.id, ...d.data() }));
     list.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
-    chats[otherId] = list;
-    if(currentChat === otherId) renderMessages();
+    chats[cid] = list;
+    if(currentChat === cid) renderMessages();
     renderChats();
   });
-  allChatListeners.set(otherId, unsub);
-  if(!chats[otherId]) chats[otherId] = [];
+  allChatListeners.set(cid, unsub);
+  if(!chats[cid]) chats[cid] = [];
 }
 
-/* 🔥 CREATE the empty chat doc so it shows in chat list immediately
-   (Firestore mein empty chat document create karo, taake allChats listener catch kare) */
-async function ensureChatDoc(otherId){
+async function ensureDmDoc(otherId){
   if(!currentUser || !otherId) return;
-  const cid = chatIdFor(currentUser.id, otherId);
-  try{
-    await setDoc(doc(db, "chats", cid), {
-      participants: [currentUser.id, otherId],
-      lastActivity: serverTimestamp(),
-      createdAt: serverTimestamp()
-    }, { merge: true });
-  }catch(e){ console.error("ensureChatDoc:", e); }
+  const cid = dmChatId(currentUser.id, otherId);
+  try{ await setDoc(doc(db, "chats", cid), { participants: [currentUser.id, otherId], lastActivity: serverTimestamp() }, { merge: true }); }catch(e){}
 }
 
 /* CHAT LIST */
@@ -832,37 +948,45 @@ function renderChats(filter=""){
   if(!currentUser) return;
   const term = filter.trim().toLowerCase();
   box.innerHTML = "";
-
   let visible = [];
-  Object.keys(chats).forEach(id => {
-    if(deletedChats.has(id)) return;
-    const user = getUser(id);
-    if(!user) return;
-    const msgs = chats[id] || [];
+
+  Object.keys(chats).forEach(cid => {
+    if(deletedChats.has(cid)) return;
+    const meta = chatMeta[cid];
+    if(!meta) return;
+    const msgs = chats[cid] || [];
     const last = msgs.length > 0 ? [...msgs].reverse().find(m => !deletedMessages.has(m.id)) : null;
-    if(!term ||
-       user.name.toLowerCase().includes(term) ||
-       user.username.toLowerCase().includes(term) ||
-       (last?.text || "").toLowerCase().includes(term)){
-      visible.push({ user, last });
+
+    let name = "";
+    let avatarUser = null;
+    let isGroup = meta.type === "group";
+
+    if(isGroup){
+      const g = groups[meta.groupId];
+      if(!g) return;
+      name = g.name || "Group";
+      avatarUser = { name: g.name, image: g.image };
+    } else {
+      const user = getUser(meta.otherId);
+      if(!user) return;
+      name = user.name;
+      avatarUser = user;
     }
+
+    if(term && !name.toLowerCase().includes(term) && !(last?.text || "").toLowerCase().includes(term)) return;
+    visible.push({ cid, name, avatarUser, last, isGroup, meta });
   });
 
-  visible.sort((a,b) => {
-    const ta = a.last?.created?.toMillis?.() || 0;
-    const tb = b.last?.created?.toMillis?.() || 0;
-    return tb - ta;
-  });
+  visible.sort((a,b) => (b.last?.created?.toMillis?.()||0) - (a.last?.created?.toMillis?.()||0));
 
   if(visible.length === 0){
-    box.innerHTML = `<div style="padding:25px;color:var(--muted);text-align:center;font-size:13px;">
-      No chats yet.<br><br>Username search karke new chat start karo.</div>`;
+    box.innerHTML = `<div style="padding:25px;color:var(--muted);text-align:center;font-size:13px;">No chats yet.<br><br>Username search karke new chat start karo.</div>`;
     return;
   }
 
   visible.forEach(item => {
-    const { user, last } = item;
-    const selected = currentChat === user.id ? "selected" : "";
+    const { cid, name, avatarUser, last, isGroup } = item;
+    const selected = currentChat === cid ? "selected" : "";
     let preview = "Start a conversation";
     let timeStr = "";
     if(last){
@@ -870,24 +994,34 @@ function renderChats(filter=""){
       else if(last.type==="image") preview = "📷 Image";
       else if(last.type==="video") preview = "🎥 Video";
       else if(last.type==="audio") preview = "🎤 Voice message";
+      else if(last.type==="doc") preview = "📄 " + (last.fileName || "Document");
       else preview = last.text || "";
       timeStr = last.time || "";
     }
 
+    let unread = 0;
+    if(last && last.sender !== currentUser.id){
+      const seenBy = last.seenBy || [];
+      if(!seenBy.includes(currentUser.id)) unread = 1;
+    }
+
     const el = document.createElement("div");
     el.className = `chat-item ${selected}`;
+    el.dataset.cid = cid;
     el.innerHTML = `
-      ${avatarHTML(user)}
+      ${avatarHTML(avatarUser)}
       <div class="chat-info">
         <div class="chat-top">
-          <div class="chat-name">${escapeHTML(user.name)}</div>
+          <div class="chat-name">${escapeHTML(name)} ${isGroup ? '<span style="color:var(--muted);font-size:11px;">• group</span>' : ""}</div>
           <div class="chat-time">${timeStr}</div>
         </div>
         <div class="chat-preview">${escapeHTML(preview)}</div>
-      </div>`;
-    el.onclick = () => openChat(user.id);
+      </div>
+      ${unread > 0 ? `<span class="unread-badge">${unread}</span>` : ""}
+    `;
+    el.onclick = () => openChat(cid);
     let lpTimer = null, moved = false;
-    const startLP = () => { moved = false; lpTimer = setTimeout(() => { if(!moved) showChatOptions(user.id); }, 600); };
+    const startLP = () => { moved = false; lpTimer = setTimeout(() => { if(!moved) showChatOptions(cid); }, 600); };
     const endLP = () => { if(lpTimer){ clearTimeout(lpTimer); lpTimer = null; } };
     el.addEventListener("touchstart", startLP, { passive:true });
     el.addEventListener("touchend", endLP);
@@ -896,34 +1030,32 @@ function renderChats(filter=""){
     el.addEventListener("mousedown", startLP);
     el.addEventListener("mouseup", endLP);
     el.addEventListener("mouseleave", endLP);
-    el.addEventListener("contextmenu", (e) => { e.preventDefault(); showChatOptions(user.id); });
+    el.addEventListener("contextmenu", (e) => { e.preventDefault(); showChatOptions(cid); });
     box.appendChild(el);
   });
 }
 
-function showChatOptions(userId){
-  const user = getUser(userId);
-  if(!user) return;
-  openActionSheet(`@${user.username}`, [
-    { label: "Open chat", action: () => openChat(userId) },
-    { label: "Delete chat", danger: true, action: () => deleteChatForMe(userId) }
-  ]);
+function showChatOptions(cid){
+  const meta = chatMeta[cid];
+  if(!meta) return;
+  const opts = [{ label: "Open chat", action: () => openChat(cid) }];
+  if(meta.type === "group") opts.push({ label: "Group info", action: () => openGroupInfo(meta.groupId) });
+  opts.push({ label: "Delete chat", danger: true, action: () => deleteChatForMe(cid) });
+  openActionSheet(meta.type === "group" ? "Group" : "Chat", opts);
 }
 
-async function deleteChatForMe(userId){
+async function deleteChatForMe(cid){
   if(!currentUser) return;
-  const id = `${currentUser.id}_${userId}`;
-  await setDoc(doc(db, "deletedChats", id), {
-    uid: currentUser.id, other: userId, deletedAt: serverTimestamp()
+  await setDoc(doc(db, "deletedChats", `${currentUser.id}_${cid}`), {
+    uid: currentUser.id, chatId: cid, deletedAt: serverTimestamp()
   });
-  delete chats[userId];
-  deletedChats.add(userId);
-  if(currentChat === userId) closeChat();
+  deletedChats.add(cid);
+  if(currentChat === cid) closeChat();
   renderChats();
   showToast("Chat deleted.");
 }
 
-/* SEARCH */
+/* SEARCH USERS */
 function searchEverything(value){
   const term = value.trim().toLowerCase();
   renderChats(value);
@@ -946,48 +1078,60 @@ function searchEverything(value){
       </div>`;
   });
 }
-
 function focusUserSearch(){
   showPage("chats");
   const input = document.getElementById("chatSearch");
   input.focus(); input.value = "@"; searchEverything("@");
 }
 
-/* 🔥 OPEN CHAT — start new chat with empty entry */
+/* OPEN CHAT */
 async function startNewChat(userId){
   const user = getUser(userId);
   if(!user) return;
-
-  // 🔥 Create the chat doc in Firestore so allChats listener catches it → shows in list
-  await ensureChatDoc(userId);
-  ensureChatListener(userId);
-
-  if(!chats[userId]) chats[userId] = [];
-
+  await ensureDmDoc(userId);
+  const cid = dmChatId(currentUser.id, userId);
+  chatMeta[cid] = { type: "dm", otherId: userId };
+  ensureChatListener(cid, false);
+  if(!chats[cid]) chats[cid] = [];
   document.getElementById("chatSearch").value = "";
   document.getElementById("userSearchBox").classList.remove("show");
-
   renderChats();
-  openChat(userId);
+  openChat(cid);
   showToast("Chat started with @" + user.username);
 }
 
-function updateChatHeader(userId){
-  const user = getUser(userId);
-  if(!user) return;
+function updateChatHeader(cid){
+  const meta = chatMeta[cid];
+  if(!meta) return;
+  let name, avatarUser, status;
+  if(meta.type === "group"){
+    const g = groups[meta.groupId];
+    if(!g) return;
+    name = g.name;
+    avatarUser = { name: g.name, image: g.image };
+    status = `${(g.members||[]).length} members`;
+  } else {
+    const user = getUser(meta.otherId);
+    if(!user) return;
+    name = user.name;
+    avatarUser = user;
+    const seen = user.lastSeen?.toMillis?.();
+    status = user.online ? "online" : (seen ? "last seen " + timeAgo(seen) : "offline");
+  }
   const avatar = document.getElementById("headerAvatar");
-  if(user.image) avatar.innerHTML = `<img src="${user.image}" alt="">`;
-  else avatar.innerHTML = escapeHTML(getInitial(user));
-  document.getElementById("headerName").textContent = user.name;
-  document.getElementById("headerStatus").textContent = user.online ? "online" : "offline";
+  if(avatarUser.image) avatar.innerHTML = `<img src="${avatarUser.image}" alt="">`;
+  else avatar.innerHTML = escapeHTML(getInitial(avatarUser));
+  document.getElementById("headerName").textContent = name;
+  document.getElementById("headerStatus").textContent = status;
 }
 
-function openChat(userId){
-  const user = getUser(userId);
-  if(!user || !currentUser) return;
-  currentChat = userId;
-  if(!chats[userId]) chats[userId] = [];
-  ensureChatListener(userId);
+function openChat(cid){
+  const meta = chatMeta[cid];
+  if(!meta || !currentUser) return;
+  currentChat = cid;
+  aiMode = false;
+  if(!chats[cid]) chats[cid] = [];
+  ensureChatListener(cid, meta.type === "group");
 
   exitSelectMode();
   cancelReply();
@@ -995,14 +1139,16 @@ function openChat(userId){
   document.getElementById("chatWindow").classList.add("open");
   document.body.classList.add("chat-open");
 
-  updateChatHeader(userId);
+  updateChatHeader(cid);
   updateStreakUI();
   renderMessages();
   renderChats();
+  markChatSeen(cid);
 }
 
 function closeChat(){
   currentChat = null;
+  aiMode = false;
   exitSelectMode();
   cancelReply();
   document.body.classList.remove("chat-open");
@@ -1011,27 +1157,68 @@ function closeChat(){
   renderChats();
 }
 
+async function markChatSeen(cid){
+  const meta = chatMeta[cid];
+  if(!meta || meta.type === "group") return;
+  const msgs = chats[cid] || [];
+  const collRef = collection(db, "chats", cid, "messages");
+  for(const m of msgs){
+    if(m.sender === currentUser.id) continue;
+    const seenBy = m.seenBy || [];
+    if(!seenBy.includes(currentUser.id)){
+      try{ await updateDoc(doc(collRef, m.id), { seenBy: arrayUnion(currentUser.id) }); }catch(e){}
+    }
+  }
+}
+
+/* AI CHAT via Pollinations */
+async function openAiChat(){
+  aiMode = true;
+  currentChat = "ai_uoo";
+  chatMeta["ai_uoo"] = { type: "ai" };
+  if(!chats["ai_uoo"]) chats["ai_uoo"] = [];
+  exitSelectMode(); cancelReply();
+  document.getElementById("chatEmpty").style.display = "none";
+  document.getElementById("chatWindow").classList.add("open");
+  document.body.classList.add("chat-open");
+  document.getElementById("headerAvatar").innerHTML = "🤖";
+  document.getElementById("headerName").innerHTML = `Uoo Go Ai <span class="ai-badge">BETA</span>`;
+  document.getElementById("headerStatus").textContent = "Always online";
+  document.getElementById("streakCount").textContent = "0";
+  renderMessages();
+}
+
+async function callUooAi(prompt){
+  try{
+    const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}`);
+    const text = await res.text();
+    return text || "Sorry, koi jawab nahi mila.";
+  }catch(e){
+    return "AI se connect nahi ho paya. Internet check karo.";
+  }
+}
+
 /* RENDER MESSAGES */
 function renderMessages(){
   if(!currentChat) return;
   const box = document.getElementById("messages");
   const list = chats[currentChat] || [];
+  const meta = chatMeta[currentChat] || { type: "dm" };
   box.innerHTML = `<div class="date-line">Today</div>`;
 
   list.forEach(msg => {
     if(deletedMessages.has(msg.id)) return;
     const me = msg.sender === currentUser.id;
-    let content = "";
+    const isGroup = meta.type === "group";
+    const showSender = isGroup && !me;
+    const sender = getUser(msg.sender) || { name: "User" };
 
     let replyBlock = "";
     if(msg.replyTo && msg.replyTo.text !== undefined){
-      replyBlock = `
-        <div class="reply-quote">
-          <div class="rq-name">${escapeHTML(msg.replyTo.name || "User")}</div>
-          <div class="rq-text">${escapeHTML(truncate(msg.replyTo.text, 50))}</div>
-        </div>`;
+      replyBlock = `<div class="reply-quote"><div class="rq-name">${escapeHTML(msg.replyTo.name || "User")}</div><div class="rq-text">${escapeHTML(truncate(msg.replyTo.text, 50))}</div></div>`;
     }
 
+    let content = "";
     if(msg.deletedForAll){
       content = `<div class="deleted-text">🚫 This message was deleted</div>`;
     } else if(msg.type === "image"){
@@ -1040,63 +1227,80 @@ function renderMessages(){
       content = `<video class="msg-video" controls src="${msg.data}" preload="metadata"></video>`;
     } else if(msg.type === "audio"){
       content = `<audio controls src="${msg.data}" style="max-width:100%;"></audio>`;
+    } else if(msg.type === "doc"){
+      content = `<a class="msg-file" href="${msg.data}" target="_blank" download="${escapeHTML(msg.fileName||'file')}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        <div class="fname">${escapeHTML(msg.fileName||'Document')}</div>
+      </a>`;
     } else {
       content = `<div class="message-text">${escapeHTML(msg.text || "")}</div>`;
+    }
+
+    // Ticks
+    let tickHTML = "";
+    if(me && !msg.deletedForAll && !aiMode){
+      const seenBy = msg.seenBy || [];
+      // Blue tick if anyone else has seen
+      const others = seenBy.filter(u => u !== currentUser.id);
+      if(others.length > 0) tickHTML = `<span class="tick blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 13l4 4L14 7"/><path d="M9 17l1 1L22 6"/></svg></span>`;
+      else tickHTML = `<span class="tick double"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 13l4 4L14 7"/><path d="M9 17l1 1L22 6"/></svg></span>`;
+    } else if(me && !msg.deletedForAll) {
+      tickHTML = `<span class="tick single"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span>`;
     }
 
     const row = document.createElement("div");
     row.className = `message-row ${me ? "me" : ""} ${selectedMessages.has(msg.id) ? "selected" : ""}`;
 
     const checkbox = selectMode
-      ? `<div class="msg-checkbox ${selectedMessages.has(msg.id) ? "checked" : ""}">
-           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
-         </div>`
+      ? `<div class="msg-checkbox ${selectedMessages.has(msg.id) ? "checked" : ""}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></div>`
       : "";
+
+    const senderHTML = showSender ? `
+      <div class="msg-sender">
+        <div class="mini-av">${sender.image ? `<img src="${sender.image}" alt="">` : escapeHTML(getInitial(sender))}</div>
+        <span>${escapeHTML(sender.name)}</span>
+      </div>` : "";
 
     row.innerHTML = `
       ${!me && selectMode ? checkbox : ""}
-      <div class="message">
-        ${replyBlock}
-        ${content}
-        <div class="message-meta">
-          ${msg.time || ""}
-          ${me && !msg.deletedForAll ? `<span class="seen">✓✓</span>` : ""}
+      <div class="message-col">
+        ${senderHTML}
+        <div class="message">
+          ${replyBlock}
+          ${content}
+          <div class="message-meta">
+            ${msg.time || ""}
+            ${tickHTML}
+          </div>
         </div>
       </div>
       ${me && selectMode ? checkbox : ""}
     `;
 
-    // 🔥 Image click → lightbox
     const imgEl = row.querySelector(".msg-image");
-    if(imgEl){
-      imgEl.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openLightbox(imgEl.dataset.url);
-      });
-    }
+    if(imgEl) imgEl.addEventListener("click", (e) => { e.stopPropagation(); openLightbox(imgEl.dataset.url); });
 
     const msgEl = row.querySelector(".message");
-    msgEl.onclick = (e) => {
-      e.stopPropagation();
-      // If click on image, lightbox already handled above
-      if(e.target.classList.contains("msg-image")) return;
-      if(selectMode) toggleMsgSelection(msg.id);
-      else showMessageOptions(msg);
-    };
-
+    if(msgEl){
+      msgEl.onclick = (e) => {
+        e.stopPropagation();
+        if(e.target.classList.contains("msg-image")) return;
+        if(selectMode) toggleMsgSelection(msg.id);
+        else showMessageOptions(msg);
+      };
+    }
     box.appendChild(row);
   });
   box.scrollTop = box.scrollHeight;
+
+  // Mark seen for messages I haven't seen (DM only)
+  if(meta.type === "dm") markChatSeen(currentChat);
 }
 
 function showMessageOptions(msg){
   const me = msg.sender === currentUser.id;
   const btns = [];
-
-  if(!msg.deletedForAll){
-    btns.push({ label: "↩ Reply", action: () => startReply(msg) });
-  }
-
+  if(!msg.deletedForAll) btns.push({ label: "↩ Reply", action: () => startReply(msg) });
   if(!msg.deletedForAll){
     if(me){
       btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
@@ -1104,24 +1308,21 @@ function showMessageOptions(msg){
     } else {
       btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
     }
-  } else {
-    btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
-  }
-
+  } else btns.push({ label: "🗑 Delete for me", danger: true, action: () => deleteMessageForMe(msg.id) });
   btns.push({ label: "☑ Select multiple", action: () => enterSelectMode(msg.id) });
-
   openActionSheet("Message options", btns);
 }
 
 /* REPLY */
 function startReply(msg){
   const me = msg.sender === currentUser.id;
-  const user = me ? currentUser : (getUser(currentChat) || { name: "User" });
+  const user = me ? currentUser : (getUser(msg.sender) || { name: "User" });
   let previewText = msg.text || "";
   if(!previewText){
     if(msg.type === "image") previewText = "📷 Image";
     else if(msg.type === "video") previewText = "🎥 Video";
     else if(msg.type === "audio") previewText = "🎤 Voice message";
+    else if(msg.type === "doc") previewText = "📄 Document";
     else previewText = "Message";
   }
   replyTo = { id: msg.id, name: user.name, text: previewText, type: msg.type || "text" };
@@ -1130,7 +1331,6 @@ function startReply(msg){
   document.getElementById("replyPreview").classList.add("show");
   document.getElementById("messageInput").focus();
 }
-
 function cancelReply(){
   replyTo = null;
   const rp = document.getElementById("replyPreview");
@@ -1140,27 +1340,19 @@ function cancelReply(){
 /* DELETE */
 async function deleteMessageForMe(msgId){
   if(!currentUser) return;
-  const id = `${currentUser.id}_${msgId}`;
-  await setDoc(doc(db, "deletedMessages", id), {
-    uid: currentUser.id, msgId, deletedAt: serverTimestamp()
-  });
+  await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${msgId}`), { uid: currentUser.id, msgId, deletedAt: serverTimestamp() });
   deletedMessages.add(msgId);
   renderMessages();
   showToast("Deleted for you.");
 }
-
 async function deleteMessageForAll(msgId){
   if(!currentUser || !currentChat) return;
-  const cid = chatIdFor(currentUser.id, currentChat);
+  const meta = chatMeta[currentChat];
+  const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
   try{
-    await updateDoc(doc(db, "chats", cid, "messages", msgId), {
-      deletedForAll: true, text: "", data: "", type: "deleted", replyTo: null
-    });
+    await updateDoc(doc(collRef, msgId), { deletedForAll: true, text:"", data:"", type:"deleted", replyTo:null });
     showToast("Deleted for everyone.");
-  }catch(err){
-    console.error(err);
-    showToast("Failed: " + err.message);
-  }
+  }catch(err){ console.error(err); showToast("Failed."); }
 }
 
 /* SELECT MODE */
@@ -1178,58 +1370,33 @@ function exitSelectMode(){
   document.getElementById("selectBar").classList.remove("show");
   renderMessages();
 }
-function toggleSelectMode(){
-  if(selectMode) exitSelectMode();
-  else enterSelectMode();
-}
-function toggleMsgSelection(msgId){
-  if(selectedMessages.has(msgId)) selectedMessages.delete(msgId);
-  else selectedMessages.add(msgId);
-  updateSelectCount();
-  renderMessages();
-}
-function selectAllMessages(){
-  const list = chats[currentChat] || [];
-  selectedMessages = new Set(list.filter(m => !deletedMessages.has(m.id)).map(m => m.id));
-  updateSelectCount();
-  renderMessages();
-}
-function updateSelectCount(){
-  document.getElementById("selectCount").textContent = `${selectedMessages.size} selected`;
-}
+function toggleSelectMode(){ if(selectMode) exitSelectMode(); else enterSelectMode(); }
+function toggleMsgSelection(msgId){ if(selectedMessages.has(msgId)) selectedMessages.delete(msgId); else selectedMessages.add(msgId); updateSelectCount(); renderMessages(); }
+function selectAllMessages(){ const list = chats[currentChat] || []; selectedMessages = new Set(list.filter(m => !deletedMessages.has(m.id)).map(m => m.id)); updateSelectCount(); renderMessages(); }
+function updateSelectCount(){ document.getElementById("selectCount").textContent = `${selectedMessages.size} selected`; }
 
 async function deleteSelectedMessages(){
   if(selectedMessages.size === 0){ showToast("Kuch select karo."); return; }
   const ids = [...selectedMessages];
+  const meta = chatMeta[currentChat];
+  const collRef = meta.type === "group" ? collection(db, "groups", meta.groupId, "messages") : collection(db, "chats", currentChat, "messages");
 
   openActionSheet(`${ids.length} messages`, [
     { label: "🗑 Delete for me", danger: true, action: async () => {
       for(const id of ids){
-        const did = `${currentUser.id}_${id}`;
-        await setDoc(doc(db, "deletedMessages", did), {
-          uid: currentUser.id, msgId: id, deletedAt: serverTimestamp()
-        });
+        await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() });
         deletedMessages.add(id);
       }
       exitSelectMode();
       showToast("Deleted for you.");
     }},
     { label: "🗑 Delete for everyone (only mine)", danger: true, action: async () => {
-      const cid = chatIdFor(currentUser.id, currentChat);
       for(const id of ids){
-        const list = chats[currentChat] || [];
-        const msg = list.find(m => m.id === id);
+        const msg = (chats[currentChat] || []).find(m => m.id === id);
         if(msg && msg.sender === currentUser.id){
-          try{
-            await updateDoc(doc(db, "chats", cid, "messages", id), {
-              deletedForAll: true, text: "", data: "", type: "deleted", replyTo: null
-            });
-          }catch(e){ console.error(e); }
+          try{ await updateDoc(doc(collRef, id), { deletedForAll: true, text:"", data:"", type:"deleted", replyTo:null }); }catch(e){}
         } else {
-          const did = `${currentUser.id}_${id}`;
-          await setDoc(doc(db, "deletedMessages", did), {
-            uid: currentUser.id, msgId: id, deletedAt: serverTimestamp()
-          });
+          await setDoc(doc(db, "deletedMessages", `${currentUser.id}_${id}`), { uid: currentUser.id, msgId: id, deletedAt: serverTimestamp() });
           deletedMessages.add(id);
         }
       }
@@ -1239,7 +1406,7 @@ async function deleteSelectedMessages(){
   ]);
 }
 
-/* 🔥 SEND — ensure chat doc + listener + list update */
+/* SEND */
 async function sendMessage(){
   if(!currentChat || !currentUser){ showToast("Pehle chat open karo."); return; }
   const input = document.getElementById("messageInput");
@@ -1247,32 +1414,41 @@ async function sendMessage(){
   if(!text) return;
   input.value = "";
 
-  // Ensure chat doc + listener
-  await ensureChatDoc(currentChat);
-  ensureChatListener(currentChat);
-  if(!chats[currentChat]) chats[currentChat] = [];
-
-  const payload = { sender: currentUser.id, type: "text", text, time: timeNow() };
-  if(replyTo){
-    payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text };
+  if(aiMode){
+    // Add user message
+    chats["ai_uoo"].push({ id: "local_" + Date.now(), sender: currentUser.id, type: "text", text, time: timeNow(), created: { toMillis: () => Date.now() } });
+    renderMessages();
+    // AI reply
+    const aiMsgId = "ai_" + Date.now();
+    chats["ai_uoo"].push({ id: aiMsgId, sender: "ai", type: "text", text: "Typing...", time: timeNow(), created: { toMillis: () => Date.now() } });
+    renderMessages();
+    const reply = await callUooAi(text);
+    const idx = chats["ai_uoo"].findIndex(m => m.id === aiMsgId);
+    if(idx >= 0) chats["ai_uoo"][idx].text = reply;
+    renderMessages();
+    return;
   }
-  cancelReply();
 
+  const meta = chatMeta[currentChat];
+  const payload = { sender: currentUser.id, senderName: currentUser.name, type: "text", text, time: timeNow(), seenBy: [currentUser.id] };
+  if(replyTo) payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text };
+  cancelReply();
   await pushMessage(payload);
-  await updateStreak(currentChat);
+  if(meta.type !== "group") await updateStreak(currentChat);
   updateStreakUI();
   renderChats();
 }
 
 async function pushMessage(payload){
   if(!currentChat || !currentUser) return;
-  const cid = chatIdFor(currentUser.id, currentChat);
-  await addDoc(collection(db, "chats", cid, "messages"), {
-    ...payload, senderId: currentUser.id, created: serverTimestamp()
-  });
+  const meta = chatMeta[currentChat];
+  if(meta.type === "group"){
+    await addDoc(collection(db, "groups", meta.groupId, "messages"), { ...payload, created: serverTimestamp() });
+  } else {
+    await addDoc(collection(db, "chats", currentChat, "messages"), { ...payload, created: serverTimestamp() });
+  }
   if(deletedChats.has(currentChat)){
-    const did = `${currentUser.id}_${currentChat}`;
-    try{ await deleteDoc(doc(db, "deletedChats", did)); }catch(e){}
+    try{ await deleteDoc(doc(db, "deletedChats", `${currentUser.id}_${currentChat}`)); }catch(e){}
     deletedChats.delete(currentChat);
   }
 }
@@ -1281,38 +1457,59 @@ function messageKey(event){
   if(event.key === "Enter" && !event.shiftKey){ event.preventDefault(); sendMessage(); }
 }
 
-/* IMAGE / VIDEO / VOICE */
-function chooseImage(){
-  if(!currentChat){ showToast("Pehle chat open karo."); return; }
-  document.getElementById("imageInput").click();
-}
-async function sendImage(input){
+/* MEDIA (image/video/doc) */
+async function sendMedia(input, kind){
   const file = input.files[0];
   if(!file || !currentChat) return;
-  const isVideo = file.type.startsWith("video/");
-  const maxSize = isVideo ? 20*1024*1024 : 8*1024*1024;
-  if(file.size > maxSize){ showToast(`File ${isVideo?"20MB":"8MB"} se choti rakho.`); input.value=""; return; }
-  showToast("Uploading...");
+  input.value = "";
 
-  await ensureChatDoc(currentChat);
-  ensureChatListener(currentChat);
-  if(!chats[currentChat]) chats[currentChat] = [];
+  const isVideo = file.type.startsWith("video/");
+  const isImage = file.type.startsWith("image/");
+
+  // Video length check (max 10 min)
+  if(isVideo){
+    try{
+      const dur = await getVideoDuration(file);
+      if(dur > 600){ showToast("Video 10 minute se choti rakho."); return; }
+    }catch(e){}
+    if(file.size > 50*1024*1024){ showToast("Video 50MB se choti rakho."); return; }
+  }
+  if(isImage && file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); return; }
+  if(kind === "doc" && file.size > 25*1024*1024){ showToast("Document 25MB se choti rakho."); return; }
 
   try{
-    const url = await uploadToCloudinary(file);
-    const payload = { sender: currentUser.id, type: isVideo ? "video":"image", data: url, time: timeNow() };
-    if(replyTo){
-      payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text };
-      cancelReply();
-    }
+    showUploadProgress("Uploading", 0);
+    const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
+    showUploadProgress("Processing", 100);
+
+    const meta = chatMeta[currentChat];
+    let type = kind === "doc" ? "doc" : (isVideo ? "video" : "image");
+    const payload = { sender: currentUser.id, senderName: currentUser.name, type, data: url, time: timeNow(), seenBy: [currentUser.id], fileName: file.name };
+    if(replyTo){ payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text }; cancelReply(); }
     await pushMessage(payload);
-    await updateStreak(currentChat); updateStreakUI();
+    if(meta.type !== "group") await updateStreak(currentChat);
+    updateStreakUI();
     renderChats();
-    showToast(isVideo ? "Video sent." : "Image sent.");
-  }catch(err){ console.error(err); showToast("Upload failed."); }
-  input.value = "";
+    showUploadProgress("", null);
+    showToast("Sent.");
+  }catch(err){
+    console.error(err);
+    showUploadProgress("", null);
+    showToast("Upload failed.");
+  }
 }
 
+function getVideoDuration(file){
+  return new Promise((resolve, reject) => {
+    const v = document.createElement("video");
+    v.preload = "metadata";
+    v.onloadedmetadata = () => { resolve(v.duration); URL.revokeObjectURL(v.src); };
+    v.onerror = reject;
+    v.src = URL.createObjectURL(file);
+  });
+}
+
+/* VOICE */
 async function toggleRecording(){
   if(!currentChat){ showToast("Pehle chat open karo."); return; }
   if(isRecording){ stopRecording(); return; }
@@ -1324,23 +1521,20 @@ async function toggleRecording(){
     mediaRecorder.onstop = async () => {
       const blob = new Blob(audioChunks, { type:"audio/webm" });
       stream.getTracks().forEach(t => t.stop());
-      showToast("Uploading voice...");
-      await ensureChatDoc(currentChat);
-      ensureChatListener(currentChat);
-      if(!chats[currentChat]) chats[currentChat] = [];
       try{
+        showUploadProgress("Uploading", 0);
         const file = new File([blob], `voice_${Date.now()}.webm`, { type:"audio/webm" });
-        const url = await uploadToCloudinary(file);
-        const payload = { sender: currentUser.id, type: "audio", data: url, time: timeNow() };
-        if(replyTo){
-          payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text };
-          cancelReply();
-        }
+        const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
+        const meta = chatMeta[currentChat];
+        const payload = { sender: currentUser.id, senderName: currentUser.name, type: "audio", data: url, time: timeNow(), seenBy: [currentUser.id] };
+        if(replyTo){ payload.replyTo = { id: replyTo.id, name: replyTo.name, text: replyTo.text }; cancelReply(); }
         await pushMessage(payload);
-        await updateStreak(currentChat); updateStreakUI();
+        if(meta.type !== "group") await updateStreak(currentChat);
+        updateStreakUI();
         renderChats();
+        showUploadProgress("", null);
         showToast("Voice sent.");
-      }catch(err){ console.error(err); showToast("Voice upload failed."); }
+      }catch(err){ console.error(err); showUploadProgress("", null); showToast("Voice upload failed."); }
     };
     mediaRecorder.start();
     isRecording = true;
@@ -1355,10 +1549,10 @@ function stopRecording(){
 }
 
 /* STREAKS */
-async function updateStreak(chatId){
+async function updateStreak(cid){
   if(!currentUser) return;
   const today = dateKey(), yesterday = yesterdayKey();
-  const sid = `${currentUser.id}_${chatId}`;
+  const sid = `${currentUser.id}_${cid}`;
   const ref = doc(db, "streaks", sid);
   const snap = await getDoc(ref);
   let count = 1;
@@ -1367,11 +1561,165 @@ async function updateStreak(chatId){
     if(s.lastDate === today) return;
     count = (s.lastDate === yesterday) ? (s.count + 1) : 1;
   }
-  await setDoc(ref, { uid: currentUser.id, other: chatId, count, lastDate: today });
+  await setDoc(ref, { uid: currentUser.id, other: cid, count, lastDate: today });
 }
 function updateStreakUI(){
   if(!currentChat){ document.getElementById("streakCount").textContent = "0"; return; }
   document.getElementById("streakCount").textContent = streaks[currentChat]?.count || 0;
+}
+
+/* GROUPS */
+function openGroupModal(){
+  const box = document.getElementById("groupMembers");
+  box.innerHTML = "";
+  allUsers.forEach(u => {
+    const row = document.createElement("label");
+    row.style.cssText = "display:flex;align-items:center;gap:10px;padding:6px;cursor:pointer;border-radius:8px;";
+    row.innerHTML = `
+      <input type="checkbox" data-uid="${u.id}" style="width:18px;height:18px;">
+      ${avatarHTML(u, "avatar")}
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:600;font-size:13px;">${escapeHTML(u.name)}</div>
+        <div style="color:var(--muted);font-size:11px;">@${escapeHTML(u.username)}</div>
+      </div>`;
+    box.appendChild(row);
+  });
+  if(allUsers.length === 0) box.innerHTML = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px;">No users found.</div>`;
+  document.getElementById("groupModal").classList.add("show");
+}
+function closeGroupModal(){ document.getElementById("groupModal").classList.remove("show"); }
+
+async function createGroup(){
+  const name = document.getElementById("groupName").value.trim();
+  if(!name){ showToast("Group name required."); return; }
+  const checked = [...document.querySelectorAll("#groupMembers input:checked")].map(c => c.dataset.uid);
+  if(checked.length === 0){ showToast("Kam se kam 1 member select karo."); return; }
+
+  let image = "";
+  const file = document.getElementById("groupImage").files[0];
+  if(file){
+    try{
+      showUploadProgress("Uploading group image", 0);
+      image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading group image", pct));
+      showUploadProgress("", null);
+    }catch(e){ showUploadProgress("", null); }
+  }
+
+  const members = [currentUser.id, ...checked];
+  const admins = [currentUser.id]; // creator is admin
+
+  const gRef = await addDoc(collection(db, "groups"), {
+    name, image, members, admins, createdBy: currentUser.id, created: serverTimestamp(), lastActivity: serverTimestamp()
+  });
+
+  // Auto message
+  await addDoc(collection(db, "groups", gRef.id, "messages"), {
+    sender: currentUser.id, senderName: currentUser.name, type: "text",
+    text: `${currentUser.name} created this group.`, time: timeNow(), seenBy: [currentUser.id], created: serverTimestamp(), system: true
+  });
+
+  document.getElementById("groupName").value = "";
+  document.getElementById("groupImage").value = "";
+  closeGroupModal();
+  showToast("Group created!");
+  setTimeout(() => openChat("group_" + gRef.id), 500);
+}
+
+function openGroupInfo(gid){
+  const g = groups[gid];
+  if(!g) return;
+  const isAdmin = (g.admins || []).includes(currentUser.id);
+  const body = document.getElementById("groupInfoBody");
+  body.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      ${g.image ? `<img src="${g.image}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">` : `<div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061017;font-size:34px;font-weight:800;margin:auto;">${escapeHTML((g.name||"G")[0].toUpperCase())}</div>`}
+      <h3 style="margin-top:10px;">${escapeHTML(g.name)}</h3>
+      <p style="color:var(--muted);font-size:12px;">${(g.members||[]).length} members • ${(g.admins||[]).length} admin(s)</p>
+    </div>
+    ${isAdmin ? `<button class="save-btn" style="margin-bottom:12px;" onclick="editGroup('${gid}')">Edit Group</button>` : ""}
+    <h4 style="margin:10px 0;">Members</h4>
+    <div id="groupMembersList"></div>
+  `;
+  const list = document.getElementById("groupMembersList");
+  (g.members || []).forEach(uid => {
+    const u = uid === currentUser.id ? currentUser : getUser(uid);
+    if(!u) return;
+    const isAdm = (g.admins||[]).includes(uid);
+    const row = document.createElement("div");
+    row.className = "member-row";
+    row.innerHTML = `
+      ${avatarHTML(u, "avatar")}
+      <div class="mi"><div class="mn">${escapeHTML(u.name)}${uid === currentUser.id ? " (you)" : ""}</div><div class="mu">@${escapeHTML(u.username||'')}</div></div>
+      <div class="role ${isAdm?'':'member'}">${isAdm?'Admin':'Member'}</div>`;
+    if(isAdmin && !isAdm && uid !== currentUser.id){
+      row.style.cursor = "pointer";
+      row.onclick = () => openActionSheet("Member", [
+        { label: "Make admin", action: () => makeAdmin(gid, uid) },
+        { label: "Remove from group", danger: true, action: () => removeMember(gid, uid) }
+      ]);
+    } else if(isAdmin && isAdm && uid !== currentUser.id){
+      row.onclick = () => openActionSheet("Admin", [
+        { label: "Remove admin", danger: true, action: () => removeAdmin(gid, uid) },
+        { label: "Remove from group", danger: true, action: () => removeMember(gid, uid) }
+      ]);
+    }
+    list.appendChild(row);
+  });
+  document.getElementById("groupInfoModal").classList.add("show");
+}
+function closeGroupInfo(){ document.getElementById("groupInfoModal").classList.remove("show"); }
+
+async function makeAdmin(gid, uid){
+  const g = groups[gid];
+  if((g.admins||[]).length >= 3){ showToast("Max 3 admins allowed."); return; }
+  await updateDoc(doc(db, "groups", gid), { admins: arrayUnion(uid) });
+  showToast("Admin added.");
+  openGroupInfo(gid);
+}
+async function removeAdmin(gid, uid){
+  const g = groups[gid];
+  if((g.admins||[]).length <= 1){ showToast("Kam se kam 1 admin chahiye."); return; }
+  await updateDoc(doc(db, "groups", gid), { admins: arrayRemove(uid) });
+  showToast("Admin removed.");
+  openGroupInfo(gid);
+}
+async function removeMember(gid, uid){
+  await updateDoc(doc(db, "groups", gid), { members: arrayRemove(uid), admins: arrayRemove(uid) });
+  showToast("Member removed.");
+  openGroupInfo(gid);
+}
+function editGroup(gid){
+  const g = groups[gid];
+  const body = document.getElementById("groupInfoBody");
+  body.innerHTML = `
+    <div class="field"><label>Name</label><input id="editGroupName" type="text" value="${escapeHTML(g.name)}"></div>
+    <div class="field"><label>Image</label><input id="editGroupImage" type="file" accept="image/*"></div>
+    <button class="save-btn" onclick="saveGroupEdit('${gid}')">Save</button>
+    <button class="logout-btn" style="margin-top:10px;" onclick="deleteGroup('${gid}')">Delete Group</button>
+  `;
+}
+async function saveGroupEdit(gid){
+  const name = document.getElementById("editGroupName").value.trim();
+  const file = document.getElementById("editGroupImage").files[0];
+  const upd = { name };
+  if(file){
+    try{
+      showUploadProgress("Uploading", 0);
+      upd.image = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
+      showUploadProgress("", null);
+    }catch(e){ showUploadProgress("", null); }
+  }
+  await updateDoc(doc(db, "groups", gid), upd);
+  showToast("Group updated.");
+  closeGroupInfo();
+}
+async function deleteGroup(gid){
+  if(!confirm("Group delete karna chahte ho?")) return;
+  const g = groups[gid];
+  await updateDoc(doc(db, "groups", gid), { members: [], admins: [] });
+  showToast("Group deleted.");
+  closeGroupInfo();
+  if(currentChat === "group_" + gid) closeChat();
 }
 
 /* STORIES */
@@ -1381,17 +1729,25 @@ function closeStoryModal(){ document.getElementById("storyModal").classList.remo
 async function createStory(){
   const text = document.getElementById("storyText").value.trim();
   const file = document.getElementById("storyImage").files[0];
-  if(!text && !file){ showToast("Text ya image add karo."); return; }
-  let imageUrl = "";
+  if(!text && !file){ showToast("Text ya media add karo."); return; }
+  let mediaUrl = "", mediaType = "text";
   if(file){
-    if(file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); return; }
-    try{ showToast("Uploading..."); imageUrl = await uploadToCloudinary(file); }
-    catch(err){ console.error(err); showToast("Upload failed."); return; }
+    const isVideo = file.type.startsWith("video/");
+    if(isVideo){
+      try{ const d = await getVideoDuration(file); if(d > 60){ showToast("Story video 60 sec se choti rakho."); return; } }catch(e){}
+    }
+    try{
+      showUploadProgress("Uploading story", 0);
+      mediaUrl = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading story", pct));
+      showUploadProgress("", null);
+      mediaType = isVideo ? "video" : "image";
+    }catch(e){ showUploadProgress("", null); showToast("Upload failed."); return; }
   }
   await addDoc(collection(db, "stories"), {
     userId: currentUser.id, name: currentUser.name, username: currentUser.username,
     userImage: currentUser.image || "",
-    text, image: imageUrl, created: serverTimestamp()
+    text, image: mediaType === "image" ? mediaUrl : "", video: mediaType === "video" ? mediaUrl : "",
+    mediaType, created: serverTimestamp()
   });
   document.getElementById("storyText").value = "";
   document.getElementById("storyImage").value = "";
@@ -1403,7 +1759,7 @@ function renderStories(){
   const box = document.getElementById("stories");
   box.innerHTML = "";
   if(stories.length === 0){
-    box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">Abhi koi story nahi hai. "Add Story" se apni pehli story lagao.</div>`;
+    box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">Abhi koi story nahi hai.</div>`;
     return;
   }
   const byUser = {};
@@ -1419,20 +1775,63 @@ function renderStories(){
       ? currentUser
       : (allUsers.find(u => u.id === uid) || { name: s.name || "User", username: s.username || "", image: s.userImage || "" });
 
+    const viewers = storyViewers[s.id] || [];
+    const iViewed = viewers.includes(currentUser.id);
+
     const card = document.createElement("div");
     card.className = "story-card";
+    card.style.opacity = iViewed ? "0.7" : "1";
     card.innerHTML = `
       <div class="story-bg">
-        ${s.image ? `<img src="${s.image}" alt="">` : `<div style="font-size:15px;padding:10px;">${escapeHTML(s.text||"")}</div>`}
+        ${s.mediaType === "video" ? `<video src="${s.video}" muted style="width:100%;height:100%;object-fit:cover;"></video>` :
+          s.mediaType === "image" ? `<img src="${s.image}" alt="">` :
+          `<div style="font-size:15px;padding:10px;">${escapeHTML(s.text||"")}</div>`}
       </div>
       <div class="story-card-footer">
         ${avatarHTML(user, "avatar")}
         <div class="name">${escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
-      </div>`;
-    card.onclick = () => openStoryViewer(uid);
+        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')" title="Delete">🗑</button>` : ""}
+      </div>
+      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;">👁 ${viewers.length}</div>` : ""}
+    `;
+    card.onclick = () => {
+      if(uid === currentUser.id) openStoryViewersList(s.id);
+      else openStoryViewer(uid);
+    };
+    card.oncontextmenu = (e) => { e.preventDefault(); if(uid === currentUser.id) deleteStory(s.id); };
     box.appendChild(card);
   });
 }
+
+async function deleteStory(sid){
+  if(!confirm("Delete this story?")) return;
+  try{ await deleteDoc(doc(db, "stories", sid)); showToast("Story deleted."); }catch(e){ showToast("Failed."); }
+}
+
+function openStoryViewersList(sid){
+  const viewers = storyViewers[sid] || [];
+  const reactions = storyReactions[sid] || {};
+  const body = document.getElementById("storyViewersBody");
+  if(viewers.length === 0){ body.innerHTML = `<div style="color:var(--muted);text-align:center;padding:20px;">No viewers yet.</div>`; }
+  else {
+    body.innerHTML = "";
+    viewers.forEach(uid => {
+      const u = uid === currentUser.id ? currentUser : getUser(uid);
+      if(!u) return;
+      const row = document.createElement("div");
+      row.className = "member-row";
+      const r = reactions[uid] || "";
+      row.innerHTML = `
+        ${avatarHTML(u, "avatar")}
+        <div class="mi"><div class="mn">${escapeHTML(u.name)}</div><div class="mu">@${escapeHTML(u.username||'')}</div></div>
+        ${r ? `<div style="font-size:22px;">${r}</div>` : ""}
+      `;
+      body.appendChild(row);
+    });
+  }
+  document.getElementById("storyViewersModal").classList.add("show");
+}
+function closeStoryViewers(){ document.getElementById("storyViewersModal").classList.remove("show"); }
 
 function openStoryViewer(startUserId){
   const byUser = {};
@@ -1451,9 +1850,19 @@ function openStoryViewer(startUserId){
   showStoryAt(0);
 }
 
+async function markStoryViewed(sid){
+  if(!currentUser) return;
+  try{
+    await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), {
+      storyId: sid, uid: currentUser.id, viewedAt: serverTimestamp()
+    }, { merge: true });
+  }catch(e){}
+}
+
 function showStoryAt(index){
   const state = storyViewerState;
   if(index >= state.list.length){ closeStoryViewer(); return; }
+  if(index < 0) index = 0;
   state.index = index;
   const story = state.list[index];
   const user = story.userId === currentUser?.id
@@ -1468,20 +1877,55 @@ function showStoryAt(index){
   document.getElementById("storyViewTime").textContent = timeAgo(createdMs);
 
   const content = document.getElementById("storyViewContent");
-  if(story.image){
+  if(story.mediaType === "video"){
+    content.innerHTML = `<video src="${story.video}" autoplay muted playsinline style="width:100%;height:100%;object-fit:contain;"></video>` +
+      (story.text ? `<div class="story-view-caption">${escapeHTML(story.text)}</div>` : "");
+  } else if(story.mediaType === "image"){
     content.innerHTML = `<img src="${story.image}" alt="">` +
       (story.text ? `<div class="story-view-caption">${escapeHTML(story.text)}</div>` : "");
   } else {
     content.innerHTML = `<div class="story-view-text">${escapeHTML(story.text || "")}</div>`;
   }
 
+  // mark viewed
+  if(story.userId !== currentUser.id) markStoryViewed(story.id);
+
+  // Progress bar
   const bar = document.getElementById("storyProgressBar");
-  bar.style.transition = "none";
-  bar.style.width = "0%";
+  bar.style.transition = "none"; bar.style.width = "0%";
   void bar.offsetWidth;
   bar.style.transition = "width .1s linear";
 
+  // Footer with reactions (only if not my story)
+  updateStoryFooter();
+
   startStoryTimer();
+}
+
+function updateStoryFooter(){
+  const state = storyViewerState;
+  const story = state.list[state.index];
+  const footer = document.getElementById("storyFooter");
+  if(!story){ footer.innerHTML = ""; return; }
+  if(story.userId === currentUser.id){
+    const viewers = storyViewers[story.id] || [];
+    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;">👁 ${viewers.length} viewers</div>`;
+    return;
+  }
+  const myReaction = storyReactions[story.id]?.[currentUser.id] || "";
+  const reactions = ["❤️","😂","😮","😢","👍"];
+  footer.innerHTML = `<div class="story-reactions">${reactions.map(r => `<button data-r="${r}" style="${myReaction===r?'transform:scale(1.3);':''}">${r}</button>`).join("")}</div>`;
+  footer.querySelectorAll("button[data-r]").forEach(b => {
+    b.onclick = (e) => { e.stopPropagation(); sendStoryReaction(story.id, b.dataset.r); };
+  });
+}
+
+async function sendStoryReaction(sid, emoji){
+  if(!currentUser) return;
+  await setDoc(doc(db, "storyViews", `${sid}_${currentUser.id}`), {
+    storyId: sid, uid: currentUser.id, reaction: emoji, reactedAt: serverTimestamp()
+  }, { merge: true });
+  showToast("Reaction sent");
 }
 
 function startStoryTimer(){
@@ -1500,41 +1944,38 @@ function startStoryTimer(){
     if(elapsed >= STORY_DURATION){ clearInterval(state.timer); nextStory(); }
   }, 100);
 }
-
 function pauseStoryTimer(){
   const state = storyViewerState;
   if(state.paused) return;
   state.paused = true;
   state.remaining = STORY_DURATION - (Date.now() - state.startTime);
-  document.getElementById("storyPauseHint").classList.add("show");
 }
-
 function resumeStoryTimer(){
   const state = storyViewerState;
   if(!state.paused) return;
   state.paused = false;
   state.startTime = Date.now() - (STORY_DURATION - state.remaining);
-  document.getElementById("storyPauseHint").classList.remove("show");
 }
-
 function nextStory(){
   const state = storyViewerState;
   if(state.index + 1 < state.list.length) showStoryAt(state.index + 1);
   else closeStoryViewer();
 }
-
+function prevStory(){
+  const state = storyViewerState;
+  if(state.index - 1 >= 0) showStoryAt(state.index - 1);
+  else showStoryAt(0);
+}
 function closeStoryViewer(){
   clearInterval(storyViewerState.timer);
   storyViewerState.timer = null;
   storyViewerState.paused = false;
-  document.getElementById("storyPauseHint").classList.remove("show");
   document.getElementById("storyViewer").classList.remove("show");
 }
-
 (function setupStoryLongPress(){
   const sv = document.getElementById("storyView");
   let timer = null;
-  const onStart = () => { timer = setTimeout(() => pauseStoryTimer(), 150); };
+  const onStart = () => { timer = setTimeout(() => pauseStoryTimer(), 200); };
   const onEnd = () => { if(timer){ clearTimeout(timer); timer = null; } resumeStoryTimer(); };
   sv.addEventListener("mousedown", onStart);
   sv.addEventListener("mouseup", onEnd);
@@ -1543,6 +1984,30 @@ function closeStoryViewer(){
   sv.addEventListener("touchend", onEnd);
   sv.addEventListener("touchcancel", onEnd);
 })();
+
+/* CHAT INFO */
+function openChatInfo(){
+  if(!currentChat) return;
+  const meta = chatMeta[currentChat];
+  if(!meta) return;
+  if(meta.type === "group") return openGroupInfo(meta.groupId);
+  if(meta.type === "ai") return;
+  const u = getUser(meta.otherId);
+  if(!u) return;
+  const body = document.getElementById("chatInfoBody");
+  const seen = u.lastSeen?.toMillis?.();
+  body.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      ${u.image ? `<img src="${u.image}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;">` : `<div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#061017;font-size:34px;font-weight:800;margin:auto;">${escapeHTML(getInitial(u))}</div>`}
+      <h3 style="margin-top:10px;">${escapeHTML(u.name)}</h3>
+      <p style="color:var(--muted);font-size:12px;">@${escapeHTML(u.username||'')}</p>
+      <p style="color:${u.online?'var(--accent)':'var(--muted)'};font-size:12px;margin-top:6px;">${u.online ? "● Online" : (seen ? "Last seen " + timeAgo(seen) : "Offline")}</p>
+    </div>
+    ${u.bio ? `<p style="text-align:center;color:var(--muted);font-size:13px;margin-bottom:10px;">${escapeHTML(u.bio)}</p>` : ""}
+  `;
+  document.getElementById("chatInfoModal").classList.add("show");
+}
+function closeChatInfo(){ document.getElementById("chatInfoModal").classList.remove("show"); }
 
 /* PROFILE */
 function renderProfile(){
@@ -1556,7 +2021,6 @@ function renderProfile(){
   if(currentUser.image) avatar.innerHTML = `<img src="${currentUser.image}" alt="">`;
   else avatar.textContent = getInitial(currentUser);
 }
-
 async function saveProfile(){
   const name = document.getElementById("profileName").value.trim();
   const username = document.getElementById("profileUsername").value.trim().replace(/^@/,"").replace(/\s/g,"").toLowerCase();
@@ -1567,19 +2031,19 @@ async function saveProfile(){
   renderProfile();
   showToast("Profile saved.");
 }
-
 async function changeProfileImage(input){
   const file = input.files[0];
   if(!file) return;
   if(file.size > 8*1024*1024){ showToast("Image 8MB se choti rakho."); input.value=""; return; }
   try{
-    showToast("Uploading...");
-    const url = await uploadToCloudinary(file);
+    showUploadProgress("Uploading", 0);
+    const url = await uploadToCloudinaryWithProgress(file, (pct) => showUploadProgress("Uploading", pct));
     currentUser.image = url;
     await setDoc(doc(db, "users", currentUser.id), { image: url }, { merge:true });
     renderProfile();
-    showToast("Profile image updated.");
-  }catch(err){ console.error(err); showToast("Upload failed."); }
+    showUploadProgress("", null);
+    showToast("Profile updated.");
+  }catch(err){ console.error(err); showUploadProgress("", null); showToast("Upload failed."); }
   input.value = "";
 }
 
@@ -1601,11 +2065,13 @@ function mobilePage(page, button){
 
 Object.assign(window, {
   showPage, mobilePage, searchEverything, focusUserSearch, startNewChat, openChat, closeChat,
-  sendMessage, messageKey, chooseImage, sendImage, toggleRecording,
-  openStoryModal, closeStoryModal, createStory, closeStoryViewer,
-  saveProfile, changeProfileImage, switchAuthTab, handleAuth, logoutUser,
+  sendMessage, messageKey, toggleRecording, openStoryModal, closeStoryModal, createStory,
+  closeStoryViewer, saveProfile, changeProfileImage, switchAuthTab, handleAuth, logoutUser,
   toggleSelectMode, exitSelectMode, selectAllMessages, deleteSelectedMessages,
-  closeActionSheet, cancelReply, openLightbox, closeLightbox
+  closeActionSheet, cancelReply, openLightbox, closeLightbox, nextStory, prevStory,
+  sendMedia, openGroupModal, closeGroupModal, createGroup, openGroupInfo, closeGroupInfo,
+  makeAdmin, removeAdmin, removeMember, editGroup, saveGroupEdit, deleteGroup,
+  openStoryViewersList, closeStoryViewers, deleteStory, openAiChat, openChatInfo, closeChatInfo
 });
 </script>
 </body>
