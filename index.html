@@ -11,7 +11,7 @@
 :root{
   --bg:#080b12; --panel:#101520; --panel2:#151c29; --border:#242d3c;
   --text:#f5f7fb; --muted:#8994a7; --accent:#72f2c4; --accent2:#5ecbff; --danger:#ff5d78;
-  --blue:#3aa0ff;
+  --blue:#3aa0ff; --warn:#ffbd55;
 }
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
@@ -19,11 +19,11 @@ button,input,textarea{font:inherit;outline:none;}
 button{border:0;cursor:pointer;background:none;color:inherit;}
 img{max-width:100%;}
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:8px;height:8px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:#2a3444;border-radius:4px;}
-::-webkit-scrollbar-thumb:hover{background:#3a4558;}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.02);border-radius:5px;}
+::-webkit-scrollbar-thumb{background:#2a3444;border-radius:5px;border:2px solid transparent;background-clip:content-box;}
+::-webkit-scrollbar-thumb:hover{background:#3a4558;background-clip:content-box;}
 *{scrollbar-width:thin;scrollbar-color:#2a3444 transparent;}
 
 .auth-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;overflow-y:auto;}
@@ -40,7 +40,7 @@ img{max-width:100%;}
 .auth-submit{width:100%;padding:13px;border-radius:13px;background:var(--accent);color:#06100d;font-weight:800;margin-top:10px;}
 .auth-error{color:var(--danger);font-size:13px;margin-top:10px;text-align:center;min-height:18px;}
 
-/* ===== UOO GO LOGO MARK (pure CSS) ===== */
+/* UOO GO LOGO (pure CSS) */
 .logo{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;}
 .logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#72f2c4,#5ecbff);position:relative;box-shadow:0 0 24px rgba(114,242,196,.25);flex:none;}
 .logo-mark::before{content:"";position:absolute;width:18px;height:18px;border:3.5px solid #06100d;border-radius:50%;left:7px;top:6px;}
@@ -50,9 +50,10 @@ img{max-width:100%;}
 .sidebar{width:270px;background:var(--panel);border-right:1px solid var(--border);padding:22px 15px;display:flex;flex-direction:column;flex:none;}
 .brand{padding:0 10px 25px;}
 .nav{display:flex;flex-direction:column;gap:7px;overflow-y:auto;flex:1;}
-.nav-btn{background:transparent;color:var(--muted);width:100%;padding:13px 14px;border-radius:13px;display:flex;align-items:center;gap:13px;text-align:left;flex:none;}
+.nav-btn{background:transparent;color:var(--muted);width:100%;padding:13px 14px;border-radius:13px;display:flex;align-items:center;gap:13px;text-align:left;flex:none;position:relative;}
 .nav-btn:hover,.nav-btn.active{background:var(--panel2);color:var(--text);}
 .nav-btn.active{box-shadow:inset 3px 0 var(--accent);}
+.nav-btn .nav-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:var(--danger);color:#fff;font-size:10px;font-weight:800;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px;}
 .icon{width:21px;height:21px;flex:none;}
 .main{flex:1;min-width:0;position:relative;overflow:hidden;}
 .page{display:none;height:100%;}
@@ -182,6 +183,8 @@ img{max-width:100%;}
 .story-card-footer{position:absolute;left:0;right:0;bottom:0;padding:10px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;align-items:center;gap:8px;}
 .story-card-footer .avatar{width:32px;height:32px;min-width:32px;font-size:13px;}
 .story-card-footer .name{font-weight:700;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.story-eye-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.65);color:#fff;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px;cursor:pointer;z-index:2;}
+.story-eye-badge svg{width:14px;height:14px;}
 
 .story-view{width:min(420px,100%);height:min(750px,92vh);max-height:92dvh;border-radius:25px;overflow:hidden;background:#05080d;position:relative;display:flex;flex-direction:column;}
 .story-progress{position:absolute;top:8px;left:8px;right:8px;height:3px;background:rgba(255,255,255,.25);border-radius:2px;z-index:5;overflow:hidden;}
@@ -204,11 +207,13 @@ img{max-width:100%;}
 .story-reactions{display:flex;gap:8px;background:rgba(0,0,0,.6);padding:8px 12px;border-radius:24px;pointer-events:auto;}
 .story-reactions button{font-size:22px;padding:0;background:none;transition:transform .15s;}
 .story-reactions button:hover{transform:scale(1.3);}
+.story-viewers-btn{background:rgba(0,0,0,.65);color:#fff;padding:8px 14px;border-radius:24px;pointer-events:auto;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;cursor:pointer;}
+.story-viewers-btn svg{width:16px;height:16px;}
 
 /* ===== PROFILE ===== */
-.profile-page{padding:20px;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;}
+.profile-page{padding:20px;overflow-y:auto;overflow-x:hidden;height:100%;-webkit-overflow-scrolling:touch;}
 .profile-page::-webkit-scrollbar{width:10px;}
-.profile-page::-webkit-scrollbar-track{background:transparent;}
+.profile-page::-webkit-scrollbar-track{background:rgba(255,255,255,.02);border-radius:5px;}
 .profile-page::-webkit-scrollbar-thumb{background:#2a3444;border-radius:5px;}
 .profile-page::-webkit-scrollbar-thumb:hover{background:#3a4558;}
 
@@ -217,8 +222,14 @@ img{max-width:100%;}
 .social-profile-avatar{width:105px;height:105px;min-width:105px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#061017;font-size:34px;font-weight:800;overflow:hidden;flex:none;}
 .social-profile-avatar img{width:100%;height:100%;object-fit:cover;}
 .social-profile-main{flex:1;min-width:0;}
-.social-profile-name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.social-profile-name-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .social-profile-name-row h2{font-size:24px;}
+.profile-request-btn,.profile-notif-btn{border:1px solid var(--border);background:var(--panel2);border-radius:11px;padding:8px 12px;font-weight:700;font-size:12px;position:relative;display:inline-flex;align-items:center;gap:6px;}
+.profile-notif-btn{color:var(--text);}
+.profile-notif-btn.has-unread{background:rgba(255,93,120,.12);border-color:rgba(255,93,120,.4);color:var(--danger);}
+.profile-request-btn span,.profile-notif-btn .badge-count{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:10px;background:var(--danger);color:#fff;font-size:10px;font-weight:800;padding:0 5px;}
+.profile-notif-btn.has-unread{animation:notifPulse 1.6s ease-in-out infinite;}
+@keyframes notifPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,93,120,.4)}50%{box-shadow:0 0 0 6px rgba(255,93,120,0)}}
 .social-profile-username{color:var(--muted);font-size:13px;margin-top:3px;}
 .social-profile-bio{font-size:14px;line-height:1.45;margin-top:10px;white-space:pre-wrap;}
 .social-profile-link{display:inline-block;color:var(--accent2);font-size:13px;margin-top:7px;word-break:break-all;}
@@ -226,12 +237,10 @@ img{max-width:100%;}
 .profile-stats div{display:flex;flex-direction:column;gap:3px;cursor:pointer;}
 .profile-stats b{font-size:16px;}
 .profile-stats span{font-size:11px;color:var(--muted);}
-.profile-actions{display:flex;gap:9px;padding:0 30px 18px;flex-wrap:wrap;}
-.profile-edit-btn,.profile-icon-btn,.profile-request-btn{border:1px solid var(--border);background:var(--panel2);border-radius:11px;padding:9px 14px;font-weight:700;}
-.profile-edit-btn{display:flex;align-items:center;gap:6px;}
-.profile-icon-btn{width:42px;padding:0;color:#ff6b8a;font-size:20px;display:grid;place-items:center;}
-.profile-request-btn{margin-left:auto;font-size:12px;padding:8px 11px;}
-.profile-request-btn span{display:inline-grid;place-items:center;min-width:19px;height:19px;border-radius:10px;background:var(--danger);color:#fff;margin-left:5px;font-size:10px;}
+.profile-actions{display:flex;gap:9px;padding:0 30px 18px;flex-wrap:wrap;align-items:center;}
+.profile-edit-btn,.profile-icon-btn{border:1px solid var(--border);background:var(--panel2);border-radius:11px;padding:9px 14px;font-weight:700;}
+.profile-edit-btn{display:flex;align-items:center;gap:6px;flex:1;}
+.profile-icon-btn{width:42px;padding:0;color:#ff6b8a;font-size:20px;display:grid;place-items:center;flex:none;}
 .profile-grid-head{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .profile-grid-head button{padding:13px;color:var(--muted);font-weight:700;}
 .profile-grid-head button.active{color:var(--text);box-shadow:inset 0 -2px var(--accent);}
@@ -246,7 +255,7 @@ img{max-width:100%;}
 .logout-btn{width:100%;padding:14px;border-radius:13px;background:rgba(255,93,120,.12);border:1px solid rgba(255,93,120,.35);color:var(--danger);font-weight:800;display:flex;align-items:center;justify-content:center;gap:9px;font-size:14px;transition:.15s;}
 .logout-btn:hover{background:rgba(255,93,120,.2);}
 
-/* ===== SOCIAL MEDIA FANCY BRANDING ===== */
+/* ===== SOCIAL BRANDING ===== */
 .social-brand-title{font-weight:900;letter-spacing:.3px;font-size:22px;display:flex;align-items:center;gap:10px;}
 .social-brand-badge{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#72f2c4,#5ecbff);position:relative;box-shadow:0 6px 20px rgba(114,242,196,.4);flex:none;}
 .social-brand-badge::before{content:"";position:absolute;width:20px;height:20px;border:4px solid #06100d;border-radius:50%;left:8px;top:6px;}
@@ -269,17 +278,18 @@ img{max-width:100%;}
 .social-search-result-sub{color:var(--muted);font-size:11px;margin-top:2px;}
 .social-search-type{font-size:10px;color:var(--muted);border:1px solid var(--border);padding:4px 7px;border-radius:999px;}
 
-/* ===== FEED (Facebook style) ===== */
+/* ===== FEED ===== */
 .qa-page{flex-direction:column;overflow:hidden;}
 .qa-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;}
 .qa-scroll::-webkit-scrollbar{width:10px;}
-.qa-scroll::-webkit-scrollbar-track{background:transparent;}
+.qa-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.02);}
 .qa-scroll::-webkit-scrollbar-thumb{background:#2a3444;border-radius:5px;}
-.qa-scroll::-webkit-scrollbar-thumb:hover{background:#3a4558;}
 .qa-feed{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
 
 .fb-post{background:var(--panel);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.2s;}
 .fb-post:hover{border-color:rgba(114,242,196,.25);}
+.fb-post.highlight{animation:postHighlight 2s ease;}
+@keyframes postHighlight{0%,100%{box-shadow:0 0 0 0 rgba(114,242,196,0)}30%,70%{box-shadow:0 0 0 3px rgba(114,242,196,.4)}}
 .fb-post-head{display:flex;gap:10px;align-items:center;padding:14px 16px 10px;}
 .fb-post-head .avatar{width:44px;height:44px;min-width:44px;font-size:16px;cursor:pointer;}
 .fb-post-head-info{flex:1;min-width:0;}
@@ -303,7 +313,6 @@ img{max-width:100%;}
 .fb-post-actions button.liked{color:#ff6b8a;}
 .fb-post-actions button svg{width:19px;height:19px;}
 
-/* Comments hidden by default — only shown when toggled */
 .fb-post-comments{display:none;padding:0 16px 12px;border-top:1px solid var(--border);margin-top:4px;}
 .fb-post-comments.show{display:block;}
 
@@ -314,17 +323,28 @@ img{max-width:100%;}
 .fb-reply-composer .attach:hover{color:var(--accent);}
 .fb-reply-composer .send{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#06100d;display:grid;place-items:center;flex:none;}
 
-.qa-replies{display:flex;flex-direction:column;gap:10px;max-height:400px;overflow-y:auto;padding-right:4px;}
+/* Comments area */
+.qa-replies{display:flex;flex-direction:column;gap:10px;max-height:500px;overflow-y:auto;padding-right:4px;}
 .qa-reply{background:var(--panel2);border-radius:12px;padding:10px 12px;}
+.qa-reply.nested{margin-left:28px;background:rgba(114,242,196,.04);border-left:2px solid rgba(114,242,196,.3);}
 .qa-reply-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .qa-reply-head .avatar{width:32px;height:32px;min-width:32px;font-size:12px;}
 .qa-reply-head .rn{font-weight:700;font-size:12px;}
 .qa-reply-head .rt{color:var(--muted);font-size:10px;}
 .qa-reply-body{font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word;padding-left:40px;}
+.qa-reply.nested .qa-reply-body{padding-left:0;}
 .qa-reply-body img{max-width:100%;border-radius:10px;margin-top:6px;display:block;cursor:zoom-in;}
+.qa-reply-body .reply-mention{color:var(--accent);font-weight:700;}
 .qa-reply-actions{display:flex;gap:12px;margin-top:8px;padding-left:40px;font-size:12px;color:var(--muted);}
+.qa-reply.nested .qa-reply-actions{padding-left:0;}
 .qa-reply-actions button{color:var(--muted);font-weight:600;padding:4px 0;display:flex;align-items:center;gap:4px;}
 .qa-reply-actions button.liked{color:#ff6b8a;}
+.qa-reply-actions button:hover{color:var(--accent);}
+
+/* Nested replies container */
+.nested-replies{margin-top:8px;display:flex;flex-direction:column;gap:8px;}
+.nested-replies-toggle{color:var(--accent2);font-size:12px;font-weight:600;padding:4px 0;cursor:pointer;background:none;display:flex;align-items:center;gap:4px;}
+.nested-replies-toggle:hover{text-decoration:underline;}
 
 /* Composer modal */
 .fb-composer-modal{width:min(560px,100%);}
@@ -343,8 +363,6 @@ img{max-width:100%;}
 .qa-img-preview img{max-width:100%;border-radius:10px;display:block;}
 .qa-img-preview video{max-width:100%;max-height:260px;border-radius:10px;display:block;}
 .qa-img-preview button{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.7);color:#fff;width:26px;height:26px;border-radius:50%;font-size:14px;display:grid;place-items:center;}
-.qa-media{max-width:100%;max-height:520px;width:auto;border-radius:12px;margin-top:10px;display:block;object-fit:contain;background:#070b10;}
-.qa-media-video{width:100%;max-height:520px;}
 
 /* MODALS */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
@@ -389,9 +407,23 @@ img{max-width:100%;}
 
 .story-viewers-list{max-height:50vh;overflow-y:auto;}
 
-.mobile-nav{display:none;}
+/* Notifications */
+.notif-list{display:flex;flex-direction:column;gap:6px;max-height:60vh;overflow-y:auto;}
+.notif-item{display:flex;gap:10px;padding:12px;border-radius:12px;background:var(--panel2);cursor:pointer;transition:.15s;border:1px solid transparent;}
+.notif-item:hover{background:#1c2534;}
+.notif-item.unread{border-color:rgba(114,242,196,.3);background:rgba(114,242,196,.05);}
+.notif-item .avatar{width:40px;height:40px;min-width:40px;font-size:14px;}
+.notif-item-info{flex:1;min-width:0;}
+.notif-item-text{font-size:13px;line-height:1.4;}
+.notif-item-text b{color:var(--text);font-weight:700;}
+.notif-item-preview{color:var(--muted);font-size:12px;margin-top:4px;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.notif-item-time{color:var(--muted);font-size:11px;margin-top:4px;}
+.notif-item-icon{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;font-size:14px;}
+.notif-item-icon.like{background:rgba(255,107,138,.15);color:#ff6b8a;}
+.notif-item-icon.comment{background:rgba(94,203,255,.15);color:#5ecbff;}
+.notif-item-icon.reply{background:rgba(114,242,196,.15);color:var(--accent);}
+.notif-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
 
-/* Profile public modal */
 .public-profile-modal-box{max-height:92vh;}
 .public-profile-card{padding:4px;}
 .public-profile-actions{display:flex;gap:8px;margin:15px 0;}
@@ -427,7 +459,7 @@ img{max-width:100%;}
 .qa-head .qa-follow-btn{margin-left:auto;padding:7px 10px;border-radius:10px;background:var(--panel2);border:1px solid var(--border);font-size:11px;font-weight:700;}
 .qa-head .qa-follow-btn.following{background:var(--accent);color:#06100d;border-color:var(--accent);}
 
-/* ===== MOBILE ===== */
+/* MOBILE */
 @media(max-width:800px){
   .sidebar{display:none;}
   .chat-list{width:100%;border-right:0;}
@@ -443,13 +475,14 @@ img{max-width:100%;}
   .msg-video{max-width:100%;max-height:none;width:100%;}
   .streak-box{padding:6px 8px;font-size:12px;}
   .mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#0c111a;border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:50;padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom));}
-  .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 14px;}
+  .mobile-nav button{background:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;padding:8px 14px;position:relative;}
   .mobile-nav button.active{color:var(--accent);}
+  .mobile-nav button .nav-badge{position:absolute;top:2px;right:8px;background:var(--danger);color:#fff;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px;}
   .page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-page{padding-bottom:0;}
   .qa-page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .chat-input-area{padding:8px 3% calc(8px + env(safe-area-inset-bottom));}
-  .story-page,.profile-page{padding-bottom:calc(75px + env(safe-area-inset-bottom));}
+  .story-page{padding-bottom:calc(60px + env(safe-area-inset-bottom));}
   .section-head{padding:16px;}
   .section-title{font-size:20px;}
   .social-brand-title{font-size:17px;gap:8px;}
@@ -470,17 +503,17 @@ img{max-width:100%;}
   .social-profile{border-radius:16px;}
   .social-profile-head{flex-direction:column;align-items:center;text-align:center;padding:24px 16px 16px;gap:14px;}
   .social-profile-avatar{width:94px;height:94px;min-width:94px;font-size:32px;}
-  .social-profile-name-row{justify-content:center;flex-direction:column;gap:8px;}
+  .social-profile-name-row{justify-content:center;flex-direction:column;gap:8px;width:100%;}
   .social-profile-name-row h2{font-size:21px;}
   .social-profile-bio{text-align:center;}
   .social-profile-username{text-align:center;}
   .profile-stats{justify-content:center;gap:22px;margin-top:14px;}
   .profile-stats b{font-size:15px;}
-  .profile-actions{padding:0 16px 16px;flex-direction:column;}
+  .profile-actions{padding:0 16px 16px;flex-direction:column;gap:8px;}
   .profile-edit-btn{width:100%;justify-content:center;}
   .profile-icon-btn{position:absolute;top:24px;right:16px;width:40px;height:40px;}
   .social-profile{position:relative;}
-  .profile-request-btn{margin-left:0;width:100%;text-align:center;}
+  .profile-request-btn,.profile-notif-btn{width:100%;justify-content:center;}
   .profile-grid-head button{padding:12px;font-size:13px;}
   .profile-post-grid{grid-template-columns:repeat(3,1fr);}
   .profile-empty{padding:30px 16px;font-size:13px;}
@@ -497,13 +530,12 @@ img{max-width:100%;}
   .fb-post-comments{padding:0 12px 12px;}
   .qa-reply-body{padding-left:0;}
   .qa-reply-actions{padding-left:0;}
+  .qa-reply.nested{margin-left:16px;}
   .fb-reply-composer{margin:8px 0 4px;}
 
   .modal-box{padding:18px;}
   .fb-composer-modal{padding:18px;}
 }
-
-/* ===== LAPTOP ===== */
 @media(min-width:801px){
   .profile-page{padding:30px;}
   .social-profile{max-width:860px;}
@@ -539,8 +571,8 @@ img{max-width:100%;}
     <div class="nav">
       <button class="nav-btn active" onclick="showPage('chats',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
       <button class="nav-btn" onclick="showPage('stories',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/><path d="M17 7h.01"/></svg>Stories</button>
-      <button class="nav-btn" onclick="showPage('qa',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Q&amp;A</button>
-      <button class="nav-btn" onclick="showPage('profile',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
+      <button class="nav-btn" onclick="showPage('qa',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Social</button>
+      <button class="nav-btn" onclick="showPage('profile',this)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile<span class="nav-badge" id="sidebarNotifBadge" style="display:none">0</span></button>
     </div>
   </aside>
 
@@ -669,7 +701,14 @@ img{max-width:100%;}
           <div class="social-profile-main">
             <div class="social-profile-name-row">
               <h2 id="profileDisplayName">User</h2>
-              <button class="profile-request-btn" onclick="openMessageRequests()">Message Requests <span id="requestBadge">0</span></button>
+              <button class="profile-notif-btn" id="profileNotifBtn" onclick="openNotifications()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+                Notifications <span class="badge-count" id="profileNotifBadge">0</span>
+              </button>
+              <button class="profile-request-btn" onclick="openMessageRequests()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4h16v12H5.2L4 18z"/></svg>
+                Requests <span id="requestBadge">0</span>
+              </button>
             </div>
             <div class="social-profile-username" id="profileDisplayUsername">@user</div>
             <div class="social-profile-bio" id="profileDisplayBio">Uoo Go user</div>
@@ -710,8 +749,8 @@ img{max-width:100%;}
 <div class="mobile-nav" id="mobileNav">
   <button class="active" onclick="mobilePage('chats',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/></svg>Chats</button>
   <button onclick="mobilePage('stories',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/></svg>Stories</button>
-  <button onclick="mobilePage('qa',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Q&amp;A</button>
-  <button onclick="mobilePage('profile',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile</button>
+  <button onclick="mobilePage('qa',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Social</button>
+  <button onclick="mobilePage('profile',this)"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Profile<span class="nav-badge" id="mobileNotifBadge" style="display:none">0</span></button>
 </div>
 
 <div class="lightbox" id="lightbox">
@@ -812,6 +851,13 @@ img{max-width:100%;}
   </div>
 </div>
 
+<div class="modal" id="notificationsModal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Notifications</h2><button class="close-btn" onclick="closeNotifications()">×</button></div>
+    <div id="notificationsBody" class="notif-list"></div>
+  </div>
+</div>
+
 <div class="modal" id="publicProfileModal"><div class="modal-box public-profile-modal-box"><div class="modal-head"><h2>Profile</h2><button class="close-btn" onclick="closePublicProfile()">×</button></div><div id="publicProfileBody"></div></div></div>
 <div class="modal" id="editProfileModal"><div class="modal-box"><div class="modal-head"><h2>Edit Profile</h2><button class="close-btn" onclick="closeEditProfile()">×</button></div><div class="profile-edit-form"><div class="field"><label>Name</label><input id="editProfileName" type="text"></div><div class="field"><label>Username</label><input id="editProfileUsername" type="text"></div><div class="field"><label>Bio</label><textarea id="editProfileBio" rows="3"></textarea></div><div class="field"><label>Social / Website Link</label><input id="editProfileLink" type="url" placeholder="https://example.com"></div><div class="field"><label>Profile Image</label><input id="editProfileImage" type="file" accept="image/*" onchange="changeProfileImage(this)"></div><button class="save-btn" onclick="saveProfile()">Save Profile</button></div></div></div>
 
@@ -840,7 +886,9 @@ img{max-width:100%;}
     "postQaReply","toggleQaReplyLike","deleteQaPost","deleteQaReply","focusQaReply","qaReplyAttach",
     "clearQaReplyImage","toggleFollow","openPublicProfile","closePublicProfile","toggleProfileTab","openEditProfile",
     "openMessageRequests","closeMessageRequests","acceptMessageRequest","rejectMessageRequest","sendMessageRequest","openQaPost",
-    "openQaComposerModal","closeQaComposerModal","quickLike","postMenu","sharePost","toggleComments"
+    "openQaComposerModal","closeQaComposerModal","quickLike","postMenu","sharePost","toggleComments",
+    "openNotifications","closeNotifications","markAllNotificationsRead","viewStoryFromCard",
+    "toggleNestedReplies","startReplyToReply","cancelQaReplyTo"
   ];
   function callWhenReady(name,args){
     const fn=window.__uooGoFns && window.__uooGoFns[name];
@@ -907,9 +955,7 @@ function uploadToCloudinaryWithProgress(file, onProgress){
     xhr.open("POST", url, true);
     xhr.responseType = "text";
     xhr.setRequestHeader("Accept", "application/json");
-    xhr.upload.onprogress = (e) => {
-      if(e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
-    };
+    xhr.upload.onprogress = (e) => { if(e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100)); };
     xhr.onload = () => {
       if(xhr.status < 200 || xhr.status >= 300){ reject(new Error("Upload failed: " + xhr.status)); return; }
       try{
@@ -951,7 +997,9 @@ let unsubMyGroups = null;
 let unsubStoryViewers = null;
 let unsubQa = null;
 let unsubMessageRequests = null;
+let unsubNotifications = null;
 let messageRequests = [];
+let notifications = [];
 let profileViewUser = null;
 let profileTab = "posts";
 let qaSessionSeed = Math.random();
@@ -968,6 +1016,10 @@ let qaAttachedImage = null;
 let qaReplyAttachments = {};
 let qaReplyUnsubs = {};
 let openComments = new Set();
+let expandedNested = new Set();
+let replyToReply = {}; // qid -> {parentReplyId, parentReplyName}
+let replyToUnsubs = {};
+let allRepliesCache = {}; // qid -> array of replies
 
 let storyViewerState = { list: [], index: 0, timer: null, paused: false, startTime: 0, remaining: 7000, videoEl: null };
 const STORY_DURATION = 15000;
@@ -1008,6 +1060,17 @@ function showUploadProgress(label, pct){
   box.classList.add("show");
   lb.textContent = `${label} ${pct}%`;
   bar.style.width = pct + "%";
+}
+// Returns true if currentUser has any DM or group chat with userId
+function hasChatWith(uid){
+  if(uid === currentUser.id) return true;
+  if(chatMeta) {
+    for(const cid of Object.keys(chatMeta)){
+      const meta = chatMeta[cid];
+      if(meta?.type === "dm" && meta.otherId === uid) return true;
+    }
+  }
+  return false;
 }
 
 /* ACTION SHEET */
@@ -1072,7 +1135,7 @@ function closeLightbox(){
   document.addEventListener("keydown", (e) => { if(e.key === "Escape" && lb.classList.contains("show")) closeLightbox(); });
 })();
 
-/* AUTH — permission-denied fixes */
+/* AUTH */
 function switchAuthTab(mode){
   authMode = mode;
   document.getElementById("tabLogin").classList.toggle("active", mode === "login");
@@ -1092,21 +1155,11 @@ async function handleAuth(){
       const name = document.getElementById("authName").value.trim();
       const username = document.getElementById("authUsername").value.trim().replace(/^@/,"").replace(/\s/g,"").toLowerCase();
       if(!name || !username){ errEl.textContent = "Name aur username required hain."; return; }
-
-      // Username duplicate check — wrapped in try/catch so permission-denied on
-      // unauthenticated users/{username} read does not block signup.
       try{
         const existingUser = await getDocs(query(collection(db,"users"),where("username","==",username)));
-        if(!existingUser.empty){
-          errEl.textContent = "Username already taken. Please choose another username.";
-          return;
-        }
-      }catch(lookupErr){
-        console.warn("Username lookup skipped (likely rules). Continuing with signup.", lookupErr?.code || lookupErr);
-      }
-
+        if(!existingUser.empty){ errEl.textContent = "Username already taken. Please choose another username."; return; }
+      }catch(lookupErr){ console.warn("Username lookup skipped."); }
       const cred = await createUserWithEmailAndPassword(auth, email, password);
-      // Create the user doc — now authenticated, so rules allow it.
       await setDoc(doc(db, "users", cred.user.uid), {
         name, username, bio:"Uoo Go user", link:"", image:"",
         followers:[], following:[], email,
@@ -1124,19 +1177,20 @@ async function handleAuth(){
     else if(code.includes("weak-password")) errEl.textContent = "Password is too weak. Use at least 6 characters.";
     else if(code.includes("invalid-email")) errEl.textContent = "Invalid email address.";
     else if(code.includes("wrong-password") || code.includes("invalid-credential")) errEl.textContent = "Wrong email or password.";
-    else if(code.includes("user-not-found")) errEl.textContent = "No account found with this email. Please create one.";
-    else if(code.includes("permission-denied")) errEl.textContent = "Permission denied. Please check your Firestore rules.";
+    else if(code.includes("user-not-found")) errEl.textContent = "No account found. Please create one.";
+    else if(code.includes("permission-denied")) errEl.textContent = "Permission denied. Check Firestore rules.";
     else errEl.textContent = (code || "auth").replace("auth/","").replaceAll("-"," ");
   }
 }
 async function logoutUser(){
-  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers, unsubQa, unsubMessageRequests].forEach(u => { if(u) u(); });
+  [unsubStories, unsubUsers, unsubStreaks, unsubDeletedChats, unsubDeletedMessages, unsubAllChats, unsubMyGroups, unsubStoryViewers, unsubQa, unsubMessageRequests, unsubNotifications].forEach(u => { if(u) u(); });
   for(const unsub of allChatListeners.values()) unsub();
   for(const unsub of Object.values(qaReplyUnsubs)) unsub();
-  qaReplyUnsubs = {};
+  for(const unsub of Object.values(replyToUnsubs)) unsub();
+  qaReplyUnsubs = {}; replyToUnsubs = {};
   allChatListeners.clear();
   if(currentUser){ try{ await setDoc(doc(db, "users", currentUser.id), { online:false, lastSeen: serverTimestamp() }, { merge:true }); }catch(e){} }
-  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {}; messageRequests = []; profileViewUser = null;
+  currentUser = null; currentChat = null; chats = {}; stories = []; allUsers = []; streaks = {}; groups = {}; messageRequests = []; profileViewUser = null; notifications = [];
   document.body.classList.remove("chat-open");
   document.getElementById("chatWindow")?.classList.remove("open");
   document.getElementById("chatEmpty").style.display = "flex";
@@ -1161,7 +1215,6 @@ onAuthStateChanged(auth, async (user) => {
     document.addEventListener("visibilitychange", () => setOnline(!document.hidden));
     window.addEventListener("beforeunload", () => setOnline(false));
     setInterval(() => setOnline(!document.hidden), 60000);
-
     authScreen.classList.add("hidden");
     startRealtimeListeners();
     renderProfile();
@@ -1239,6 +1292,7 @@ function startRealtimeListeners(){
         }
       }
     });
+    renderStories();
     if(document.getElementById("storyViewer").classList.contains("show")) updateStoryFooter();
   }, (err) => console.warn("StoryViews listener:", err?.code));
 
@@ -1255,6 +1309,15 @@ function startRealtimeListeners(){
     messageRequests.sort((a,b) => (b.created?.toMillis?.()||0) - (a.created?.toMillis?.()||0));
     updateMessageRequestBadge();
   }, (err) => console.warn("MessageRequests listener:", err?.code));
+
+  // Notifications: notifications where `to` == currentUser.id
+  unsubNotifications = onSnapshot(query(collection(db, "notifications"), where("to", "==", currentUser.id)), (snap) => {
+    notifications = [];
+    snap.forEach(d => notifications.push({ id:d.id, ...d.data() }));
+    notifications.sort((a,b) => (b.created?.toMillis?.()||0) - (a.created?.toMillis?.()||0));
+    updateNotificationBadge();
+    if(document.getElementById("notificationsModal").classList.contains("show")) renderNotifications();
+  }, (err) => console.warn("Notifications listener:", err?.code));
 }
 
 function startAllChatsListener(){
@@ -1277,6 +1340,7 @@ function startAllChatsListener(){
           chats[cid] = list;
           if(currentChat === cid) renderMessages();
           renderChats();
+          renderStories(); // stories depend on hasChatWith()
         }, (err) => console.warn("Chat listener:", err?.code));
         allChatListeners.set(cid, unsub);
       }
@@ -1285,6 +1349,7 @@ function startAllChatsListener(){
       if(!cid.startsWith("group_") && !still.has(cid)){ unsub(); allChatListeners.delete(cid); delete chats[cid]; delete chatMeta[cid]; }
     }
     renderChats();
+    renderStories();
   }, (err) => console.warn("AllChats listener:", err?.code));
 
   Object.keys(groups).forEach(gid => {
@@ -1330,7 +1395,7 @@ function ensureChatListener(cid, isGroupChat){
 async function ensureDmDoc(otherId){
   if(!currentUser || !otherId) return;
   const cid = dmChatId(currentUser.id, otherId);
-  try{ await setDoc(doc(db, "chats", cid), { participants: [currentUser.id, otherId], lastActivity: serverTimestamp() }, { merge: true }); }catch(e){ console.warn("ensureDmDoc:", e?.code); }
+  try{ await setDoc(doc(db, "chats", cid), { participants: [currentUser.id, otherId], lastActivity: serverTimestamp() }, { merge: true }); }catch(e){}
 }
 
 /* CHAT LIST */
@@ -2004,18 +2069,30 @@ async function createStory(){
 }
 function renderStories(){
   const box = document.getElementById("stories");
+  if(!box) return;
   box.innerHTML = "";
-  if(stories.length === 0){ box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">Abhi koi story nahi hai.</div>`; return; }
+  // Only show stories from users I have a chat with (or my own)
+  const visible = stories.filter(s => hasChatWith(s.userId));
+  if(visible.length === 0){ box.innerHTML = `<div style="color:var(--muted);grid-column:1/-1;text-align:center;padding:20px;">No stories from your chat contacts yet. Start a chat to see their stories here.</div>`; return; }
   const byUser = {};
-  stories.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
-  Object.keys(byUser).forEach(uid => {
+  visible.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
+  // Sort users: own story first, then most recent
+  const userIds = Object.keys(byUser).sort((a,b) => {
+    if(a === currentUser.id) return -1;
+    if(b === currentUser.id) return 1;
+    const aLast = byUser[a][byUser[a].length-1].created?.toMillis?.()||0;
+    const bLast = byUser[b][byUser[b].length-1].created?.toMillis?.()||0;
+    return bLast - aLast;
+  });
+  userIds.forEach(uid => {
     const list = byUser[uid]; const s = list[list.length-1];
     const user = uid === currentUser?.id ? currentUser : (allUsers.find(u => u.id === uid) || { name: s.name||"User", username: s.username||"", image: s.userImage||"" });
     const viewers = storyViewers[s.id] || [];
     const iViewed = viewers.includes(currentUser.id);
+    const isOwn = uid === currentUser.id;
     const card = document.createElement("div");
     card.className = "story-card";
-    card.style.opacity = iViewed ? "0.7" : "1";
+    card.style.opacity = iViewed && !isOwn ? "0.7" : "1";
     let bgHTML = "";
     const storyIsVideo = s.mediaType === "video" || (!s.mediaType && !!s.video);
     const storyIsImage = s.mediaType === "image" || (!s.mediaType && !!s.image);
@@ -2026,19 +2103,33 @@ function renderStories(){
     } else {
       bgHTML = `<div style="font-size:15px;padding:10px;">${escapeHTML(s.text||"")}</div>`;
     }
+    // For own story: eye icon at TOP-RIGHT; clicking it opens viewers list
+    // For other's story: clicking card opens viewer
+    const eyeBadge = isOwn
+      ? `<div class="story-eye-badge" onclick="event.stopPropagation();openStoryViewersList('${s.id}')">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+           ${viewers.length}
+         </div>`
+      : "";
     card.innerHTML = `
+      ${eyeBadge}
       <div class="story-bg">${bgHTML}</div>
       <div class="story-card-footer">
         ${avatarHTML(user, "avatar")}
-        <div class="name">${escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
-        ${uid === currentUser.id ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
+        <div class="name">${isOwn ? "Your story" : escapeHTML(user.name)}${list.length>1?` · ${list.length}`:""}</div>
+        ${isOwn ? `<button class="icon-btn" style="width:28px;height:28px;" onclick="event.stopPropagation();deleteStory('${s.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
       </div>
-      ${uid === currentUser.id && viewers.length > 0 ? `<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:11px;">👁 ${viewers.length}</div>` : ""}
     `;
-    card.onclick = () => { if(uid === currentUser.id) openStoryViewersList(s.id); else openStoryViewer(uid); };
-    card.oncontextmenu = (e) => { e.preventDefault(); if(uid === currentUser.id) deleteStory(s.id); };
+    // Click card → open story viewer (both own and others)
+    card.onclick = () => openStoryViewer(uid);
+    card.oncontextmenu = (e) => { e.preventDefault(); if(isOwn) deleteStory(s.id); };
     box.appendChild(card);
   });
+}
+function viewStoryFromCard(sid){
+  const s = stories.find(x => x.id === sid);
+  if(!s) return;
+  openStoryViewer(s.userId);
 }
 async function deleteStory(sid){
   if(!confirm("Delete this story?")) return;
@@ -2064,7 +2155,8 @@ function openStoryViewersList(sid){
 function closeStoryViewers(){ document.getElementById("storyViewersModal").classList.remove("show"); }
 function openStoryViewer(startUserId){
   const byUser = {};
-  stories.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
+  const visible = stories.filter(s => hasChatWith(s.userId));
+  visible.forEach(s => { if(!byUser[s.userId]) byUser[s.userId] = []; byUser[s.userId].push(s); });
   const userIds = Object.keys(byUser); if(userIds.length === 0) return;
   const ordered = [startUserId, ...userIds.filter(u => u !== startUserId)];
   const flat = []; ordered.forEach(uid => (byUser[uid] || []).forEach(s => flat.push(s)));
@@ -2086,7 +2178,7 @@ function showStoryAt(index){
   const user = story.userId === currentUser?.id ? currentUser : (allUsers.find(u => u.id === story.userId) || { name: story.name||"User", username: story.username||"", image: story.userImage||"" });
   const av = document.getElementById("storyViewAvatar");
   if(user.image) av.innerHTML = `<img src="${user.image}" alt="">`; else av.textContent = getInitial(user);
-  document.getElementById("storyViewName").textContent = user.name;
+  document.getElementById("storyViewName").textContent = story.userId === currentUser.id ? "Your story" : user.name;
   const createdMs = story.created?.toMillis?.() || story.created || Date.now();
   document.getElementById("storyViewTime").textContent = timeAgo(createdMs);
 
@@ -2134,7 +2226,10 @@ function updateStoryFooter(){
   if(!story){ footer.innerHTML = ""; return; }
   if(story.userId === currentUser.id){
     const viewers = storyViewers[story.id] || [];
-    footer.innerHTML = `<div class="story-reactions" onclick="openStoryViewersList('${story.id}')" style="cursor:pointer;">👁 ${viewers.length} viewers</div>`;
+    footer.innerHTML = `<div class="story-viewers-btn" onclick="openStoryViewersList('${story.id}')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      ${viewers.length} viewers
+    </div>`;
     return;
   }
   const myReaction = storyReactions[story.id]?.[currentUser.id] || "";
@@ -2176,6 +2271,95 @@ function closeStoryViewer(){
   sv.addEventListener("mousedown", onStart); sv.addEventListener("mouseup", onEnd); sv.addEventListener("mouseleave", onEnd);
   sv.addEventListener("touchstart", onStart, { passive:true }); sv.addEventListener("touchend", onEnd); sv.addEventListener("touchcancel", onEnd);
 })();
+
+/* NOTIFICATIONS */
+function updateNotificationBadge(){
+  const unread = notifications.filter(n => !n.read).length;
+  const badge1 = document.getElementById("profileNotifBadge");
+  const badge2 = document.getElementById("sidebarNotifBadge");
+  const badge3 = document.getElementById("mobileNotifBadge");
+  const btn = document.getElementById("profileNotifBtn");
+  if(badge1){ badge1.textContent = unread; badge1.style.display = unread > 0 ? "inline-grid" : "none"; }
+  if(badge2){ badge2.textContent = unread; badge2.style.display = unread > 0 ? "grid" : "none"; }
+  if(badge3){ badge3.textContent = unread; badge3.style.display = unread > 0 ? "grid" : "none"; }
+  if(btn) btn.classList.toggle("has-unread", unread > 0);
+}
+function renderNotifications(){
+  const body = document.getElementById("notificationsBody");
+  if(!notifications.length){ body.innerHTML = `<div class="notif-empty">No notifications yet.</div>`; return; }
+  body.innerHTML = "";
+  notifications.forEach(n => {
+    const from = getUser(n.from) || { name: n.fromName || "User", image: n.fromImage || "" };
+    const el = document.createElement("div");
+    el.className = "notif-item" + (n.read ? "" : " unread");
+    let iconClass = "like", iconChar = "❤";
+    let text = "";
+    if(n.type === "like"){ iconClass = "like"; iconChar = "❤"; text = `<b>${escapeHTML(from.name)}</b> liked your post`; }
+    else if(n.type === "comment"){ iconClass = "comment"; iconChar = "💬"; text = `<b>${escapeHTML(from.name)}</b> commented on your post`; }
+    else if(n.type === "reply"){ iconClass = "reply"; iconChar = "↩"; text = `<b>${escapeHTML(from.name)}</b> replied to your comment`; }
+    const preview = n.preview ? `<div class="notif-item-preview">"${escapeHTML(truncate(n.preview, 60))}"</div>` : "";
+    const ts = n.created?.toMillis?.() || n.created || Date.now();
+    el.innerHTML = `
+      ${avatarHTML(from, "avatar")}
+      <div class="notif-item-info">
+        <div class="notif-item-text">${text}</div>
+        ${preview}
+        <div class="notif-item-time">${timeAgo(ts)}</div>
+      </div>
+      <div class="notif-item-icon ${iconClass}">${iconChar}</div>
+    `;
+    el.onclick = () => openNotification(n);
+    body.appendChild(el);
+  });
+}
+function openNotifications(){
+  document.getElementById("notificationsModal").classList.add("show");
+  renderNotifications();
+}
+function closeNotifications(){ document.getElementById("notificationsModal").classList.remove("show"); }
+async function markAllNotificationsRead(){
+  for(const n of notifications){
+    if(!n.read){
+      try{ await updateDoc(doc(db, "notifications", n.id), { read: true }); }catch(e){}
+    }
+  }
+}
+async function openNotification(n){
+  // Mark as read
+  if(!n.read){ try{ await updateDoc(doc(db, "notifications", n.id), { read: true }); }catch(e){} }
+  closeNotifications();
+  // Open the post with comments expanded
+  if(n.postId){
+    showPage("qa");
+    openComments.add(n.postId);
+    setTimeout(() => {
+      const el = document.querySelector(`[data-qid="${n.postId}"]`);
+      if(el){
+        el.scrollIntoView({behavior:"smooth", block:"center"});
+        el.classList.add("highlight");
+        setTimeout(() => el.classList.remove("highlight"), 2200);
+        const cBox = document.getElementById("qaComments_" + n.postId);
+        if(cBox) cBox.classList.add("show");
+      } else {
+        showToast("Post not found (maybe deleted).");
+      }
+    }, 200);
+  } else {
+    showToast("Cannot open this notification.");
+  }
+}
+
+/* Helper: push notification */
+async function pushNotification({to, from, type, postId, commentId, preview}){
+  if(!to || to === from) return;
+  try{
+    await addDoc(collection(db, "notifications"), {
+      to, from, fromName: currentUser?.name || "User", fromImage: currentUser?.image || "",
+      type, postId: postId || "", commentId: commentId || "",
+      preview: preview || "", read: false, created: serverTimestamp()
+    });
+  }catch(e){ console.warn("notif push failed:", e?.code); }
+}
 
 /* SOCIAL FEED */
 function focusQaComposer(){ openQaComposerModal(); }
@@ -2230,11 +2414,16 @@ async function toggleQaLike(qid){
   const post = qaPosts.find(p => p.id === qid); if(!post) return;
   const likes = post.likes || [];
   const has = likes.includes(currentUser.id);
-  try{ await updateDoc(doc(db, "qa", qid), { likes: has ? arrayRemove(currentUser.id) : arrayUnion(currentUser.id) }); }catch(e){ console.warn(e?.code); }
+  try{
+    await updateDoc(doc(db, "qa", qid), { likes: has ? arrayRemove(currentUser.id) : arrayUnion(currentUser.id) });
+    if(!has && post.uid !== currentUser.id){
+      // Notify post owner
+      pushNotification({ to: post.uid, from: currentUser.id, type: "like", postId: qid, preview: post.text || "[Post]" });
+    }
+  }catch(e){ console.warn(e?.code); }
 }
 function quickLike(qid){ toggleQaLike(qid); }
 
-/* Comments toggle — hidden by default */
 function toggleComments(qid){
   const box = document.getElementById("qaComments_" + qid);
   if(!box) return;
@@ -2248,6 +2437,28 @@ function toggleComments(qid){
   }
 }
 
+/* Reply to reply */
+function startReplyToReply(qid, rid, name){
+  replyToReply[qid] = { parentReplyId: rid, parentReplyName: name };
+  const composer = document.getElementById("qaReplyComposer_" + qid);
+  if(!composer) return;
+  // Show a small indicator in composer
+  let ind = composer.querySelector(".reply-to-indicator");
+  if(!ind){
+    ind = document.createElement("div");
+    ind.className = "reply-to-indicator";
+    ind.style.cssText = "display:flex;align-items:center;gap:6px;font-size:11px;color:var(--accent);padding:4px 6px;background:rgba(114,242,196,.1);border-radius:6px;margin-bottom:4px;";
+    composer.parentNode.insertBefore(ind, composer);
+  }
+  ind.innerHTML = `Replying to <b>${escapeHTML(name)}</b> <button onclick="cancelQaReplyTo('${qid}')" style="color:var(--danger);font-weight:800;background:none;padding:0 4px;">×</button>`;
+  document.getElementById("qaReplyInput_" + qid)?.focus();
+}
+function cancelQaReplyTo(qid){
+  delete replyToReply[qid];
+  const ind = document.querySelector(`#qaReplyComposer_${qid}`)?.parentNode?.querySelector(".reply-to-indicator");
+  if(ind) ind.remove();
+}
+
 async function postQaReply(qid){
   const ta = document.getElementById("qaReplyInput_" + qid);
   if(!ta) return;
@@ -2257,9 +2468,40 @@ async function postQaReply(qid){
   ta.value = "";
   let mediaUrl="",mediaType="";
   if(attach){try{showUploadProgress("Uploading reply",0);mediaUrl=await uploadToCloudinaryWithProgress(attach.file,pct=>showUploadProgress("Uploading reply",pct));showUploadProgress("",null);mediaType=attach.mediaType||'image';}catch(e){showUploadProgress("",null);showToast("Upload failed.");return;}qaReplyAttachments[qid]=null;const box=document.getElementById("qaReplyImgPreview_"+qid);if(box)box.innerHTML="";}
+
+  const parentInfo = replyToReply[qid];
+  const replyDoc = {
+    uid: currentUser.id, name: currentUser.name, userImage: currentUser.image||"",
+    text, image: mediaType==='image'?mediaUrl:"", media: mediaUrl, mediaType,
+    likes: [], created: serverTimestamp()
+  };
+  if(parentInfo){
+    replyDoc.parentReplyId = parentInfo.parentReplyId;
+    replyDoc.parentReplyName = parentInfo.parentReplyName;
+  }
   try{
-    await addDoc(collection(db,"qa",qid,"replies"),{uid:currentUser.id,name:currentUser.name,userImage:currentUser.image||"",text,image:mediaType==='image'?mediaUrl:"",media:mediaUrl,mediaType,likes:[],created:serverTimestamp()});
+    await addDoc(collection(db,"qa",qid,"replies"), replyDoc);
     await updateDoc(doc(db, "qa", qid), { replyCount: increment(1) });
+
+    // Notifications
+    const post = qaPosts.find(p => p.id === qid);
+    if(post){
+      if(parentInfo && parentInfo.parentReplyId){
+        // Reply to a reply → notify the parent reply owner
+        const parentReply = (allRepliesCache[qid] || []).find(r => r.id === parentInfo.parentReplyId);
+        if(parentReply && parentReply.uid !== currentUser.id){
+          pushNotification({ to: parentReply.uid, from: currentUser.id, type: "reply", postId: qid, commentId: parentInfo.parentReplyId, preview: text || "[Media]" });
+        }
+      } else {
+        // Direct comment → notify post owner
+        if(post.uid !== currentUser.id){
+          pushNotification({ to: post.uid, from: currentUser.id, type: "comment", postId: qid, preview: text || "[Media]" });
+        }
+      }
+    }
+    delete replyToReply[qid];
+    const ind = document.querySelector(`#qaReplyComposer_${qid}`)?.parentNode?.querySelector(".reply-to-indicator");
+    if(ind) ind.remove();
     showToast("Comment posted!");
   }catch(e){ console.error(e); showToast("Could not post comment."); }
 }
@@ -2409,37 +2651,75 @@ function loadQaReplies(qid){
     const replies = [];
     snap.forEach(d => replies.push({ id: d.id, ...d.data() }));
     replies.sort((a,b) => (a.created?.toMillis?.()||0) - (b.created?.toMillis?.()||0));
+    allRepliesCache[qid] = replies;
     const box = document.getElementById("qaReplies_" + qid);
     if(!box) return;
-    box.innerHTML = "";
     if(replies.length === 0){
       box.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:12px;padding:12px 0;">No comments yet. Be the first!</div>`;
       return;
     }
+    // Group replies by parentReplyId
+    const topReplies = replies.filter(r => !r.parentReplyId);
+    const repliesByParent = {};
     replies.forEach(r => {
-      const ru = r.uid === currentUser.id ? currentUser : (getUser(r.uid) || { name: r.name, image: r.userImage });
-      const likes = r.likes || [];
-      const liked = likes.includes(currentUser.id);
-      const createdMs = r.created?.toMillis?.() || r.created || Date.now();
-      const el = document.createElement("div");
-      el.className = "qa-reply";
-      el.innerHTML = `
-        <div class="qa-reply-head">
-          ${avatarHTML(ru, "avatar")}
-          <div class="rn">${escapeHTML(ru.name || r.name)}</div>
-          <div class="rt">${timeAgo(createdMs)}</div>
-          ${r.uid === currentUser.id ? `<button class="icon-btn" style="width:26px;height:26px;margin-left:auto;" onclick="deleteQaReply('${qid}','${r.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
-        </div>
-        ${r.text ? `<div class="qa-reply-body">${escapeHTML(r.text)}</div>` : ""}
-        ${(r.media||r.image) ? (r.mediaType==='video' ? `<video src="${escapeHTML(r.media||r.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>` : `<img src="${escapeHTML(r.media||r.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`) : ""}
-        <div class="qa-reply-actions">
-          <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
-        </div>
-      `;
-      box.appendChild(el);
+      if(r.parentReplyId){
+        if(!repliesByParent[r.parentReplyId]) repliesByParent[r.parentReplyId] = [];
+        repliesByParent[r.parentReplyId].push(r);
+      }
+    });
+    box.innerHTML = "";
+    topReplies.forEach(r => {
+      box.appendChild(buildReplyEl(qid, r, false, repliesByParent[r.id] || []));
     });
   }, (err) => console.warn("Replies listener:", err?.code));
   qaReplyUnsubs[qid] = unsub;
+}
+
+function buildReplyEl(qid, r, isNested, childReplies){
+  const ru = r.uid === currentUser.id ? currentUser : (getUser(r.uid) || { name: r.name, image: r.userImage });
+  const likes = r.likes || [];
+  const liked = likes.includes(currentUser.id);
+  const createdMs = r.created?.toMillis?.() || r.created || Date.now();
+  const el = document.createElement("div");
+  el.className = "qa-reply" + (isNested ? " nested" : "");
+  const expandedKey = `${qid}_${r.id}`;
+  const isExpanded = expandedNested.has(expandedKey);
+  const hasChildren = childReplies.length > 0;
+  const childrenHTML = hasChildren
+    ? (isExpanded ? childReplies.map(c => buildReplyEl(qid, c, true, []).outerHTML).join("") : "")
+    : "";
+  const toggleHTML = hasChildren
+    ? `<button class="nested-replies-toggle" onclick="toggleNestedReplies('${qid}','${r.id}')">
+         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="${isExpanded ? 'M18 15l-6-6-6 6' : 'M6 9l6 6 6-6'}"/></svg>
+         ${isExpanded ? "Hide" : "View"} ${childReplies.length} ${childReplies.length === 1 ? "reply" : "replies"}
+       </button>`
+    : "";
+  const parentMention = r.parentReplyName ? `<span class="reply-mention">@${escapeHTML(r.parentReplyName)}</span> ` : "";
+  el.innerHTML = `
+    <div class="qa-reply-head">
+      ${avatarHTML(ru, "avatar")}
+      <div class="rn">${escapeHTML(ru.name || r.name)}</div>
+      <div class="rt">${timeAgo(createdMs)}</div>
+      ${r.uid === currentUser.id ? `<button class="icon-btn" style="width:26px;height:26px;margin-left:auto;" onclick="deleteQaReply('${qid}','${r.id}')"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7l1-3h4l1 3"/></svg></button>` : ""}
+    </div>
+    ${r.text ? `<div class="qa-reply-body">${parentMention}${escapeHTML(r.text)}</div>` : (r.media||r.image) ? `<div class="qa-reply-body">${parentMention}</div>` : ""}
+    ${(r.media||r.image) ? (r.mediaType==='video' ? `<video src="${escapeHTML(r.media||r.image)}" class="qa-media qa-media-video" controls playsinline preload="metadata"></video>` : `<img src="${escapeHTML(r.media||r.image)}" class="qa-media" loading="lazy" onclick="openLightbox(this.src,'image')">`) : ""}
+    <div class="qa-reply-actions">
+      <button class="${liked?'liked':''}" onclick="toggleQaReplyLike('${qid}','${r.id}')">${liked?'❤️':'🤍'} ${likes.length}</button>
+      <button onclick="startReplyToReply('${qid}','${r.id}','${escapeHTML(ru.name || r.name)}')">↩ Reply</button>
+    </div>
+    ${toggleHTML}
+    ${hasChildren && isExpanded ? `<div class="nested-replies">${childrenHTML}</div>` : ""}
+  `;
+  return el;
+}
+
+function toggleNestedReplies(qid, rid){
+  const key = `${qid}_${rid}`;
+  if(expandedNested.has(key)) expandedNested.delete(key);
+  else expandedNested.add(key);
+  // Re-render just this post's replies
+  loadQaReplies(qid);
 }
 
 /* CHAT INFO */
@@ -2501,6 +2781,7 @@ function renderProfile(){
   document.getElementById("profileLikes").textContent=userLikeCount(currentUser.id);
   renderProfilePosts(currentUser.id);
   updateMessageRequestBadge();
+  updateNotificationBadge();
 }
 
 function renderProfilePosts(uid){
@@ -2533,10 +2814,7 @@ async function saveProfile(){
     const idx=allUsers.findIndex(u=>u.id===currentUser.id);
     if(idx>=0)allUsers[idx]={...allUsers[idx],name,username,bio,link};
     closeEditProfile();renderProfile();renderQa();showToast("Profile saved.");
-  }catch(e){
-    console.error("Profile save failed:",e);
-    showToast("Profile update failed.");
-  }
+  }catch(e){ showToast("Profile update failed."); }
 }
 
 async function changeProfileImage(input){
@@ -2573,7 +2851,20 @@ function openPublicProfile(uid){
   document.getElementById("publicProfileModal").classList.add("show");
 }
 function closePublicProfile(){document.getElementById("publicProfileModal").classList.remove("show")}
-function openQaPost(qid){showPage("qa");setTimeout(()=>{const el=document.querySelector(`[data-qid="${qid}"]`);if(el)el.scrollIntoView({behavior:"smooth",block:"center"})},150)}
+function openQaPost(qid){
+  showPage("qa");
+  openComments.add(qid);
+  setTimeout(()=>{
+    const el=document.querySelector(`[data-qid="${qid}"]`);
+    if(el){
+      el.scrollIntoView({behavior:"smooth",block:"center"});
+      el.classList.add("highlight");
+      setTimeout(()=>el.classList.remove("highlight"), 2200);
+      const cBox = document.getElementById("qaComments_" + qid);
+      if(cBox) cBox.classList.add("show");
+    }
+  },150);
+}
 
 async function sendMessageRequest(uid){
   if(!currentUser||uid===currentUser.id)return;
@@ -2630,7 +2921,9 @@ const __uooGoExports = {
   qaReplyAttach, clearQaReplyImage, toggleFollow, openPublicProfile, closePublicProfile,
   toggleProfileTab, openEditProfile, closeEditProfile, openMessageRequests, closeMessageRequests, acceptMessageRequest,
   rejectMessageRequest, sendMessageRequest, openQaPost, openQaComposerModal, closeQaComposerModal,
-  quickLike, postMenu, sharePost, toggleComments
+  quickLike, postMenu, sharePost, toggleComments,
+  openNotifications, closeNotifications, markAllNotificationsRead, viewStoryFromCard,
+  toggleNestedReplies, startReplyToReply, cancelQaReplyTo
 };
 Object.assign(window.__uooGoFns, __uooGoExports);
 Object.assign(window, __uooGoExports);
